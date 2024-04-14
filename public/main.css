@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Honey Jar Free Trial ';
+  src: url('/src/assets/fonts/TfFancy.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('/src/assets/fonts/WorkSans.ttf') format('truetype');
+}
+
+/* Apply fonts to headings and paragraphs */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Honey Jar Free Trial', sans-serif !important;
+}
+
+p {
+    font-family: 'Work Sans', sans-serif !important;
+}
+
+  h1 {
+    font-size: 3.5rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+  
+  h2 {
+    font-size: 2.5rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+  
+  h3 {
+    font-size: 1.75rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+  
+  h4 {
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+  
+  h5 {
+    font-size: 1.25rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+  
+  h6 {
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+  }
+
+.btn {
+    font-family: 'Work Sans', sans-serif;
+}
+
+.forgot-password {
+    font-size: 14px !important; /* Adjust the font size as needed */
+    color: #324A5F !important;
+    align-self: 'flex-end' !important;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* Custom CSS for the background image and fonts */
+body, html {
+    height: 100%;
+    overflow:hidden;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Work Sans', sans-serif;
+    color: #0C1821;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+    /* Override Bootstrap button color */
+.btn-primary {
+    background-color: #C02420 !important;
+    border-color: #C02420 !important;
+    padding: 5px 10px; /* Adjust padding to reduce button size */
+    font-size: 14px; /* Adjust font size to reduce button size */
+    width: 90px;
+}
+
+#custom-btn.btn-primary {
+    background-color: #C02420;
+    border-color: #C02420;
+    padding: 5px 10px; /* Adjust padding to reduce button size */
+    font-size: 14px; /* Adjust font size to reduce button size */
+    width: 90px;
+}
+.container-fluid {
+    background-color: #FFFAF0;
+    margin-top: 35px;
+}
+/* Override Bootstrap button hover color */
+.btn-primary:hover {
+    background-color: #960018;
+    border-color: #960018;
+}
+.card {
+    border: none;
+    /* background-color: #FFFAF0; */
+    height: 100%; 
+}
+.welcome-columns {
+    /* height: 100%;Adjust padding as needed */
+    padding-inline: 60px !important;
+}
+.welcome-text {
+    background-color: #0C1821;
+    color: #FFFFFF; /* Text color for better visibility */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.login-form {
+    background-color: #FFFAF0;
+    color: #0C1821; /* Text color for better visibility */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,13 +1,59 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+  @layer base {
+    :root  {
+      --background: 48 70% 100%;
+      --foreground: 48 5% 10%;
+      --card: 48 50% 100%;
+      --card-foreground: 48 5% 15%;
+      --popover: 48 70% 100%;
+      --popover-foreground: 48 95% 10%;
+      --primary: 48 95% 50%;
+      --primary-foreground: 0 0% 100%;
+      --secondary: 48 30% 90%;
+      --secondary-foreground: 0 0% 0%;
+      --muted: 10 30% 95%;
+      --muted-foreground: 48 5% 40%;
+      --accent: 10 30% 90%;
+      --accent-foreground: 48 5% 15%;
+      --destructive: 0 70% 50%;
+      --destructive-foreground: 48 5% 100%;
+      --border: 48 30% 82%;
+      --input: 48 30% 50%;
+      --ring: 48 95% 50%;
+      --radius: 0.5rem;
+    }
+    .dark  {
+      --background: 48 50% 10%;
+      --foreground: 48 5% 100%;
+      --card: 48 50% 10%;
+      --card-foreground: 48 5% 100%;
+      --popover: 48 50% 5%;
+      --popover-foreground: 48 5% 100%;
+      --primary: 48 95% 50%;
+      --primary-foreground: 0 0% 100%;
+      --secondary: 48 30% 20%;
+      --secondary-foreground: 0 0% 100%;
+      --muted: 10 30% 25%;
+      --muted-foreground: 48 5% 65%;
+      --accent: 10 30% 25%;
+      --accent-foreground: 48 5% 95%;
+      --destructive: 0 70% 50%;
+      --destructive-foreground: 48 5% 100%;
+      --border: 48 30% 50%;
+      --input: 48 30% 50%;
+      --ring: 48 95% 50%;
+      --radius: 0.5rem;
+    }    
+  }
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
