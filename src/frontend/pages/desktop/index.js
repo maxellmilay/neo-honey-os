@@ -1,9 +1,4 @@
-import { useNavigate } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import React, { useState } from 'react'
-import userIcon from '../../assets/img/user.png'
-import { Button } from '../../components/ui/button'
-import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 import styles from './desktop.module.css'
 

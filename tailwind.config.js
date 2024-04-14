@@ -2,8 +2,6 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
   ],
@@ -18,6 +16,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Honey Jar Free Trial', 'sans-serif'],
+      sans: ['Work Sans', 'sans-serif'],
     },
     extend: {
       colors: {

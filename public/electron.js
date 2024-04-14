@@ -13,7 +13,7 @@ function createWindow() {
 		resizable: false,
 		maximizable: true,
 		webPreferences: {
-			preload: path.join(__dirname, "preload.js"),
+			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
 			nodeIntegration: true,
 			contextIsolation: true,
 			sandbox: false,

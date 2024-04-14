@@ -1,6 +1,6 @@
 const { contextBridge } = require("electron")
-const personDB = require("./Database/PersonManager")
+const usersDB = require("../models/userModel")
 
 contextBridge.exposeInMainWorld("sqlite", {
-  personDB,
+  usersDB,
 })
