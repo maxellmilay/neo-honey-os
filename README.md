@@ -1,13 +1,4 @@
-# Getting Started with Electron and SQLite
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-This is a demo project for integrating SQLite with Electron.
-For UI, we are using React made with Create React App
-
-## Tutorial
-
-I have created a [blog which you can read as well](https://dev.to/arindam1997007/a-step-by-step-guide-to-integrating-better-sqlite3-with-electron-js-app-using-create-react-app-3k16), to get a better understanding of setting up better-sqlite3 with your Electron application.
+# Getting Started
 
 ## Requirements
 Make sure you have Node.js installed. This project was developed and tested with Node.js v16.16.0. 
