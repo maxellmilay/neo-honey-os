@@ -8,8 +8,12 @@ body {
     background-color: #f0f0f0;
   }
 
-  .loginContainer {
-    text-align: center;
+  .container {
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    position: absolute;
+    left: 0;
   }
 
   .userIcon {

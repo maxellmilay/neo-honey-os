@@ -4,6 +4,7 @@
 
   @layer base {
     :root  {
+      --gradient: linear-gradient(to top left,#FF512F,#F09819);
       --background: 48 70% 100%;
       --foreground: 48 5% 10%;
       --card: 48 50% 100%;
