@@ -56,6 +56,7 @@ export const BootApp = ({ onLogin }) => {
                 placeholder="Enter password"
                 type="password"
                 value={password} 
+                className="text-purple-950"
                 onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" variant="destructive">
