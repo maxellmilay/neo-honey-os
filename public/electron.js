@@ -11,7 +11,8 @@ function createSplashScreen() {
     height: 650,
     frame: false,
     transparent: true,
-    alwaysOnTop: true
+    alwaysOnTop: true,
+	skipTaskbar: true,
   });
   
 	splashScreen.loadURL(
