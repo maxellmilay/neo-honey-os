@@ -12,7 +12,7 @@ import {
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
-import { Copy, FolderOpenDot, FolderOpen } from "lucide-react";
+import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import notepadIcon from "../../assets/img/notepad icon.png";
 function Notepad() {
   return (
@@ -51,12 +51,12 @@ function Notepad() {
           </DialogClose>
           <DialogClose asChild>
             <Button>
-              <FolderOpen className="mr-2 h-4 w-4" /> Save a new file
+              <Save className="mr-2 h-4 w-4" /> Save a new file
             </Button>
           </DialogClose>
           <DialogClose asChild>
             <Button>
-              <FolderOpen className="mr-2 h-4 w-4" /> Save an existing file
+              <SaveAll className="mr-2 h-4 w-4" /> Save an existing file
             </Button>
           </DialogClose>
         </div>
