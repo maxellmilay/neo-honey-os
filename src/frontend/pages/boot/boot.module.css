@@ -36,10 +36,30 @@
     background-color: #005a9e;
   } */
 
+  .currentTime {
+    color: #f4f4f4;
+    font-family: 'One Little Font Regular', sans-serif !important;
+    font-size: 70px;
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+  }
+
+  .currentDate {
+    color: #f4f4f4;
+    font-family: 'Helvetica Now Display Regular', sans-serif !important;
+    font-size: 22px;
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+  }
+
   .welcomeText{
     color: #f4f4f4;
     font-family: 'Helvetica Now Display Regular', sans-serif !important;
   }
+
+
 
   .error{
     font-family: 'Work Sans', sans-serif !important;
