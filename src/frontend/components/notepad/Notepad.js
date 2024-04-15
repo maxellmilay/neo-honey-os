@@ -13,6 +13,7 @@ import {
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
+import { Textarea } from "../../components/ui/textarea";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import notepadIcon from "../../assets/img/notepad icon.png";
 
@@ -86,83 +87,84 @@ function Notepad() {
           <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full h-full">
-        <DialogHeader>
-          <DialogTitle className="text-s">BuzzPad</DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-col">
-          <div className="mb-2">
-            <Button
-              style={{
-                color: "black",
-                width: "200px",
-                height: "40px",
-                textAlign: "left",
-                display: "block",
-                marginBottom: "8px",
-              }}
-              onClick={handleOpenNewFile}
-            >
-              <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-              Open a new file
-            </Button>
-          </div>
-          <div className="mb-2">
-            <Button
-              style={{
-                color: "black",
-                width: "200px",
-                height: "40px",
-                textAlign: "left",
-                display: "block",
-                marginBottom: "8px",
-              }}
-              onClick={handleOpenExistingFile}
-            >
-              <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-              Open an existing file
-            </Button>
-          </div>
-          <div className="mb-2">
-            <Button
-              style={{
-                color: "black",
-                width: "200px",
-                height: "40px",
-                textAlign: "left",
-                display: "block",
-                marginBottom: "8px",
-              }}
-              onClick={handleSaveNewFile}
-            >
-              <Save className="mr-2 h-4 w-4 inline-block align-middle" /> Save a
-              new file
-            </Button>
-          </div>
-          <div className="mb-2">
-            <Button
-              style={{
-                color: "black",
-                width: "200px",
-                height: "40px",
-                textAlign: "left",
-                display: "block",
-                marginBottom: "8px",
-              }}
-              onClick={handleSaveExistingFile}
-            >
-              <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-              Save an existing file
-            </Button>
+      <DialogContent className="w-full h-full flex">
+        <div className="w-1/4">
+          <DialogHeader>
+            <DialogTitle className="text-s">BuzzPad</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col">
+            <div className="mb-2">
+              <Button
+                style={{
+                  color: "black",
+                  width: "200px",
+                  height: "40px",
+                  textAlign: "left",
+                  display: "block",
+                  marginBottom: "8px",
+                }}
+                onClick={handleOpenNewFile}
+              >
+                <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                Open a new file
+              </Button>
+            </div>
+            <div className="mb-2">
+              <Button
+                style={{
+                  color: "black",
+                  width: "200px",
+                  height: "40px",
+                  textAlign: "left",
+                  display: "block",
+                  marginBottom: "8px",
+                }}
+                onClick={handleOpenExistingFile}
+              >
+                <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                Open an existing file
+              </Button>
+            </div>
+            <div className="mb-2">
+              <Button
+                style={{
+                  color: "black",
+                  width: "200px",
+                  height: "40px",
+                  textAlign: "left",
+                  display: "block",
+                  marginBottom: "8px",
+                }}
+                onClick={handleSaveNewFile}
+              >
+                <Save className="mr-2 h-4 w-4 inline-block align-middle" /> Save
+                a new file
+              </Button>
+            </div>
+            <div className="mb-2">
+              <Button
+                style={{
+                  color: "black",
+                  width: "200px",
+                  height: "40px",
+                  textAlign: "left",
+                  display: "block",
+                  marginBottom: "8px",
+                }}
+                onClick={handleSaveExistingFile}
+              >
+                <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                Save an existing file
+              </Button>
+            </div>
           </div>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+        <div className="w-full">
+          <Textarea className="mt-8 flex-grow" placeholder="Type your message here." />
+          <div className="flex justify-end">
+            <Button className="mt-4">Send message</Button>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
