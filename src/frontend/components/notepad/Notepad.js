@@ -1,5 +1,5 @@
 import styles from "./notepad.module.css";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,7 @@ import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import notepadIcon from "../../assets/img/notepad icon.png";
 
 function Notepad() {
+  const [fileContent, setFileContent] = useState("");
   const handleOpenNewFile = () => {
     console.log("Opening a new file...");
     // Create a new file input element
@@ -46,6 +47,14 @@ function Notepad() {
       const file = event.target.files[0];
       console.log("Selected file:", file);
       // You can now do something with the selected file, such as reading its contents
+
+      // Read file content
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        setFileContent(content);
+      };
+      reader.readAsText(file);
     });
 
     // Trigger click event to open file dialog
@@ -54,22 +63,25 @@ function Notepad() {
 
   const handleSaveNewFile = () => {
     console.log("Saving a new file...");
-    // Example: You can prompt user to save content as a file
-    const content = "This is the content of the new file.";
+    const extension = ".bzzz"; // Define the extension for new files
+    const fileName = "new_file"; // Define the name for new files
+    const content = fileContent; // Get the content from the state
+  
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "new_file.txt";
+    a.download = `${fileName}${extension}`; // Set the download attribute with the file name and extension
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
   };
+  
 
   const handleSaveExistingFile = () => {
     console.log("Saving an existing file...");
     // Example: You can prompt user to save content as a file
-    const content = "This is the content of the existing file.";
+    const content = " ";
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -106,7 +118,7 @@ function Notepad() {
                 onClick={handleOpenNewFile}
               >
                 <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Open a new file
+                New
               </Button>
             </div>
             <div className="mb-2">
@@ -122,7 +134,7 @@ function Notepad() {
                 onClick={handleOpenExistingFile}
               >
                 <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Open an existing file
+                Open
               </Button>
             </div>
             <div className="mb-2">
@@ -137,8 +149,8 @@ function Notepad() {
                 }}
                 onClick={handleSaveNewFile}
               >
-                <Save className="mr-2 h-4 w-4 inline-block align-middle" /> Save
-                a new file
+                <Save className="mr-2 h-4 w-4 inline-block align-middle" />
+                     Save
               </Button>
             </div>
             <div className="mb-2">
@@ -154,15 +166,20 @@ function Notepad() {
                 onClick={handleSaveExistingFile}
               >
                 <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Save an existing file
+                  Save as
               </Button>
             </div>
           </div>
         </div>
         <div className="w-full">
-          <Textarea className="mt-8 flex-grow" placeholder="Type your message here." />
+        <Textarea
+            className="mt-8 flex-grow"
+            placeholder="Type your message here."
+            value={fileContent}
+            onChange={(e) => setFileContent(e.target.value)}
+          />
           <div className="flex justify-end">
-            <Button className="mt-4">Send message</Button>
+            <Button className="mt-4 text-black">Save</Button>
           </div>
         </div>
       </DialogContent>
