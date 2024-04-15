@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
 import "./App.css"
 import { useCallback } from "react"
-import { BootApp } from "./frontend/pages/boot"
 import { Desktop } from "./frontend/pages/desktop"
+import { BootApp } from "./frontend/pages/boot"
+import Login from './frontend/pages/login'; 
+
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -28,6 +30,8 @@ function App() {
 								to={isLoggedIn ? "/desktop" : "/boot"} />} />
 							<Route path="/boot" 
 									element={<BootApp onLogin={handleLogin} />} />
+							<Route path="/login" 
+								element={<Login/>} />
 							<Route path="/desktop" 
 								element={<Desktop/>} />
 						</Routes>

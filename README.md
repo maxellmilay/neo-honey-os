@@ -22,11 +22,11 @@ In the project directory, you can run:
 
 ### `npm run rebuild-app`
 **Run this initially before starting your project**
-
+ 
 If you face any error related to the DB file not being read, please run this command and then start the server again.
-
+ 
 ### `npm run start-electron-app`
-
+ 
 Runs the app in the development mode inside Electron Window.
 
 The page will reload when you make changes.\
