@@ -162,7 +162,7 @@ function Notepad() {
         <div className="w-full">
           <Textarea className="mt-8 flex-grow" placeholder="Type your message here." />
           <div className="flex justify-end">
-            <Button className="mt-4">Send message</Button>
+            <Button className="mt-4 text-black">Save</Button>
           </div>
         </div>
       </DialogContent>
