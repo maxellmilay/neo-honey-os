@@ -8,8 +8,13 @@
 }
 
 @font-face {
-  font-family: 'HelveticaNowDisplay Regular ';
-  src: url('/src/frontend/assets/fonts/HelveticaNowDisplay Regular.ttf') format('opentype');
+  font-family: 'One Little Font Regular';
+  src: url('/src/frontend/assets/fonts/OneLittleFontRegular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Helvetica Now Display Regular';
+  src: url('/src/frontend/assets/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -22,7 +27,7 @@
 }
 /* Apply fonts to headings and paragraphs */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'HelveticaNowDisplay Regular', sans-serif !important;
+    font-family: 'One Little Font', sans-serif !important;
 }
 
 .bg-gradient {

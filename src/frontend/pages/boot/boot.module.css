@@ -37,8 +37,8 @@
   } */
 
   .welcomeText{
-    color: #1f0a3b;
-    font-family: 'HelveticaNowDisplay Regular' !important;
+    color: #f4f4f4;
+    font-family: 'Helvetica Now Display Regular', sans-serif !important;
   }
 
   .error{
