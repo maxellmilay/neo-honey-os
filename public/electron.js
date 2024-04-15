@@ -16,7 +16,7 @@ function createSplashScreen() {
   
 	splashScreen.loadURL(
 		url.format({
-		pathname: path.join(__dirname, 'splash.html'),
+		pathname: path.join(__dirname, '../src/frontend/components/splash.html'),
 		protocol: 'file:',
 		slashes: true
 		})
