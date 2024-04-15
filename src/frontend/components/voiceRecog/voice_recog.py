@@ -9,7 +9,7 @@ def record_transcript():
             with sr.Microphone() as source:
                 recognizer.adjust_for_ambient_noise(source, duration=0.2)
                 audio = recognizer.listen(source)
-                transcript = recognizer.recognize_sphinx(audio)
+                transcript = recognizer.recognize_google(audio)
                 return transcript
 
         except sr.RequestError as e:
