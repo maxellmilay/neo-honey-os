@@ -19,6 +19,7 @@ import notepadIcon from "../../assets/img/notepad icon.png";
 
 function Notepad() {
   const [fileContent, setFileContent] = useState("");
+  const [isModified, setIsModified] = useState(false);
   const handleOpenNewFile = () => {
     console.log("Opening a new file...");
     // Create a new file input element
@@ -90,6 +91,26 @@ function Notepad() {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+  };
+
+  const handleChange = (event) => {
+    setFileContent(event.target.value);
+    setIsModified(true); // Set modification state to true when content changes
+  };
+
+  const handleCloseFile = () => {
+    if (isModified) {
+      const confirmClose = window.confirm("You have unsaved changes. Are you sure you want to close the file?");
+      if (confirmClose) {
+        // Reset content and modification state
+        setFileContent("");
+        setIsModified(false);
+      }
+    } else {
+      // No unsaved changes, close the file directly
+      setFileContent("");
+      setIsModified(false);
+    }
   };
 
   return (
@@ -176,12 +197,12 @@ function Notepad() {
             className="mt-8 flex-grow"
             placeholder="Type your message here."
             value={fileContent}
-            onChange={(e) => setFileContent(e.target.value)}
+            onChange={handleChange}
           />
           <div className="flex justify-end">
-            <Button className="mt-4 text-black">Save</Button>
+            <Button className="mt-4 text-black" onClick={handleCloseFile}>Close</Button>
           </div>
-        </div>
+       </div>
       </DialogContent>
     </Dialog>
   );
