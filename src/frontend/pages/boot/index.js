@@ -15,32 +15,10 @@ export const BootApp = ({ onLogin }) => {
   const history = useNavigate();
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    
+    setIsLoggedIn(true);
+    history('/desktop');
 
-    setPasswordError('');
-    document.getElementById("password").style.borderColor = '';
-
-    try {
-      // Perform login logic
-      const result = await window.sqlite.usersDB.authenticateUser(password);
-      
-      if (result) {
-        setIsLoggedIn(true);
-        history('/desktop');
-      } else {
-          // Handle invalid login
-          if (!password) {
-              setPasswordError('Password is required');
-              document.getElementById("password").style.borderColor = 'red';
-          } else {
-              setPasswordError('Incorrect password');
-              document.getElementById("password").style.borderColor = 'red';
-          }
-      }
-  } catch (error) {
-      console.error('Error during login:', error);
-      // Handle any unexpected errors here
-  }
   }
 
   return (
