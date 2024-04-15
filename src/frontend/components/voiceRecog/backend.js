@@ -51,7 +51,7 @@ const pythonQueue = async.queue((task, callback) => {
 
 // Define route handler for POST request to '/desktop'
 app.post('/desktop', (req, res) => {
-    const pythonScriptPath = 'src/frontend/components/voicerecog/voice_recog.py';
+    const pythonScriptPath = 'src/frontend/components/voiceRecog/voice_recog.py';
     const data = req.body; // Get the string data from the request body
 
     // Set up response as a stream
