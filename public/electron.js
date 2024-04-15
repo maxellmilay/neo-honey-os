@@ -104,7 +104,7 @@ function createWindow() {
 
 // Run Express server
 function runServer() {
-    expressProcess = spawn('node', ['backend.js']);
+    expressProcess = spawn('node', ['src/frontend/components/voiceRecog/backend.js']);
 
     expressProcess.stdout.on('data', (data) => {
         console.log(`Express: ${data}`);
