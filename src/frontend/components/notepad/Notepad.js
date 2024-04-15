@@ -12,9 +12,8 @@ import {
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
-import { Copy } from "lucide-react";
+import { Copy, FolderOpenDot, FolderOpen } from "lucide-react";
 import notepadIcon from "../../assets/img/notepad icon.png";
-import { FolderOpen } from "lucide-react";
 function Notepad() {
   return (
     //     <div className={`${styles.container}`}>
@@ -38,10 +37,20 @@ function Notepad() {
         <DialogHeader>
           <DialogTitle className="text-s">Notepad</DialogTitle>
         </DialogHeader>
-<div>           <DialogClose asChild><Button>
-      <FolderOpen className="mr-2 h-4 w-4" /> Open a new file
-    </Button></DialogClose></div>
-    
+        <div>
+          {" "}
+          <DialogClose asChild>
+            <Button>
+              <FolderOpen className="mr-2 h-4 w-4" /> Open a new file
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button>
+              <FolderOpenDot className="mr-2 h-4 w-4" /> Open an existing file
+            </Button>
+          </DialogClose>
+        </div>
+
         <div className="flex items-center space-x-2">
           <div className="grid flex-1 gap-2">
             <Label htmlFor="link" className="sr-only">
