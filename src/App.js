@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
 import "./App.css"
 import { useCallback } from "react"
-import { BootApp } from "./frontend/pages/boot"
 import { Desktop } from "./frontend/pages/desktop"
+import Login from './frontend/pages/login'; 
+
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -19,20 +20,18 @@ function App() {
 
 	return (
 		<>
-			<div className='background'>
-				<div className='App'>
-					<Router>
-						<Routes>
-							<Route path="/" 
-								element={<Navigate 
-								to={isLoggedIn ? "/desktop" : "/boot"} />} />
-							<Route path="/boot" 
-									element={<BootApp onLogin={handleLogin} />} />
-							<Route path="/desktop" 
-								element={<Desktop/>} />
-						</Routes>
-					</Router>
-				</div>
+			<div className='App'>
+				<Router>
+					<Routes>
+						<Route path="/" 
+							element={<Navigate 
+							to={isLoggedIn ? "/desktop" : "/login "} />} />
+						<Route path="/login" 
+								element={<Login onLogin={handleLogin} />} />
+						<Route path="/desktop" 
+							element={<Desktop/>} />
+					</Routes>
+				</Router>
 			</div>
 		</>
 	)

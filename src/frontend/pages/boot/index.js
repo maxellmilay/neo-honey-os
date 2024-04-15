@@ -48,7 +48,7 @@ export const BootApp = ({ onLogin }) => {
       <div className={styles.userIcon}>
         <img src={userIcon} />
       </div>
-      <Label className={`${styles.welcomeText} pt-4`}>Welcome Honey!</Label>
+      <Label className={`${styles.welcomeText} pt-4`}>Welcome, Barry!</Label>
         <form onSubmit={handleLogin}>
           <div className='pt-12 flex flex-row items-center gap-5 w-full'>
             <Input 

@@ -1,0 +1,61 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url('../../assets/img/login_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
+}
+
+.login-container {
+  text-align: center;
+}
+
+.content {
+  text-align: center;
+}
+
+.userIcon {
+  width: 150px;
+  height: 150px;
+  top: 0.7px;
+  border: 3px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+}
+.welcome-text {
+  color: rgb(255, 255, 255);
+  font-family: 'Work Sans', bold, sans-serif; 
+  font-size: 200px;
+  padding: 500px;
+  margin: 30px;
+}
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.speech-recog-btn {
+  background-color: transparent; 
+  border: none;
+  margin: 70 px;
+  padding: 50px; 
+  cursor: pointer;
+  font-size: 40px; 
+}
+
+.speech-recog-btn .fa-microphone {
+  color: #060de0; 
+}
+
+.error {
+  color: #ff0000; 
+  font-family: 'Work Sans', sans-serif;
+}
