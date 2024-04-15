@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "re
 import "./App.css"
 import { useCallback } from "react"
 import { Desktop } from "./frontend/pages/desktop"
+import { BootApp } from "./frontend/pages/boot"
 import Login from './frontend/pages/login'; 
 
 
@@ -29,6 +30,8 @@ function App() {
 								to={isLoggedIn ? "/desktop" : "/boot"} />} />
 							<Route path="/boot" 
 									element={<BootApp onLogin={handleLogin} />} />
+							<Route path="/login" 
+								element={<Login/>} />
 							<Route path="/desktop" 
 								element={<Desktop/>} />
 						</Routes>

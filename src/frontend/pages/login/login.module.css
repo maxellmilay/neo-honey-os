@@ -30,7 +30,7 @@ body{
 }
 .welcome-text {
   color: rgb(255, 255, 255);
-  font-family: 'Work Sans', bold, sans-serif; 
+  font-family: 'Helvetica Now Display Regular', sans-serif !important; 
   font-size: 200px;
   padding: 500px;
   margin: 30px;
