@@ -106,7 +106,7 @@ function Notepad() {
                 onClick={handleOpenNewFile}
               >
                 <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Open a new file
+                New
               </Button>
             </div>
             <div className="mb-2">
@@ -122,7 +122,7 @@ function Notepad() {
                 onClick={handleOpenExistingFile}
               >
                 <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Open an existing file
+                Open
               </Button>
             </div>
             <div className="mb-2">
@@ -138,7 +138,6 @@ function Notepad() {
                 onClick={handleSaveNewFile}
               >
                 <Save className="mr-2 h-4 w-4 inline-block align-middle" /> Save
-                a new file
               </Button>
             </div>
             <div className="mb-2">
@@ -154,7 +153,7 @@ function Notepad() {
                 onClick={handleSaveExistingFile}
               >
                 <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Save an existing file
+                Save as
               </Button>
             </div>
           </div>
