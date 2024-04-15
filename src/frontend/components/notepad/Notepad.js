@@ -40,22 +40,22 @@ function Notepad() {
         <div>
           {" "}
           <DialogClose asChild>
-            <Button>
+            <Button style = {{ color: 'black'}}>
               <FolderOpen className="mr-2 h-4 w-4" /> Open a new file
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button>
+            <Button style = {{ color: 'black'}}>
               <FolderOpenDot className="mr-2 h-4 w-4" /> Open an existing file
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button>
+            <Button style = {{ color: 'black'}}>
               <FolderOpen className="mr-2 h-4 w-4" /> Save a new file
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button>
+            <Button style = {{ color: 'black'}}>
               <FolderOpen className="mr-2 h-4 w-4" /> Save an existing file
             </Button>
           </DialogClose>
