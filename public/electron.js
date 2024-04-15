@@ -13,6 +13,7 @@ function createSplashScreen() {
     transparent: true,
     alwaysOnTop: true,
 	skipTaskbar: true,
+	resizable:false,
   });
   
 	splashScreen.loadURL(
