@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Notepad from '../../components/notepad/Notepad';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
@@ -7,9 +8,7 @@ import {
 import { Button } from '../../components/ui/button'
 import { Label } from '../../components/ui/label'
 import styles from './desktop.module.css'
-import notepadIcon from '../../assets/img/notepad icon.png'
 export const Desktop = ({ }) => {
-
   return (
     <>
     <div className={`${styles.container} flex align-left h-screen`}>
@@ -34,9 +33,8 @@ export const Desktop = ({ }) => {
       <Label className={`${styles.welcomeText} pt-4`}> Display Something here</Label>
       <Label className={`${styles.welcomeText} pt-4`}> Desktop Area</Label>
     </div>
-    <div className={`${styles.notepad} flex align-left`}>
-      <img src = {notepadIcon} alt="notepad-icon"/>
-    </div>
+    <Notepad />
+
     </>
   )
 }
