@@ -47,7 +47,6 @@ function Notepad() {
     input.addEventListener("change", (event) => {
       const file = event.target.files[0];
       console.log("Selected file:", file);
-      // You can now do something with the selected file, such as reading its contents
 
       // Read file content
       const reader = new FileReader();
