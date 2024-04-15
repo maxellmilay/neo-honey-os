@@ -1,5 +1,5 @@
 import styles from "./notepad.module.css";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,8 @@ import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import notepadIcon from "../../assets/img/notepad icon.png";
 
 function Notepad() {
+  const [fileContent, setFileContent] = useState("");
+
   const handleOpenNewFile = () => {
     console.log("Opening a new file...");
     // Create a new file input element
@@ -45,7 +47,14 @@ function Notepad() {
     input.addEventListener("change", (event) => {
       const file = event.target.files[0];
       console.log("Selected file:", file);
-      // You can now do something with the selected file, such as reading its contents
+
+      // Read file content
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        setFileContent(content);
+      };
+      reader.readAsText(file);
     });
 
     // Trigger click event to open file dialog
@@ -159,7 +168,7 @@ function Notepad() {
           </div>
         </div>
         <div className="w-full">
-          <Textarea className="mt-8 flex-grow" placeholder="Type your message here." />
+        <Textarea className="mt-8 flex-grow" placeholder="Type your message here." value={fileContent} onChange={(e) => setFileContent(e.target.value)} />
           <div className="flex justify-end">
             <Button className="mt-4 text-black">Save</Button>
           </div>
