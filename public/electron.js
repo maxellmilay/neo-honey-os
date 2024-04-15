@@ -73,7 +73,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
 	createSplashScreen();
-	setTimeout(createWindow, 8500); // Change delay as needed
+	setTimeout(createWindow, 14500); // Change delay as needed
 });
   
 app.on('window-all-closed', () => {
