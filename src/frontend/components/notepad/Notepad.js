@@ -41,29 +41,29 @@ function Notepad() {
           {" "}
           <DialogClose asChild>
           <div className="mb-2">
-            <Button style = {{ color: 'black'}}>
-              <FolderOpen className="mr-2 h-4 w-4" /> Open a new file
+            <Button style = {{ color: 'black' , width: '200px', height: '40px', textAlign: 'left', display: 'block', marginBottom: '8px'}}>
+              <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" /> Open a new file
             </Button>
             </div>
           </DialogClose>
           <DialogClose asChild>
             <div className="mb-2">     
-            <Button style = {{ color: 'black'}}>
-              <FolderOpenDot className="mr-2 h-4 w-4" /> Open an existing file
+            <Button style = {{ color: 'black'  , width: '200px', height: '40px', textAlign: 'left', display: 'block', marginBottom: '8px'}}>
+              <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" /> Open an existing file
             </Button>
             </div>
           </DialogClose>
           <DialogClose asChild>
             <div className="mb-2">
-            <Button style = {{ color: 'black'}}>
-              <Save className="mr-2 h-4 w-4" /> Save a new file
+            <Button style = {{ color: 'black' , width: '200px', height: '40px', textAlign: 'left', display: 'block', marginBottom: '8px'}}>
+              <Save className="mr-2 h-4 w-4 inline-block align-middle" /> Save a new file
             </Button>
             </div>
           </DialogClose>
           <DialogClose asChild>
             <div className="mb-2">
-            <Button style = {{ color: 'black'}}>
-              <SaveAll className="mr-2 h-4 w-4" /> Save an existing file
+            <Button style = {{ color: 'black' , width: '200px', height: '40px', textAlign: 'left', display: 'block', marginBottom: '8px'}}>
+              <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" /> Save an existing file
             </Button>
             </div>
           </DialogClose>
