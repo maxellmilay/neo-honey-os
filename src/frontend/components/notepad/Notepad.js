@@ -49,6 +49,16 @@ function Notepad() {
               <FolderOpenDot className="mr-2 h-4 w-4" /> Open an existing file
             </Button>
           </DialogClose>
+          <DialogClose asChild>
+            <Button>
+              <FolderOpen className="mr-2 h-4 w-4" /> Save a new file
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button>
+              <FolderOpen className="mr-2 h-4 w-4" /> Save an existing file
+            </Button>
+          </DialogClose>
         </div>
 
         <div className="flex items-center space-x-2">
