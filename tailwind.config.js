@@ -17,6 +17,7 @@ module.exports = {
     fontFamily: {
       sans: ['Honey Jar Free Trial', 'sans-serif'],
       sans: ['Work Sans', 'sans-serif'],
+      sans: ['One Little Font Regular', 'sans-serif'],
     },
     extend: {
       colors: {

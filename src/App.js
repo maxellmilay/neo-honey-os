@@ -20,19 +20,21 @@ function App() {
 
 	return (
 		<>
-			<div className='App'>
-				<Router>
-					<Routes>
-						<Route path="/" 
-							element={<Navigate 
-							to={isLoggedIn ? "/desktop" : "/login "} />} />
-						<Route path="/login" 
-								element={<Login onLogin={handleLogin} />} />
-						<Route path="/desktop" 
-							element={<Desktop/>} />
-					</Routes>
-				</Router>
-			</div>
+			{/* <div className='background'> */}
+				<div className='App'>
+					<Router>
+						<Routes>
+							<Route path="/" 
+								element={<Navigate 
+								to={isLoggedIn ? "/desktop" : "/boot"} />} />
+							<Route path="/boot" 
+									element={<BootApp onLogin={handleLogin} />} />
+							<Route path="/desktop" 
+								element={<Desktop/>} />
+						</Routes>
+					</Router>
+				</div>
+			{/* </div> */}
 		</>
 	)
 }
