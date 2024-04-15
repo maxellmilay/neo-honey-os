@@ -7,10 +7,10 @@ let splashScreen;
 
 function createSplashScreen() {
   splashScreen = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: 800,
+    height: 650,
     frame: false,
-    // transparent: true,
+    transparent: true,
     alwaysOnTop: true
   });
   
@@ -36,7 +36,6 @@ function createWindow() {
 		center: true,
 		resizable: false,
 		maximizable: true,
-		show: false, // Hide the window by default
 		webPreferences: {
 			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
 			nodeIntegration: true,
@@ -74,7 +73,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
 	createSplashScreen();
-	setTimeout(createWindow, 5000); // Change delay as needed
+	setTimeout(createWindow, 8500); // Change delay as needed
 });
   
 app.on('window-all-closed', () => {
