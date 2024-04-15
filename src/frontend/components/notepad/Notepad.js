@@ -35,7 +35,7 @@ function Notepad() {
       </DialogTrigger>
       <DialogContent className="w-full h-full">
         <DialogHeader>
-          <DialogTitle className="text-s">Notepad</DialogTitle>
+          <DialogTitle className="text-s">BuzzPad</DialogTitle>
         </DialogHeader>
         <div>
           {" "}
