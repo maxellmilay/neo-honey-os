@@ -2,17 +2,30 @@ const path = require("path")
 const { app, BrowserWindow } = require("electron")
 const url = require("url")
 
+let mainWindow;
 let splashScreen;
 
 function createSplashScreen() {
   splashScreen = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: 500,
+    height: 500,
     frame: false,
-    transparent: true,
+    // transparent: true,
     alwaysOnTop: true
   });
-  splashScreen.loadFile('splash.html');
+//   splashScreen.loadFile('splash.html');
+
+
+	splashScreen.loadURL(
+		url.format({
+		pathname: path.join(__dirname, 'splash.html'),
+		protocol: 'file:',
+		slashes: true
+		})
+	);
+
+//   splashScreen.loadURL(appURL)
+
   splashScreen.on('closed', () => {
     splashScreen = null;
   });
@@ -20,13 +33,14 @@ function createSplashScreen() {
 
 function createWindow() {
 	// Create the browser window.
-	const win = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		width: 1280,
 		height: 720,
 		frame: false, 
 		center: true,
 		resizable: false,
 		maximizable: true,
+		alwaysOnTop: true,
 		webPreferences: {
 			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
 			nodeIntegration: true,
@@ -36,10 +50,10 @@ function createWindow() {
 	})
 
 	// Set minimum window size
-	win.setMinimumSize(700, 650)
+	// mainWindow.setMinimumSize(700, 650)
 
 	// and load the index.html of the app.
-	// win.loadFile("index.html");
+	// mainWindow.loadFile("index.html");
 	const appURL = app.isPackaged
 		? url.format({
 				pathname: path.join(__dirname, "index.html"),
@@ -47,21 +61,21 @@ function createWindow() {
 				slashes: true,
 		  })
 		: "http://localhost:3000"
-	win.loadURL(appURL)
+	mainWindow.loadURL(appURL)
 
 	// Open the DevTools.
 	// if (!app.isPackaged) {
-	// 	win.webContents.openDevTools()
+	// 	mainWindow.webContents.openDevTools()
 	// }
-	win.once('ready-to-show', () => {
-		win.show();
+	mainWindow.once('ready-to-show', () => {
+		mainWindow.show();
 		if (splashScreen) {
 		  splashScreen.close();
 		}
 	  });
 	
-	win.on('closed', () => {
-		win = null;
+	mainWindow.on('closed', () => {
+		mainWindow = null;
 	});
 
 }
@@ -71,7 +85,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
 	createSplashScreen();
-	setTimeout(createWindow, 2000); // Change delay as needed
+	setTimeout(createWindow,5000); // Change delay as needed
   });
   
 app.on('window-all-closed', () => {
@@ -80,7 +94,7 @@ app.on('window-all-closed', () => {
 	}
   });
   
-app.on('activate', () => {
+  app.on('activate', () => {
 	if (mainWindow === null) {
 	  createWindow();
 	}
