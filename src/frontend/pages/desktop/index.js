@@ -7,7 +7,7 @@ import {
 import { Button } from '../../components/ui/button'
 import { Label } from '../../components/ui/label'
 import styles from './desktop.module.css'
-import { VoiceRecog } from '../../components/voicerecog';
+import { VoiceRecog } from '../../components/voiceRecog';
 
 export const Desktop = ({ }) => {
 

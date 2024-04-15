@@ -26,6 +26,7 @@ const pythonQueue = async.queue((task, callback) => {
     pythonProcess.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
         scriptOutput += data.toString();
+        res.write(scriptOutput); // Write the output to the response stream
     });
 
     pythonProcess.stderr.on('data', (data) => {
@@ -36,7 +37,7 @@ const pythonQueue = async.queue((task, callback) => {
     pythonProcess.on('exit', (code) => {
         console.log(`Python process exited with code ${code}`);
         if (code === 0) {
-            res.send(scriptOutput);
+            res.end(); // End the response stream
         } else {
             res.status(500).send(`Python script exited with code ${code}`);
         }
@@ -52,6 +53,12 @@ const pythonQueue = async.queue((task, callback) => {
 app.post('/desktop', (req, res) => {
     const pythonScriptPath = 'src/frontend/components/voicerecog/voice_recog.py';
     const data = req.body; // Get the string data from the request body
+
+    // Set up response as a stream
+    res.writeHead(200, {
+        'Content-Type': 'text/plain',
+        'Transfer-Encoding': 'chunked'
+    });
 
     // Add the task to the queue
     pythonQueue.push({ pythonScriptPath, res, data }, (err) => {
