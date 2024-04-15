@@ -7,8 +7,8 @@ let splashScreen;
 
 function createSplashScreen() {
   splashScreen = new BrowserWindow({
-    width: 800,
-    height: 650,
+    width: 1280,
+    height: 720,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -74,7 +74,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
 	createSplashScreen();
-	setTimeout(createWindow, 14500); // Change delay as needed
+	setTimeout(createWindow, 12500); // Change delay as needed
 });
   
 app.on('window-all-closed', () => {
