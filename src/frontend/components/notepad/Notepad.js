@@ -1,5 +1,5 @@
 import styles from "./notepad.module.css";
-import React, { useState }, { useState } from "react";
+import React, { useState } from "react";
 import Draggable from "react-draggable";
 import {
   Dialog,
@@ -24,6 +24,7 @@ function Notepad() {
 
   const [fileContent, setFileContent] = useState("");
   const [isModified, setIsModified] = useState(false);
+
   const handleOpenNewFile = () => {
     setDialogCount(prevCount => prevCount + 1);
     setDialogStates(prevStates => [...prevStates, true]);
@@ -69,7 +70,6 @@ function Notepad() {
     window.URL.revokeObjectURL(url);
   };
   
-
   const handleSaveExistingFile = () => {
     console.log("Saving an existing file...");
     // Example: You can prompt user to save content as a file
@@ -103,99 +103,122 @@ function Notepad() {
       setIsModified(false);
     }
   };
+  
+  const handleCloseDialog = (index) => {
+    setDialogStates(prevStates => {
+      const newStates = [...prevStates];
+      newStates[index] = false;
+      return newStates;
+    });
+  }
 
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="w-full h-full flex">
-        <div className="w-1/4">
-          <DialogHeader>
-            <DialogTitle className="text-s">BuzzPad</DialogTitle>
-          </DialogHeader>
-          <div className="flex flex-col">
-            <div className="mb-2">
-              <Button
-                style={{
-                  color: "black",
-                  width: "200px",
-                  height: "40px",
-                  textAlign: "left",
-                  display: "block",
-                  marginBottom: "8px",
-                }}
-                onClick={handleOpenNewFile}
-              >
-                <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                New
-              </Button>
+  
+  const renderDialogContent = () => {
+    const dialogContentArray = [];
+    for (let i = 0; i < dialogCount; i++) {
+      dialogContentArray.push(
+        <>
+        <Draggable>
+          <DialogContent key={i} className="w-9/12 h-5/6 flex" style={{ position: 'fixed', top: '50', left: '50' }}>
+            <div className="w-1/4">
+              <DialogHeader>
+                <DialogTitle className="text-s">BuzzPad</DialogTitle>
+              </DialogHeader>
+              <div className="flex flex-col">
+                <div className="mb-2">
+                  <Button
+                    style={{
+                      color: "black",
+                      width: "200px",
+                      height: "40px",
+                      textAlign: "left",
+                      display: "block",
+                      marginBottom: "8px",
+                    }}
+                    onClick={handleOpenNewFile}
+                  >
+                    <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                    New
+                  </Button>
+                </div>
+                <div className="mb-2">
+                  <Button
+                    style={{
+                      color: "black",
+                      width: "200px",
+                      height: "40px",
+                      textAlign: "left",
+                      display: "block",
+                      marginBottom: "8px",
+                    }}
+                    onClick={handleOpenExistingFile}
+                  >
+                    <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                    Open
+                  </Button>
+                </div>
+                <div className="mb-2">
+                  <Button
+                    style={{
+                      color: "black",
+                      width: "200px",
+                      height: "40px",
+                      textAlign: "left",
+                      display: "block",
+                      marginBottom: "8px",
+                    }}
+                    onClick={handleSaveNewFile}
+                  >
+                    <Save className="mr-2 h-4 w-4 inline-block align-middle" />
+                         Save
+                  </Button>
+                </div>
+                <div className="mb-2">
+                  <Button
+                    style={{
+                      color: "black",
+                      width: "200px",
+                      height: "40px",
+                      textAlign: "left",
+                      display: "block",
+                      marginBottom: "8px",
+                    }}
+                    onClick={handleSaveExistingFile}
+                  >
+                    <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                      Save as
+                  </Button>
+                </div>
+              </div>
             </div>
-            <div className="mb-2">
-              <Button
-                style={{
-                  color: "black",
-                  width: "200px",
-                  height: "40px",
-                  textAlign: "left",
-                  display: "block",
-                  marginBottom: "8px",
-                }}
-                onClick={handleOpenExistingFile}
-              >
-                <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                Open
-              </Button>
-            </div>
-            <div className="mb-2">
-              <Button
-                style={{
-                  color: "black",
-                  width: "200px",
-                  height: "40px",
-                  textAlign: "left",
-                  display: "block",
-                  marginBottom: "8px",
-                }}
-                onClick={handleSaveNewFile}
-              >
-                <Save className="mr-2 h-4 w-4 inline-block align-middle" />
-                     Save
-              </Button>
-            </div>
-            <div className="mb-2">
-              <Button
-                style={{
-                  color: "black",
-                  width: "200px",
-                  height: "40px",
-                  textAlign: "left",
-                  display: "block",
-                  marginBottom: "8px",
-                }}
-                onClick={handleSaveExistingFile}
-              >
-                <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                  Save as
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="w-full">
-        <Textarea
-            className="mt-8 flex-grow"
-            placeholder="Type your message here."
-            value={fileContent}
-            onChange={handleChange}
-          />
-          <div className="flex justify-end">
-            <Button className="mt-4 text-black" onClick={handleCloseFile}>Close</Button>
-          </div>
-       </div>
-      </DialogContent>
-    </Dialog>
-  );
+            <div className="w-full">
+            <Textarea
+                className="mt-8 flex-grow"
+                placeholder="Type your message here."
+                value={fileContent}
+                onChange={handleChange}
+              />
+              <div className="flex justify-end">
+                <Button className="mt-4 text-black" onClick={handleCloseFile}>Close</Button>
+              </div>
+           </div>
+          </DialogContent>
+        </Draggable>
+        </>
+      );
+    }
+    return dialogContentArray;
+  };
+
+return (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>
+        <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
+      </Button>
+    </DialogTrigger>
+      {renderDialogContent()}
+  </Dialog>
+);
 }
 export default Notepad;
