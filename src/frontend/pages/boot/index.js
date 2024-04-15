@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Label } from '../../components/ui/label';
-import styles from './boot.module.css'; // Import CSS styles
+import styles from './boot.module.css'; 
 
 
 export const BootApp = () => {
