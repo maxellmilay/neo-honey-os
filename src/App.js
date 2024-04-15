@@ -1,9 +1,11 @@
+// app.js
 import { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
 import "./App.css"
 import { useCallback } from "react"
 import { BootApp } from "./frontend/pages/boot"
 import { Desktop } from "./frontend/pages/desktop"
+import { VoiceRecog } from './frontend/components/voicerecog';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -19,6 +21,7 @@ function App() {
 
 	return (
 		<>
+		 <h3><VoiceRecog /></h3>
 			<div className='background'>
 				<div className='App'>
 					<Router>
