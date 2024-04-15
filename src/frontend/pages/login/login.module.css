@@ -88,6 +88,7 @@ body {
 .welcomeText{
   color: #ffffff;
   font-family: 'Honey Jar Free Trial', sans-serif !important;
+  font-size: larger;
 }
 
 .error{
