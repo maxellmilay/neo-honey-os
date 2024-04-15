@@ -19,7 +19,7 @@ function App() {
 
 	return (
 		<>
-			<div className='background'>
+			{/* <div className='background'> */}
 				<div className='App'>
 					<Router>
 						<Routes>
@@ -33,7 +33,7 @@ function App() {
 						</Routes>
 					</Router>
 				</div>
-			</div>
+			{/* </div> */}
 		</>
 	)
 }

@@ -1,13 +1,12 @@
+.bodyBackground {
+  background-image: url('./lockscreen_bg.png');
+  background-size: cover;
+  height: 100vh;
+}
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
 
+
+/* 
   .loginContainer {
     text-align: center;
   }
@@ -35,11 +34,11 @@ body {
 
   .input-button:hover {
     background-color: #005a9e;
-  }
+  } */
 
   .welcomeText{
     color: #1f0a3b;
-    font-family: 'Honey Jar Free Trial', sans-serif !important;
+    font-family: 'HelveticaNowDisplay Regular' !important;
   }
 
   .error{

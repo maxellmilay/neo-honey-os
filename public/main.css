@@ -8,6 +8,11 @@
 }
 
 @font-face {
+  font-family: 'HelveticaNowDisplay Regular ';
+  src: url('/src/frontend/assets/fonts/HelveticaNowDisplay Regular.ttf') format('opentype');
+}
+
+@font-face {
     font-family: 'Work Sans';
     src: url('/src/frontend/assets/fonts/WorkSans.ttf') format('truetype');
 }
@@ -17,7 +22,7 @@
 }
 /* Apply fonts to headings and paragraphs */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Honey Jar Free Trial', sans-serif !important;
+    font-family: 'HelveticaNowDisplay Regular', sans-serif !important;
 }
 
 .bg-gradient {
