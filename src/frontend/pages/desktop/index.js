@@ -7,7 +7,7 @@ import {
 import { Button } from '../../components/ui/button'
 import { Label } from '../../components/ui/label'
 import styles from './desktop.module.css'
-
+import notepadIcon from '../../assets/img/notepad icon.png'
 export const Desktop = ({ }) => {
 
   return (
@@ -33,6 +33,9 @@ export const Desktop = ({ }) => {
     <div className={`items-center justify-center pb-12 mb-12`}>
       <Label className={`${styles.welcomeText} pt-4`}> Display Something here</Label>
       <Label className={`${styles.welcomeText} pt-4`}> Desktop Area</Label>
+    </div>
+    <div className={`${styles.notepad} flex align-left`}>
+      <img src = {notepadIcon} alt="notepad-icon"/>
     </div>
     </>
   )

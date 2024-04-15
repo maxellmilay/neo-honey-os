@@ -45,3 +45,18 @@ body {
     color: #1f0a3b;
     font-family: 'Honey Jar Free Trial', sans-serif !important;
   }
+
+  .notepad{
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    cursor: pointer; 
+  }
+
+  .notepad:hover{
+    background-color: #d2d4dd;
+    opacity: 60%;
+  }
+  
