@@ -33,9 +33,9 @@ function Login() {
       </div>
           <div className='pt-3 flex flex-col items-center gap-5 w-full'>
       <Label className={`${styles.welcomeText} pt-3`}> <h2> Welcome, Barry! </h2> </Label>
-      
-      <VoiceRecog onClick={handleSpeechInput}/>
-            
+      <Button variant="ghost" onClick={handleSpeechInput}>
+          <VoiceRecog />
+          </Button>
           </div>
     </div>
   );
