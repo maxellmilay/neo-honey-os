@@ -1,17 +1,18 @@
-.background {
+/* .background {
 	background-image: url("./frontend/assets/img/background.gif");
 	color: rgb(184, 198, 134);
 	height: 100vh;
-}
+} */
 
 .background span {
 	position: fixed;
 	bottom: 2%;
 }
 
+
+
 .App {
 	text-align: center;
-	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
