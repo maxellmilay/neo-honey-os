@@ -18,7 +18,6 @@ function App() {
 		setIsLoggedIn(false)
 	};
 	
-
 	return (
 		<>
 			{/* <div className='background'> */}
