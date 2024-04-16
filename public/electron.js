@@ -3,7 +3,6 @@ const { app, BrowserWindow } = require("electron");
 const { spawn } = require('child_process');
 const url = require("url")
 
-let mainWindow;
 let splashScreen;
 let expressProcess;
 
@@ -30,43 +29,45 @@ function createSplashScreen() {
   }
   
 function createWindow() {
-	// Create the browser window.
-	mainWindow = new BrowserWindow({
-		width: 1280,
-		height: 720,
-		frame: false, 
-		center: true,
-		resizable: false,
-		maximizable: true,
-		icon: path.join(__dirname, "./logo.ico"),
-		webPreferences: {
-			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
-			nodeIntegration: true,
-			contextIsolation: true,
-			sandbox: false,
-		},
-	})
+    // Create the browser window.
+    const win  = new BrowserWindow({
+        width: 1280,
+        height: 720,
+        frame: false, 
+        center: true,
+        resizable: false,
+        maximizable: true,
+        webPreferences: {
+            preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
+            nodeIntegration: true,
+            contextIsolation: true,
+            sandbox: false,
+        },
+    });
+
+    // Set minimum window size
+    win.setMinimumSize(700, 650);
 
     // and load the index.html of the app.
     const appURL = app.isPackaged
         ? `file://${path.join(__dirname, "index.html")}`
         : "http://localhost:3000";
-        mainWindow.loadURL(appURL);
+        win.loadURL(appURL);
 
     // Open the DevTools.
     // if (!app.isPackaged) {
     //     win.webContents.openDevTools();
     // }
-	mainWindow.once('ready-to-show', () => {
+	win.once('ready-to-show', () => {
 		// Show the window only when all assets are loaded
-		mainWindow.show();
+		win.show();
 		if (splashScreen) {
 			splashScreen.close();
 		}
 	});
 
-	mainWindow.on('closed', () => {
-		mainWindow = null;
+	win.on('closed', () => {
+		win = null;
 	});
 }
 
