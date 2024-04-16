@@ -13,8 +13,8 @@ import { VoiceRecog } from '../../components/voiceRecog';
 export const Desktop = ({ }) => {
   return (
     <>
-    <div className={`${styles.taskbar} flex align-left h-screen`}>
-      <aside className="w-12 bg-gradient drop-shadow-md flex flex-col justify-between">
+    <div className={`${styles.taskbar} flex align-left w-screen`}>
+      <aside className="w-12 bg-gradient drop-shadow-md flex flex-row justify-between">
         <div className="h-12 flex items-center justify-center border-b-2 border-white-250">
           <Button variant="link" size="icon">
             <Link to="/boot">
@@ -32,9 +32,7 @@ export const Desktop = ({ }) => {
       </aside>
     </div>
     <div className={`items-center justify-center pb-12 mb-12`}>
-      <Label className={`${styles.welcomeText} pt-4`}> Speech Recognition </Label>
          <VoiceRecog />
-      <Label className={`${styles.welcomeText} pt-4`}> Desktop Area </Label>
     </div>
     <Notepad />
 
