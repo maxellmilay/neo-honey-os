@@ -3,7 +3,6 @@ const { app, BrowserWindow } = require("electron");
 const { spawn } = require('child_process');
 const url = require("url")
 
-let mainWindow;
 let splashScreen;
 let expressProcess;
 
@@ -31,7 +30,7 @@ function createSplashScreen() {
   
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({
+    const win  = new BrowserWindow({
         width: 1280,
         height: 720,
         frame: false, 
@@ -47,28 +46,28 @@ function createWindow() {
     });
 
     // Set minimum window size
-    mainWindow.setMinimumSize(700, 650);
+    win.setMinimumSize(700, 650);
 
     // and load the index.html of the app.
     const appURL = app.isPackaged
         ? `file://${path.join(__dirname, "index.html")}`
         : "http://localhost:3000";
-        mainWindow.loadURL(appURL);
+        win.loadURL(appURL);
 
     // Open the DevTools.
     // if (!app.isPackaged) {
     //     win.webContents.openDevTools();
     // }
-	mainWindow.once('ready-to-show', () => {
+	win.once('ready-to-show', () => {
 		// Show the window only when all assets are loaded
-		mainWindow.show();
+		win.show();
 		if (splashScreen) {
 			splashScreen.close();
 		}
 	});
 
-	mainWindow.on('closed', () => {
-		mainWindow = null;
+	win.on('closed', () => {
+		win = null;
 	});
 }
 
@@ -92,7 +91,6 @@ function runServer() {
 app.whenReady().then(() => {
 	createSplashScreen();
 	setTimeout(createWindow, 14500); // Change delay as needed
-    runServer(); // Start Express server
 });
 
 app.on("window-all-closed", () => {
