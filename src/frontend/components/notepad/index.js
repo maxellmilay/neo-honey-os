@@ -26,26 +26,41 @@ export function Notepad() {
 
   
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-      <Button id="notepad-button" variant="link" onClick={handleAddDialog}>
-        <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
-    </Button>
-      </DialogTrigger>
-      {renderDialogs()}
-    </Dialog>
+    // <Dialog>
+    //   <DialogTrigger asChild>
+        <div id="notepad-button-container">
+          <Button id="notepad-button" variant="link" className="transparent" onClick={handleAddDialog}>
+            <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
+          </Button>
+        </div>
+      // </DialogTrigger>
+      /* Render additional dialogs */
+    //   {renderDialogs()}
+    // </Dialog>
   );
 }
 
 
 // Notepad.js
 
+// Notepad.js
+
 export const openNotepad = () => {
-  // Find and click the Notepad button
-  const notepadButton = document.querySelector('.notepad-button');
-  if (notepadButton) {
+  // Find the container element
+  const notepadButtonContainer = document.getElementById('notepad-button-container');
+  if (notepadButtonContainer) {
+    // Find the button inside the container
+    const notepadButton = notepadButtonContainer.querySelector('#notepad-button');
+    if (notepadButton) {
+      // Trigger click on the button
       notepadButton.click();
-  } else {
+    } else {
       console.error('Notepad button not found');
+    }
+  } else {
+    console.error('Notepad button container not found');
   }
 };
+
+
+

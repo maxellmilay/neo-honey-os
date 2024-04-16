@@ -14,6 +14,8 @@ function createSplashScreen() {
       frame: false,
       fullscreen: true,
       transparent: true,
+      skipTaskbar: true,
+      icon: path.join(__dirname, "./logo.ico"),
       alwaysOnTop: false
     });
     
@@ -91,10 +93,11 @@ function runServer() {
 }
 
 app.whenReady().then(() => {
-	createSplashScreen();
-	setTimeout(createWindow, 5000); // Change delay as needed
-    // setTimout(runServer(), 10000); // Start Express server
+    createSplashScreen();
+    setTimeout(createWindow, 5000); // Change delay as needed
+    setTimeout(runServer, 5000); // Start Express server after a delay
 });
+
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {

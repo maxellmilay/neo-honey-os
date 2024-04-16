@@ -66,6 +66,7 @@ export const VoiceRecog = () => {
             <Button onClick={toggleListening} disabled={isLoading} className="drop-shadow-md rounded-full border-2 border-zinc-50 outline-yellow-50" variant="outline" size="icon">
               {isListening ? <MicOff /> : <Mic />}
             </Button>
+            {transcript}
             </div>
 
             {isListening ? console.log("Listening") : null}

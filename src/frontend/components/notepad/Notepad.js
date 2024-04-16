@@ -198,9 +198,6 @@ function Notepad() {
                 value={fileContent}
                 onChange={handleChange}
               />
-              <div className="flex justify-end">
-                <Button className="mt-4 text-black" onClick={handleCloseFile}>Close</Button>
-              </div>
            </div>
           </DialogContent>
         </Draggable>
