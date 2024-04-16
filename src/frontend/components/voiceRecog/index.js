@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { Mic, MicOff } from 'lucide-react';
+import { openNotepad } from '../notepad'
 
 export const VoiceRecog = () => {
     const [isListening, setListening] = useState(false);
@@ -32,6 +33,9 @@ export const VoiceRecog = () => {
             setTranscript(data);
             console.log('Data received:', data);
 
+            // Create functions based on the received data
+            processTranscript(data);
+
             if (isListening) {
                 startListening(); // If still listening, call startListening() again
             }
@@ -46,6 +50,15 @@ export const VoiceRecog = () => {
     const toggleListening = () => {
         setListening((prevState) => !prevState);
     };
+
+    // Example function creation based on transcript data
+    const processTranscript = (transcriptData) => {
+        // Check if the transcript contains the specific phrase
+        if (transcriptData.toLowerCase().includes('honey open notepad please')) {
+            // Trigger the function to open the notepad
+            openNotepad();
+        }
+    }
 
     return (
         <div>
