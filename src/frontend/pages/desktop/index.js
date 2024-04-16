@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+
 import {
   HomeIcon,
   ArrowRightFromLineIcon,
@@ -13,11 +14,11 @@ export const Desktop = ({ }) => {
 
   return (
     <>
-    <div className={`${styles.container} flex align-left h-screen`}>
+    <div className={`${styles.taskbar} flex align-left h-screen`}>
       <aside className="w-12 bg-gradient drop-shadow-md flex flex-col justify-between">
         <div className="h-12 flex items-center justify-center border-b-2 border-white-250">
           <Button variant="link" size="icon">
-            <Link to="/desktop">
+            <Link to="/boot">
               <HomeIcon className="h-7 w-7 text-white" />
             </Link>
           </Button>

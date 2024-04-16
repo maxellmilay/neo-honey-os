@@ -30,24 +30,22 @@ function createSplashScreen() {
   }
   
 function createWindow() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({
-        width: 1280,
-        height: 720,
-        frame: false, 
-        center: true,
-        resizable: false,
-        maximizable: true,
-        webPreferences: {
-            preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
-            nodeIntegration: true,
-            contextIsolation: true,
-            sandbox: false,
-        },
-    });
-
-    // Set minimum window size
-    mainWindow.setMinimumSize(700, 650);
+	// Create the browser window.
+	mainWindow = new BrowserWindow({
+		width: 1280,
+		height: 720,
+		frame: false, 
+		center: true,
+		resizable: false,
+		maximizable: true,
+		icon: path.join(__dirname, "./logo.ico"),
+		webPreferences: {
+			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
+			nodeIntegration: true,
+			contextIsolation: true,
+			sandbox: false,
+		},
+	})
 
     // and load the index.html of the app.
     const appURL = app.isPackaged
