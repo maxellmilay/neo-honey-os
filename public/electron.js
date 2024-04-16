@@ -3,6 +3,7 @@ const { app, BrowserWindow } = require("electron");
 const { spawn } = require('child_process');
 const url = require("url")
 
+let mainWindow;
 let splashScreen;
 let expressProcess;
 
@@ -29,45 +30,43 @@ function createSplashScreen() {
   }
   
 function createWindow() {
-    // Create the browser window.
-    const win  = new BrowserWindow({
-        width: 1280,
-        height: 720,
-        frame: false, 
-        center: true,
-        resizable: false,
-        maximizable: true,
-        webPreferences: {
-            preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
-            nodeIntegration: true,
-            contextIsolation: true,
-            sandbox: false,
-        },
-    });
-
-    // Set minimum window size
-    win.setMinimumSize(700, 650);
+	// Create the browser window.
+	mainWindow = new BrowserWindow({
+		width: 1280,
+		height: 720,
+		frame: false, 
+		center: true,
+		resizable: false,
+		maximizable: true,
+		icon: path.join(__dirname, "./logo.ico"),
+		webPreferences: {
+			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
+			nodeIntegration: true,
+			contextIsolation: true,
+			sandbox: false,
+		},
+	})
 
     // and load the index.html of the app.
     const appURL = app.isPackaged
         ? `file://${path.join(__dirname, "index.html")}`
         : "http://localhost:3000";
-        win.loadURL(appURL);
+        mainWindow.loadURL(appURL);
 
     // Open the DevTools.
     // if (!app.isPackaged) {
     //     win.webContents.openDevTools();
     // }
-	win.once('ready-to-show', () => {
+	mainWindow.once('ready-to-show', () => {
 		// Show the window only when all assets are loaded
-		win.show();
+		mainWindow.show();
 		if (splashScreen) {
 			splashScreen.close();
 		}
 	});
 
-	win.on('closed', () => {
-		win = null;
+	mainWindow.on('closed', () => {
+		mainWindow = null;
 	});
 }
 
@@ -91,7 +90,7 @@ function runServer() {
 app.whenReady().then(() => {
 	createSplashScreen();
 	setTimeout(createWindow, 12500); // Change delay as needed
-    runServer(); // Start Express server
+    // runServer(); // Start Express server
 });
 
 app.on("window-all-closed", () => {

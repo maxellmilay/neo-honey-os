@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import userIcon from "../../assets/img/user.png"
 import styles from './login.module.css'; 
-import { Mic } from 'lucide-react';
 import { Button } from '../../components/ui/button'
 import { Label } from '../../components/ui/label'
+import { VoiceRecog } from '../../components/voiceRecog';
 
 function Login() {
-  const [password, setPassword] = useState('');
+  const history = useNavigate();
 
   const handleSpeechInput = () => {
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.onresult = function(event) {
-      const speechResult = event.results[0][0].transcript;
-      setPassword(speechResult);
-  
-    };
-    recognition.start();
+    history('/desktop')
   };
 
   return (
@@ -39,9 +33,9 @@ function Login() {
       </div>
           <div className='pt-3 flex flex-col items-center gap-5 w-full'>
       <Label className={`${styles.welcomeText} pt-3`}> <h2> Welcome, Barry! </h2> </Label>
-      <Button className={`${styles.speechRecogBtn} drop-shadow-md rounded-full border-2 border-zinc-50 outline-yellow-50`} onClick={handleSpeechInput} variant="outline" size="icon">
-      <Mic className={`${styles.speechRecogIcon} h-25 w-25`} />
-            </Button>
+      
+      <VoiceRecog onClick={handleSpeechInput}/>
+            
           </div>
     </div>
   );

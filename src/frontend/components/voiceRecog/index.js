@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { Mic, MicOff } from 'lucide-react';
 
 export const VoiceRecog = () => {
     const [isListening, setListening] = useState(false);
@@ -49,16 +50,15 @@ export const VoiceRecog = () => {
     return (
         <div>
             <div>
-                <Button onClick={toggleListening} variant="destructive" disabled={isLoading}>
-                    {isListening ? 'Stop' : 'Start'}
-                </Button>
+            <Button onClick={toggleListening} disabled={isLoading} className="drop-shadow-md rounded-full border-2 border-zinc-50 outline-yellow-50" variant="outline" size="icon">
+              {isListening ? <MicOff /> : <Mic />}
+            </Button>
             </div>
 
-            {isListening ? <div>App is listening</div> : null}
+            {isListening ? console.log("Listening") : null}
 
-            {error && <div>Error: {error}</div>}
+            {error && console.log(error)}
 
-            <h3>{transcript}</h3>
         </div>
     );
 };

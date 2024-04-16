@@ -9,15 +9,6 @@ import Login from './frontend/pages/login';
 
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-	const handleLogin = () => {
-	  setIsLoggedIn(true);
-	}
-
-	const handleLogout = () => {
-		setIsLoggedIn(false)
-	};
 	
 	return (
 		<>
@@ -27,9 +18,9 @@ function App() {
 						<Routes>
 							<Route path="/" 
 								element={<Navigate 
-								to={isLoggedIn ? "/desktop" : "/boot"} />} />
+								to={"/boot"} />} />
 							<Route path="/boot" 
-									element={<BootApp onLogin={handleLogin} />} />
+									element={<BootApp />} />
 							<Route path="/login" 
 								element={<Login/>} />
 							<Route path="/desktop" 

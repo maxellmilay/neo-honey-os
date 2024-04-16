@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-
 import {
   HomeIcon,
   ArrowRightFromLineIcon,
@@ -34,7 +33,7 @@ export const Desktop = ({ }) => {
     </div>
     <div className={`items-center justify-center pb-12 mb-12`}>
       <Label className={`${styles.welcomeText} pt-4`}> Speech Recognition </Label>
-      <VoiceRecog />
+         <VoiceRecog />
       <Label className={`${styles.welcomeText} pt-4`}> Desktop Area </Label>
     </div>
     </>
