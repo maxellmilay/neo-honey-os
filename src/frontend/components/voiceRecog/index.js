@@ -61,13 +61,14 @@ export const VoiceRecog = () => {
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center gap-5 w-full">
             <div>
             <Button onClick={toggleListening} disabled={isLoading} className="drop-shadow-md rounded-full border-2 border-zinc-50 outline-yellow-50" variant="outline" size="icon">
               {isListening ? <MicOff /> : <Mic />}
             </Button>
-            {transcript}
             </div>
+            
+            {transcript}
 
             {isListening ? console.log("Listening") : null}
 
