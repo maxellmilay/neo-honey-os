@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Notepad from '../../components/notepad/Notepad';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
@@ -10,7 +11,6 @@ import styles from './desktop.module.css'
 import { VoiceRecog } from '../../components/voiceRecog';
 
 export const Desktop = ({ }) => {
-
   return (
     <>
     <div className={`${styles.taskbar} flex align-left h-screen`}>
@@ -36,6 +36,8 @@ export const Desktop = ({ }) => {
          <VoiceRecog />
       <Label className={`${styles.welcomeText} pt-4`}> Desktop Area </Label>
     </div>
+    <Notepad />
+
     </>
   )
 }
