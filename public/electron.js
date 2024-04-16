@@ -12,8 +12,9 @@ function createSplashScreen() {
       width: 800,
       height: 650,
       frame: false,
+      fullscreen: true,
       transparent: true,
-      alwaysOnTop: true
+      alwaysOnTop: false
     });
     
       splashScreen.loadURL(
@@ -38,6 +39,8 @@ function createWindow() {
 		center: true,
 		resizable: false,
 		maximizable: true,
+        alwaysOnTop: false,
+        fullscreen: true,
 		icon: path.join(__dirname, "./logo.ico"),
 		webPreferences: {
 			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
@@ -88,9 +91,9 @@ function runServer() {
 }
 
 app.whenReady().then(() => {
-    // runServer(); // Start Express server
 	createSplashScreen();
-	setTimeout(createWindow, 500); // Change delay as needed
+	setTimeout(createWindow, 5000); // Change delay as needed
+    // setTimout(runServer(), 10000); // Start Express server
 });
 
 app.on("window-all-closed", () => {

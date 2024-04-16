@@ -7,7 +7,7 @@ import { Button } from "../ui/button"; // Import necessary components
 import NotepadDialog from "./Notepad.js"; // Import the dialog component
 import notepadIcon from "../../assets/img/notepad icon.png";
 
-function Notepad() {
+export function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
 
   const renderDialogs = () => {
@@ -24,16 +24,28 @@ function Notepad() {
     setDialogCount(prevCount => prevCount + 1);
   };
 
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button cariant="ghost" onClick={handleAddDialog}>
-          <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
-        </Button>
+      <Button id="notepad-button" variant="link" onClick={handleAddDialog}>
+        <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
+    </Button>
       </DialogTrigger>
       {renderDialogs()}
     </Dialog>
   );
 }
 
-export default Notepad;
+
+// Notepad.js
+
+export const openNotepad = () => {
+  // Find and click the Notepad button
+  const notepadButton = document.querySelector('.notepad-button');
+  if (notepadButton) {
+      notepadButton.click();
+  } else {
+      console.error('Notepad button not found');
+  }
+};
