@@ -1,35 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTrigger,
 } from "../ui/dialog";
-import { Button } from "../ui/button";
-import NotepadDialog from "./Notepad.js";
+import { Button } from "../ui/button"; // Import necessary components
+import NotepadDialog from "./Notepad.js"; // Import the dialog component
 import notepadIcon from "../../assets/img/notepad icon.png";
 
 export function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
-  const [ws, setWs] = useState(null);
-
-  useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000/ws');
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!ws) return;
-
-    ws.onmessage = (event) => {
-      const message = event.data;
-      if (message === 'notepad_triggered') {
-        handleAddDialog();
-      }
-    };
-  }, [ws]);
 
   const renderDialogs = () => {
     const dialogs = [];
@@ -45,6 +24,7 @@ export function Notepad() {
     setDialogCount(prevCount => prevCount + 1);
   };
 
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
