@@ -234,8 +234,8 @@ function Notepad() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
-          <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
+        <Button  id="notepad-button" variant="link" size="appIcon" className="transparent" >
+          <img src={notepadIcon} alt="notepad-icon"/>
         </Button>
       </DialogTrigger>
       {renderDialogContent()}

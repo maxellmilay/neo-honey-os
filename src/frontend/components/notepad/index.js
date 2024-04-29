@@ -28,9 +28,10 @@ export function Notepad() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button id="notepad-button" variant="link" className="transparent" onClick={handleAddDialog}>
-            <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
-        </button>
+        <Button id="notepad-button" variant="destructive" size="icon" className="transparent" onClick={handleAddDialog}>
+            {/* <img src={notepadIcon} alt="notepad-icon" height="100" width="100" /> */}
+            Nla
+        </Button>
       </DialogTrigger>
       {renderDialogs()}
     </Dialog>

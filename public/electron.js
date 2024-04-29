@@ -94,7 +94,7 @@ function runServer() {
 
 app.whenReady().then(() => {
     createSplashScreen();
-    setTimeout(createWindow, 8000); // Change delay as needed
+    setTimeout(createWindow, 10000); // Change delay as needed
     // setTimeout(runServer, 9000); // Start Express server after a delay
 });
 

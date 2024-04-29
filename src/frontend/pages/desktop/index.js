@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Notepad from '../../components/notepad/Notepad';
+import PCB from '../../components/pcb';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
@@ -35,7 +36,7 @@ export const Desktop = ({ }) => {
          <VoiceRecog />
     </div>
     <Notepad />
-
+    <PCB />
     </>
   )
 }
