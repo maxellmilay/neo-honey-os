@@ -16,6 +16,14 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHeaderCell,
+} from "../../components/ui/table";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
 
@@ -115,6 +123,42 @@ function PCB() {
                     </Button>
                   </div>
                 </div>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Process ID</TableCell>
+                      <TableCell>Arrival Time</TableCell>
+                      <TableCell>Burst Time</TableCell>
+                      <TableCell>Priority</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>1</TableCell>
+                      <TableCell>0</TableCell>
+                      <TableCell>3</TableCell>
+                      <TableCell>3</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>2</TableCell>
+                      <TableCell>2</TableCell>
+                      <TableCell>6</TableCell>
+                      <TableCell>2</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>3</TableCell>
+                      <TableCell>4</TableCell>
+                      <TableCell>4</TableCell>
+                      <TableCell>1</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>4</TableCell>
+                      <TableCell>6</TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>4</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </div>
             </DialogContent>
           </Draggable>
