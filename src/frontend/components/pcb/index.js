@@ -26,6 +26,7 @@ import {
 } from "../../components/ui/table";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
+import styles from "./pcb.module.css";
 
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
@@ -171,8 +172,9 @@ function PCB() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button  id="pcb-button" variant="link" size="appIcon" className="transparent" >
+        <Button  id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
           <img src={pcbIcon} alt="pcb-icon"/>
+          <div>PCB</div>
         </Button>
       </DialogTrigger>
       {renderDialogContent()}

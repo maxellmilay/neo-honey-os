@@ -137,7 +137,7 @@ function Notepad() {
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable>
+          <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
             <DialogContent key={i} className="w-9/12 h-5/6 flex" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-1/4">
                 <DialogHeader>
@@ -234,8 +234,9 @@ function Notepad() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button  id="notepad-button" variant="link" size="appIcon" className="transparent" >
+        <Button  id="notepad-button" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
           <img src={notepadIcon} alt="notepad-icon"/>
+          <div>BuzzPad</div>
         </Button>
       </DialogTrigger>
       {renderDialogContent()}
