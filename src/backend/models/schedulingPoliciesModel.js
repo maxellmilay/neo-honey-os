@@ -103,7 +103,41 @@ const shortestJobFirst = (jobs) => {
 };
 
 const priorityScheduling = () => {
-    // algo
+    const priorityScheduling = (jobs) => {
+        // Sort jobs by priority (higher priority first)
+        jobs.sort((a, b) => b.priority - a.priority);
+    
+        let currentTime = 0;
+        let totalWaitingTime = 0;
+        let totalTurnaroundTime = 0;
+    
+        console.log("<< Priority Scheduling >>");
+        console.log("\n\t\tProcess | Arrival | CPU Burst Time(ms) | Priority | Waiting Time(ms) | Turnaround Time(ms)");
+    
+        // Calculate waiting time and turnaround time for each job
+        jobs.forEach(job => {
+            job.waitingTime = currentTime - job.arrivalTime;
+            if (job.waitingTime < 0) {
+                job.waitingTime = 0;
+            }
+            job.turnaroundTime = job.waitingTime + job.burstTime;
+            currentTime += job.burstTime;
+            totalWaitingTime += job.waitingTime;
+            totalTurnaroundTime += job.turnaroundTime;
+    
+            console.log(`\t\t  ${job.name}\t| ${job.arrivalTime.toString().padStart(7)}\t${job.burstTime.toString().padStart(8)}\t${job.priority.toString().padStart(9)}\t${job.waitingTime.toString().padStart(15)}\t\t${job.turnaroundTime.toString().padStart(10)}`);
+        });
+    
+        // Calculate average waiting time and average turnaround time
+        const avgWaitingTime = totalWaitingTime / jobs.length;
+        const avgTurnaroundTime = totalTurnaroundTime / jobs.length;
+    
+        console.log(`\n\tAverage Waiting Time: ${avgWaitingTime.toFixed(2)} ms`);
+        console.log(`\tAverage Turnaround Time: ${avgTurnaroundTime.toFixed(2)} ms`);
+    };
+    
+    module.exports = priorityScheduling;
+    
 };
 
 const roundRobin = () => {
