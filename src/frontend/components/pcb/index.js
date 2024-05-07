@@ -22,7 +22,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  TableHeaderCell,
+  TableHeader,
 } from "../../components/ui/table";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
@@ -125,14 +125,14 @@ function PCB() {
                   </div>
                 </div>
                 <Table>
-                  <TableHead>
+                  <TableHeader>
                     <TableRow>
-                      <TableCell>Process ID</TableCell>
-                      <TableCell>Arrival Time</TableCell>
-                      <TableCell>Burst Time</TableCell>
-                      <TableCell>Priority</TableCell>
+                      <TableHead>Process ID</TableHead>
+                      <TableHead>Arrival Time</TableHead>
+                      <TableHead>Burst Time</TableHead>
+                      <TableHead>Priority</TableHead>
                     </TableRow>
-                  </TableHead>
+                  </TableHeader>
                   <TableBody>
                     <TableRow>
                       <TableCell>1</TableCell>
