@@ -38,7 +38,7 @@ function PCB() {
         setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
     };
 
-    const interval = setInterval(generateRandomProcess, 5000);
+    const interval = setInterval(generateRandomProcess, 3000);
 
     return () => clearInterval(interval);
 }, [processControlBlocks]);
