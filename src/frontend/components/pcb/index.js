@@ -1,6 +1,4 @@
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Draggable from "react-draggable";
 import {
   Dialog,
@@ -27,27 +25,24 @@ import {
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
+import { generateRandomProcessControlBlock } from "./dummydata";
 
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
+  const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
-  const [fileContent, setFileContent] = useState("");
-  const [isModified, setIsModified] = useState(false);
+  useEffect(() => {
+    const generateRandomProcess = () => {
+        const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
+        setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
+    };
 
-  const handleChange = (event) => {
-    setFileContent(event.target.value);
-    setIsModified(true); // Set modification state to true when content changes
+    const interval = setInterval(generateRandomProcess, 5000);
 
-  };
+    return () => clearInterval(interval);
+}, [processControlBlocks]);
 
-  const handleCloseDialog = (index) => {
-    setDialogStates(prevStates => {
-      const newStates = [...prevStates];
-      newStates[index] = false;
-      return newStates;
-    });
-  }
 
 
   const renderDialogContent = () => {
@@ -76,6 +71,7 @@ function PCB() {
                       <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
                       First-Come First-Served
                     </Button>
+                  </div>
                   </div>
                   <div className="mb-2">
                     <Button
@@ -124,45 +120,32 @@ function PCB() {
                     </Button>
                   </div>
                 </div>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Process ID</TableHead>
-                      <TableHead>Arrival Time</TableHead>
-                      <TableHead>Burst Time</TableHead>
-                      <TableHead>Priority</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>1</TableCell>
-                      <TableCell>0</TableCell>
-                      <TableCell>3</TableCell>
-                      <TableCell>3</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>2</TableCell>
-                      <TableCell>2</TableCell>
-                      <TableCell>6</TableCell>
-                      <TableCell>2</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>3</TableCell>
-                      <TableCell>4</TableCell>
-                      <TableCell>4</TableCell>
-                      <TableCell>1</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>4</TableCell>
-                      <TableCell>6</TableCell>
-                      <TableCell>5</TableCell>
-                      <TableCell>4</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </DialogContent>
-          </Draggable>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Process ID</TableHead>
+                  <TableHead>Arrival Time</TableHead>
+                  <TableHead>Burst Time</TableHead>
+                  <TableHead>Memory Size</TableHead>
+                  <TableHead>Priority</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {processControlBlocks.map((process, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{process.id}</TableCell>
+                    <TableCell>{process.arrivalTime}</TableCell>
+                    <TableCell>{process.burstTime}</TableCell>
+                    <TableCell>{process.memorySize}</TableCell>
+                    <TableCell>{process.priority}</TableCell>
+                    <TableCell>{process.status}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </DialogContent>
+        </Draggable>
         </>
       );
     }
@@ -172,7 +155,7 @@ function PCB() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button  id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
+        <Button id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
           <img src={pcbIcon} alt="pcb-icon"/>
           <div>PCB</div>
         </Button>
@@ -181,4 +164,5 @@ function PCB() {
     </Dialog>
   );
 }
+
 export default PCB;
