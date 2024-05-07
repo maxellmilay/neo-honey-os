@@ -111,6 +111,7 @@ const roundRobin = () => {
 };
 
 module.exports = {
+    generateRandomJobs,
     firstComeFirstServe,
     shortestJobFirst,
     priorityScheduling,
