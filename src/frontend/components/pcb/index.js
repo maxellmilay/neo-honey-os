@@ -26,6 +26,7 @@ import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "./dummydata";
+import { ScrollArea } from "../../components/ui/scroll-area";
 
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
@@ -120,8 +121,9 @@ function PCB() {
                     </Button>
                   </div>
                 </div>
-            <Table>
-              <TableHeader>
+            <Table > 
+              <ScrollArea className="h-[200px] w-full p-2">
+              <TableHeader className="sticky z-50 top-0 bg-white drop-shadow-sm">
                 <TableRow>
                   <TableHead>Process ID</TableHead>
                   <TableHead>Arrival Time</TableHead>
@@ -143,6 +145,7 @@ function PCB() {
                   </TableRow>
                 ))}
               </TableBody>
+              </ScrollArea>
             </Table>
           </DialogContent>
         </Draggable>
