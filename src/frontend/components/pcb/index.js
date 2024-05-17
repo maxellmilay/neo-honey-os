@@ -27,6 +27,7 @@ import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "./dummydata";
 
+
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
@@ -52,98 +53,97 @@ function PCB() {
         <>
           <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
             <DialogContent key={i} className="w-fit object-center">
-              <div className="">
                 <DialogHeader>
                   <DialogTitle className="text-s">Process Control Block</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col">
-                  <div className="mb-2">
-                    <Button
-                      style={{
-                        color: "black",
-                        width: "200px",
-                        height: "40px",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      First-Come First-Served
-                    </Button>
-                  </div>
-                  </div>
-                  <div className="mb-2">
-                    <Button
-                      style={{
-                        color: "black",
-                        width: "200px",
-                        height: "40px",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      <>Shortest Job First (Preemptive)</>
-                    </Button>
-                  </div>
-                  <div className="mb-2">
-                    <Button
-                      style={{
-                        color: "black",
-                        width: "200px",
-                        height: "40px",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <Save className="mr-2 h-4 w-4 inline-block align-middle" />
-                      Priority Scheduling
-                    </Button>
+                <div className="grid gap-4 md:grid-cols-5 lg:grid-cols-5">
+                  <div className="flex flex-col col-span-2">
+                    <div className="mb-2">
+                      <Button
+                        style={{
+                          color: "black",
+                          width: "200px",
+                          height: "40px",
+                          textAlign: "left",
+                          display: "block",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                        FCFS
+                      </Button>
+                    </div>
+                    <div className="mb-2">
+                      <Button
+                        style={{
+                          color: "black",
+                          width: "200px",
+                          height: "40px",
+                          textAlign: "left",
+                          display: "block",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                        <>SJF (Preemptive)</>
+                      </Button>
+                    </div>
+                    <div className="mb-2">
+                      <Button
+                        style={{
+                          color: "black",
+                          width: "200px",
+                          height: "40px",
+                          textAlign: "left",
+                          display: "block",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <Save className="mr-2 h-4 w-4 inline-block align-middle" />
+                        Priority Scheduling
+                      </Button>
 
+                    </div>
+                    <div className="mb-2">
+                      <Button
+                        style={{
+                          color: "black",
+                          width: "200px",
+                          height: "40px",
+                          textAlign: "left",
+                          display: "block",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                        Round Robin
+                      </Button>
+                    </div>
                   </div>
-                  <div className="mb-2">
-                    <Button
-                      style={{
-                        color: "black",
-                        width: "200px",
-                        height: "40px",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      Round Robin
-                    </Button>
+                  
+                   <div className="flex flex-col col-span-3">
+                    Ready Queue
+                    <Table>
+                      <TableHeader >
+                        <TableRow>
+                          <TableHead>Jobs</TableHead>
+                          <TableHead>Status</TableHead></TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        <TableRow>
+                          {processControlBlocks.map((process, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{process.id}</TableCell>
+                              <TableCell>{process.status}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableRow>
+                      </TableBody>
+                    </Table>
                   </div>
+      {/* TABL HERE */}
+      
                 </div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Process ID</TableHead>
-                  <TableHead>Arrival Time</TableHead>
-                  <TableHead>Burst Time</TableHead>
-                  <TableHead>Memory Size</TableHead>
-                  <TableHead>Priority</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {processControlBlocks.map((process, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{process.id}</TableCell>
-                    <TableCell>{process.arrivalTime}</TableCell>
-                    <TableCell>{process.burstTime}</TableCell>
-                    <TableCell>{process.memorySize}</TableCell>
-                    <TableCell>{process.priority}</TableCell>
-                    <TableCell>{process.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
           </DialogContent>
         </Draggable>
         </>
