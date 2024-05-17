@@ -31,18 +31,18 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
-  const [processControlBlocks, setProcessControlBlocks] = useState([]);
+//   const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
-  useEffect(() => {
-    const generateRandomProcess = () => {
-        const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
-        setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
-    };
+//   useEffect(() => {
+//     const generateRandomProcess = () => {
+//         const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
+//         setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
+//     };
 
-    const interval = setInterval(generateRandomProcess, 3000);
+//     const interval = setInterval(generateRandomProcess, 3000);
 
-    return () => clearInterval(interval);
-}, [processControlBlocks]);
+//     return () => clearInterval(interval);
+// }, [processControlBlocks]);
 
 
 
@@ -53,9 +53,9 @@ function PCB() {
         <>
           <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
             <DialogContent key={i} className="w-fit object-center">
-              <div className="">
-                <DialogHeader>
-                  <DialogTitle className="text-s">Process Control Block</DialogTitle>
+              <div>
+                <DialogHeader className="flex justify-center items-center">
+                  <h3>BusyBee PCB</h3>  
                 </DialogHeader>
                 <div className="flex flex-col">
                   <div className="mb-2">
@@ -134,7 +134,7 @@ function PCB() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {processControlBlocks.map((process, index) => (
+                {/* {processControlBlocks.map((process, index) => (
                   <TableRow key={index}>
                     <TableCell>{process.id}</TableCell>
                     <TableCell>{process.arrivalTime}</TableCell>
@@ -143,7 +143,7 @@ function PCB() {
                     <TableCell>{process.priority}</TableCell>
                     <TableCell>{process.status}</TableCell>
                   </TableRow>
-                ))}
+                ))} */}
               </TableBody>
               </ScrollArea>
             </Table>
