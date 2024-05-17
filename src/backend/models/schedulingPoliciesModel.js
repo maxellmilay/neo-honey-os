@@ -135,9 +135,37 @@ const priorityScheduling = (jobs) => {
     console.log(`\tAverage Turnaround Time: ${avgTurnaroundTime.toFixed(2)} ms`);
 };
 
+const roundRobin = (processes, burstTime, timeQuantum) => {
+    let n = processes.length;
+    let remBurstTime = [...burstTime];
 
-const roundRobin = () => {
-    // algo
+    let time = 0; // Current time
+
+    while (true) {
+        let done = true;
+
+        for (let i = 0; i < n; i++) {
+            if (remBurstTime[i] > 0) {
+                done = false; // There is a pending process
+
+                if (remBurstTime[i] > timeQuantum) {
+                    // Increase the value of time i.e., how much time a process has been processed
+                    time += timeQuantum;
+                    remBurstTime[i] -= timeQuantum;
+                } else {
+                    // If burst time is smaller than or equal to time quantum. Last cycle for this process
+                    time += remBurstTime[i];
+                    // As the process gets fully executed make its remaining burst time = 0
+                    remBurstTime[i] = 0;
+                }
+            }
+        }
+
+        // If all processes are done
+        if (done === true) break;
+    }
+
+    return time;
 };
 
 module.exports = {
