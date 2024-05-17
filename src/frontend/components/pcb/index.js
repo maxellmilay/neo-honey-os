@@ -51,7 +51,7 @@ function PCB() {
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
+          {/* <Draggable positionOffset={{ x: '-50%', y: '-50%' }}> */}
             <DialogContent key={i} className="w-fit object-center">
               <div>
                 <DialogHeader className="flex justify-center items-center">
@@ -148,7 +148,7 @@ function PCB() {
               </ScrollArea>
             </Table>
           </DialogContent>
-        </Draggable>
+        {/* </Draggable> */}
         </>
       );
     }
