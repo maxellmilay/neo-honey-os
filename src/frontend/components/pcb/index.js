@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Draggable from "react-draggable";
+import VirtualMemory from "./VirtualMemory";
 import {
   Dialog,
   DialogContent,
@@ -10,10 +11,18 @@ import {
   DialogTrigger,
   DialogClose,
 } from "../../components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../components/ui/tabs";
+
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
+
 import {
   Table,
   TableHead,
@@ -30,49 +39,68 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
-  const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
+  const [dialogStates, setDialogStates] = useState(
+    Array.from({ length: 1 }, () => true)
+  );
   const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
   useEffect(() => {
     const generateRandomProcess = () => {
-        const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
-        setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
+      const newProcess = generateRandomProcessControlBlock(
+        processControlBlocks.length
+          ? processControlBlocks[processControlBlocks.length - 1].id
+          : 0
+      );
+      setProcessControlBlocks((prevProcesses) => [
+        ...prevProcesses,
+        newProcess,
+      ]);
     };
 
     const interval = setInterval(generateRandomProcess, 3000);
 
     return () => clearInterval(interval);
-}, [processControlBlocks]);
-
-
+  }, [processControlBlocks]);
 
   const renderDialogContent = () => {
     const dialogContentArray = [];
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
+          <Draggable positionOffset={{ x: "-50%", y: "-50%" }}>
             <DialogContent key={i} className="w-fit object-center">
               <div className="">
                 <DialogHeader>
-                  <DialogTitle className="text-s">Process Control Block</DialogTitle>
+                  <DialogTitle className="text-s">
+                    Process Control Block
+                  </DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col">
-                  <div className="mb-2">
-                    <Button
-                      style={{
-                        color: "black",
-                        width: "200px",
-                        height: "40px",
-                        textAlign: "left",
-                        display: "block",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      First-Come First-Served
-                    </Button>
-                  </div>
+              </div>
+              {/* For TABS, Scheduler and Virtual Memory */}
+              <Tabs defaultValue="Tabs" className="w-[400px]">
+                <TabsList>
+                  <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
+                  <TabsTrigger value="Virtual Memory">
+                    Virtual Memory
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="Scheduler">
+                  <div className="flex flex-col">
+                    <div className="mb-2">
+                      <Button
+                        style={{
+                          color: "black",
+                          width: "200px",
+                          height: "40px",
+                          textAlign: "left",
+                          display: "block",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
+                        First-Come First-Served
+                      </Button>
+                    </div>
                   </div>
                   <div className="mb-2">
                     <Button
@@ -103,7 +131,6 @@ function PCB() {
                       <Save className="mr-2 h-4 w-4 inline-block align-middle" />
                       Priority Scheduling
                     </Button>
-
                   </div>
                   <div className="mb-2">
                     <Button
@@ -120,35 +147,40 @@ function PCB() {
                       Round Robin
                     </Button>
                   </div>
-                </div>
-            <Table > 
-              <ScrollArea className="h-[200px] w-full p-2">
-              <TableHeader className="sticky z-50 top-0 bg-white drop-shadow-sm">
-                <TableRow>
-                  <TableHead>Process ID</TableHead>
-                  <TableHead>Arrival Time</TableHead>
-                  <TableHead>Burst Time</TableHead>
-                  <TableHead>Memory Size</TableHead>
-                  <TableHead>Priority</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {processControlBlocks.map((process, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{process.id}</TableCell>
-                    <TableCell>{process.arrivalTime}</TableCell>
-                    <TableCell>{process.burstTime}</TableCell>
-                    <TableCell>{process.memorySize}</TableCell>
-                    <TableCell>{process.priority}</TableCell>
-                    <TableCell>{process.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-              </ScrollArea>
-            </Table>
-          </DialogContent>
-        </Draggable>
+
+                  <Table>
+                    <ScrollArea className="h-[200px] w-full p-2">
+                      <TableHeader className="sticky z-50 top-0 bg-white drop-shadow-sm">
+                        <TableRow>
+                          <TableHead>Process ID</TableHead>
+                          <TableHead>Arrival Time</TableHead>
+                          <TableHead>Burst Time</TableHead>
+                          <TableHead>Memory Size</TableHead>
+                          <TableHead>Priority</TableHead>
+                          <TableHead>Status</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {processControlBlocks.map((process, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{process.id}</TableCell>
+                            <TableCell>{process.arrivalTime}</TableCell>
+                            <TableCell>{process.burstTime}</TableCell>
+                            <TableCell>{process.memorySize}</TableCell>
+                            <TableCell>{process.priority}</TableCell>
+                            <TableCell>{process.status}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </ScrollArea>
+                  </Table>
+                </TabsContent>
+                <TabsContent value="Virtual Memory">
+                  <VirtualMemory />
+                </TabsContent>
+              </Tabs>
+            </DialogContent>
+          </Draggable>
         </>
       );
     }
@@ -158,8 +190,13 @@ function PCB() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
-          <img src={pcbIcon} alt="pcb-icon"/>
+        <Button
+          id="pcbButton"
+          variant="outline"
+          size="appIcon"
+          className={`${styles.appIconButton} transparent`}
+        >
+          <img src={pcbIcon} alt="pcb-icon" />
           <div>PCB</div>
         </Button>
       </DialogTrigger>

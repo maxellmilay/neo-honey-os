@@ -36,6 +36,8 @@ export const Desktop = ({ }) => {
          <VoiceRecog />
     </div>
     <Notepad />
+
+    
     <PCB />
     </>
   )
