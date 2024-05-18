@@ -27,8 +27,3 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 16px; /* or your desired font size */
     color: black; /* or any color based on your theme */
 }
-
-.scrollableContainer {
-  max-height: 250px;
-  overflow-y:scroll;
-}

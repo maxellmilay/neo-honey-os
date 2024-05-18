@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Draggable from "react-draggable";
 import {
   Dialog,
@@ -31,18 +32,19 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
+  const navigate = useNavigate();
   const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
-  useEffect(() => {
-    const generateRandomProcess = () => {
-        const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
-        setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
-    };
+//   useEffect(() => {
+//     const generateRandomProcess = () => {
+//         const newProcess = generateRandomProcessControlBlock(processControlBlocks.length ? processControlBlocks[processControlBlocks.length - 1].id : 0);
+//         setProcessControlBlocks(prevProcesses => [...prevProcesses, newProcess]);
+//     };
 
-    const interval = setInterval(generateRandomProcess, 3000);
+//     const interval = setInterval(generateRandomProcess, 3000);
 
-    return () => clearInterval(interval);
-}, [processControlBlocks]);
+//     return () => clearInterval(interval);
+// }, [processControlBlocks]);
 
 
 
@@ -51,10 +53,11 @@ function PCB() {
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable positionOffset={{ x: '-50%', y: '-50%' }}>
+          {/* <Draggable positionOffset={{ x: '-50%', y: '-50%' }}> */}
             <DialogContent key={i} className="w-fit object-center">
-                <DialogHeader>
-                  <DialogTitle className="text-s">Process Control Block</DialogTitle>
+              <div>
+                <DialogHeader className="flex justify-center items-center">
+                  <h3>BusyBee PCB</h3>  
                 </DialogHeader>
                 <div className="grid gap-4 md:grid-cols-5 lg:grid-cols-5">
                   <div className="flex flex-col col-span-2">
@@ -125,29 +128,36 @@ function PCB() {
                     Ready Queue
                     <Table > 
               <ScrollArea className="h-[200px] w-full p-2">
-                      <TableHeader  className="sticky z-50 top-0 bg-white drop-shadow-sm">
-                        <TableRow>
-                          <TableHead>Jobs</TableHead>
-                          <TableHead>Status</TableHead></TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          {processControlBlocks.map((process, index) => (
-                            <TableRow key={index}>
-                              <TableCell>{process.id}</TableCell>
-                              <TableCell>{process.status}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableRow>
-                      </TableBody>
-                      </ScrollArea>
+              <TableHeader className="sticky z-50 top-0 bg-white drop-shadow-sm">
+                <TableRow>
+                  <TableHead>Process ID</TableHead>
+                  <TableHead>Arrival Time</TableHead>
+                  <TableHead>Burst Time</TableHead>
+                  <TableHead>Memory Size</TableHead>
+                  <TableHead>Priority</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {/* {processControlBlocks.map((process, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{process.id}</TableCell>
+                    <TableCell>{process.arrivalTime}</TableCell>
+                    <TableCell>{process.burstTime}</TableCell>
+                    <TableCell>{process.memorySize}</TableCell>
+                    <TableCell>{process.priority}</TableCell>
+                    <TableCell>{process.status}</TableCell>
+                  </TableRow>
+                ))} */}
+              </TableBody>
+              </ScrollArea>
             </Table>
                   </div>
       {/* TABL HERE */}
       
                 </div>
           </DialogContent>
-        </Draggable>
+        {/* </Draggable> */}
         </>
       );
     }
@@ -155,15 +165,14 @@ function PCB() {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
-          <img src={pcbIcon} alt="pcb-icon"/>
-          <div>PCB</div>
+        <Button id="pcbButton" 
+                variant="outline" 
+                size="appIcon" 
+                className={`${styles.appIconButton} transparent`} 
+                onClick = {() => navigate('/PCB')} >
+            <img src={pcbIcon} alt="pcb-icon"/>
+            <div>PCB</div>
         </Button>
-      </DialogTrigger>
-      {renderDialogContent()}
-    </Dialog>
   );
 }
 

@@ -27,7 +27,7 @@
 }
 /* Apply fonts to headings and paragraphs */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'One Little Font', sans-serif !important;
+    font-family: 'One Little Font Regular', sans-serif !important;
 }
 
 .bg-gradient {

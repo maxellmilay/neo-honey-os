@@ -6,6 +6,7 @@ import { useCallback } from "react"
 import { Desktop } from "./frontend/pages/desktop"
 import { BootApp } from "./frontend/pages/boot"
 import Login from './frontend/pages/login'; 
+import PCB from './frontend/pages/pcb';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
 								element={<Login/>} />
 							<Route path="/desktop" 
 								element={<Desktop/>} />
+							<Route path="/PCB"
+								element={<PCB/>} />
 						</Routes>
 					</Router>
 				</div>
