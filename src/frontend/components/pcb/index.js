@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Draggable from "react-draggable";
 import {
   Dialog,
@@ -31,6 +32,7 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
+  const navigate = useNavigate();
 //   const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
 //   useEffect(() => {
@@ -156,15 +158,14 @@ function PCB() {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button id="pcbButton" variant="outline" size="appIcon" className={`${styles.appIconButton} transparent`} >
-          <img src={pcbIcon} alt="pcb-icon"/>
-          <div>PCB</div>
+        <Button id="pcbButton" 
+                variant="outline" 
+                size="appIcon" 
+                className={`${styles.appIconButton} transparent`} 
+                onClick = {() => navigate('/PCB')} >
+            <img src={pcbIcon} alt="pcb-icon"/>
+            <div>PCB</div>
         </Button>
-      </DialogTrigger>
-      {renderDialogContent()}
-    </Dialog>
   );
 }
 
