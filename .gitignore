@@ -23,8 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # DB - temp files
-*.db-shm
-*.db-wal
+honeyOS-shm
+honeyOS-wal
 
 
 # Packaged files
