@@ -27,45 +27,92 @@ function PCB() {
     return (
         <>
         <div className="grid grid-cols-3 items-center w-screen py-2">
-            <h3 className="col-start-2 col-end-3 text-center">BusyBee</h3> 
+            <h2 className="col-start-2 col-end-3 text-center">BusyBee</h2> 
             <div className="col-start-3 col-end-4 text-right">
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
         <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-auto w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
             <div className="col-span-2">
-            <Card>
-                <CardHeader>Data</CardHeader>
-                <CardContent>Test</CardContent>
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
+                <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-5">
+                    <div>
+                        <p>Current Job</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Current Time</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Idle Time</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Utilization</p>
+                        <p><b className="text-2xl">69.99%</b></p>
+                    </div>
+                    <div>
+                        <p>Utilization</p>
+                        <p><b className="text-2xl">69.99%</b></p>
+                    </div>
+                </CardContent>
             </Card>
             </div>
             <div>
-            <Card>
-                <CardHeader>CPU</CardHeader>
-                <CardContent>Test</CardContent>
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>CPU</h4></CardHeader>
+                <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-4">
+                    <div>
+                        <p>Current Job</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Current Time</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Idle Time</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Utilization</p>
+                        <p><b className="text-2xl">69.99%</b></p>
+                    </div>
+                </CardContent>
             </Card>
             </div>
             <div className="h-full row-span-2 col-span-2">
-            <Card className="h-full">
-                <CardHeader><h4>Job Pool (PCB)</h4></CardHeader>
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Average</h4></CardHeader>
-                <CardContent className=" justify-center items-center py-2">Test</CardContent>
+                <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-2">
+                    <div>
+                        <p>Waiting</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    <div>
+                        <p>Turnaround Time</p>
+                        <p><b className="text-2xl">6999</b></p>
+                    </div>
+                    </CardContent>
             </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
-            <Card className="h-full">
-                <CardHeader>Ready Queue</CardHeader>
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
             <div className="col-span-3">
-            <Card>
-                <CardHeader>Gantt Chart</CardHeader>
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>

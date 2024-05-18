@@ -4,8 +4,22 @@
     src: url('../../assets/fonts/OneLittleFontRegular.otf') format('opentype');
   }
 
+@font-face {
+font-family: 'Helvetica Now Display Regular';
+src: url('../../assets/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
+}
+  
+@font-face {
+    font-family: 'Work Sans';
+    src: url('../../assets/fonts/WorkSans.ttf') format('truetype');
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'One Little Font Regular' !important;
+}
+
+p, b {
+    font-family: 'Helvetica Now Display Regular' !important;
 }
 
 .appIconButton {
