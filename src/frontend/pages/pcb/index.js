@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "../../components/ui/select"
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
@@ -38,24 +47,40 @@ function PCB() {
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
                 <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-5">
                     <div>
-                        <p>Current Job</p>
+                        <p>No. of Jobs</p>
                         <p><b className="text-2xl">6999</b></p>
                     </div>
+                    <div className="justify-center items-center">
+                        <p>Algorithm</p>
+                        <Select>
+                            <SelectTrigger className="h-1/4 w-full">
+                                <SelectValue placeholder="Select a policy" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem value = "FCFS">First Come, First Served</SelectItem>
+                                    <SelectItem value = "SJF">Shortest Job First</SelectItem>
+                                    <SelectItem value = "Priority">Priority</SelectItem>
+                                    <SelectItem value = "Round Robin">Round Robin</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
                     <div>
-                        <p>Current Time</p>
+                        <p>Quantum</p>
                         <p><b className="text-2xl">6999</b></p>
                     </div>
-                    <div>
-                        <p>Idle Time</p>
-                        <p><b className="text-2xl">6999</b></p>
-                    </div>
-                    <div>
-                        <p>Utilization</p>
-                        <p><b className="text-2xl">69.99%</b></p>
-                    </div>
-                    <div>
-                        <p>Utilization</p>
-                        <p><b className="text-2xl">69.99%</b></p>
+                    <div className="col-span-2">
+                        <div className = "gap-2">
+                            <button>Start</button>
+                            <button>Stop</button>
+                            <button>Pause</button>
+                            <button>Next</button>
+                        </div>
+                        <div className = "gap-2">
+                            <button>Create New Task</button>
+                            <button>Start Simulation</button>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
