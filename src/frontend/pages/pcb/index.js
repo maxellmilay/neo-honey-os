@@ -13,6 +13,7 @@ import {
   TableCell,
   TableHeader,
 } from "../../components/ui/table";
+import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
@@ -31,9 +32,43 @@ function PCB() {
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="relative flex bg-orange-50 h-[720px] w-full p-5 justify-center items-center rounded-lg grid grid-cols-3 gap-4">     
-            <div className="col-span-2">Column 1</div>
-            <div>Column 2</div>
+        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-auto w-full p-5 justify-center items-center rounded-lg  gap-4">     
+            <div className="col-span-2">
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
+            <div>
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
+            <div className="row-span-2 col-span-2">
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
+            <div className="row-span-1 col-span-1">
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
+            <div className="row-span-1 col-span-1">
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
+            <div className="col-span-3">
+            <Card>
+                <CardHeader>PCB</CardHeader>
+                <CardContent>Test</CardContent>
+            </Card>
+            </div>
         </div>
         </>
     );
