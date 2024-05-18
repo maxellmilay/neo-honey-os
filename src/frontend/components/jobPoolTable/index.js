@@ -23,6 +23,7 @@ function JobPoolTable() {
                 <TableHead>Priority</TableHead>
                 <TableHead>Start</TableHead>
                 <TableHead>Finish</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Remaining Time</TableHead>
                 <TableHead>Turnaround</TableHead>
                 <TableHead>Waiting Time</TableHead>
@@ -30,6 +31,7 @@ function JobPoolTable() {
             </TableRow>
             </TableHeader>
             <TableBody>
+                <TableCell>69</TableCell>
                 <TableCell>69</TableCell>
                 <TableCell>69</TableCell>
                 <TableCell>69</TableCell>
