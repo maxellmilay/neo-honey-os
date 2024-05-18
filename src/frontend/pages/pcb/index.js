@@ -35,57 +35,17 @@ function PCB() {
     const navigate = useNavigate();
 
     return (
-        <div>
-            <h3>BusyBee PCB</h3>
-            <div className="flex flex-col">
-                <div className="mb-2">
-                <Button variant = "icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
-                <Button
-                    style={{
-                    color: "black",
-                    width: "200px",
-                    height: "40px",
-                    textAlign: "left",
-                    display: "block",
-                    marginBottom: "8px",
-                    }}
-                >
-                    <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                    First-Come First-Served
-                </Button>
-                </div>
-            </div>
-            <div className="mb-2">
-                <Button
-                style={{
-                    color: "black",
-                    width: "200px",
-                    height: "40px",
-                    textAlign: "left",
-                    display: "block",
-                    marginBottom: "8px",
-                }}
-                >
-                <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                <>Shortest Job First (Preemptive)</>
-                </Button>
-            </div>
-            <div className="mb-2">
-                <Button
-                style={{
-                    color: "black",
-                    width: "200px",
-                    height: "40px",
-                    textAlign: "left",
-                    display: "block",
-                    marginBottom: "8px",
-                }}
-                >
-                <Save className="mr-2 h-4 w-4 inline-block align-middle" />
-                Priority Scheduling
-                </Button>
+        <>
+        <div className="grid grid-cols-3 items-center w-screen">
+            <h3 className="col-start-2 col-end-3 text-center">BusyBee PCB</h3> 
+            <div className="col-start-3 col-end-4 text-right">
+                <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
+        <div className="bg-white h-60 w-screen">            
+            test
+        </div>
+        </>
     );
 }
 
