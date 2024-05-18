@@ -35,7 +35,7 @@ import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll, ChevronLeftIcon } from 
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "../../components/pcb/dummydata";
-import { jobPoolTable } from "../../components/jobPoolTable";
+import JobPoolTable from '../../components/jobPoolTable';
 import { ScrollArea } from "../../components/ui/scroll-area";
 
 function PCB() {
@@ -121,7 +121,7 @@ function PCB() {
             <div className="h-full row-span-2 col-span-2">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
-                    <CardContent>Test</CardContent>
+                    <CardContent className="m-0"><JobPoolTable /></CardContent>
                 </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
