@@ -33,7 +33,7 @@ function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
   const navigate = useNavigate();
-//   const [processControlBlocks, setProcessControlBlocks] = useState([]);
+  const [processControlBlocks, setProcessControlBlocks] = useState([]);
 
 //   useEffect(() => {
 //     const generateRandomProcess = () => {

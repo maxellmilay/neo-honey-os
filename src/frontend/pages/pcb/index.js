@@ -35,6 +35,7 @@ import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll, ChevronLeftIcon } from 
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "../../components/pcb/dummydata";
+import { jobPoolTable } from "../../components/jobPoolTable";
 import { ScrollArea } from "../../components/ui/scroll-area";
 
 function PCB() {
@@ -43,13 +44,14 @@ function PCB() {
 
     return (
         <>
+        <div className="h-screen">
         <div className="grid grid-cols-3 items-center w-screen py-2">
             <h2 className="col-start-2 col-end-3 text-center">BusyBee</h2> 
             <div className="col-start-3 col-end-4 text-right">
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-auto w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
+        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
             <div className="col-span-2">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
@@ -117,44 +119,45 @@ function PCB() {
             </Card>
             </div>
             <div className="h-full row-span-2 col-span-2">
-            <Card className="bg-slate-100 h-full">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
-                <CardContent>Test</CardContent>
-            </Card>
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
+                    <CardContent>Test</CardContent>
+                </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
-            <Card className="bg-slate-100 h-full">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Average</h4></CardHeader>
-                <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-2">
-                    <div>
-                        <p>Waiting</p>
-                        <p><b className="text-2xl">6999</b></p>
-                    </div>
-                    <div>
-                        <p>Turnaround Time</p>
-                        <p><b className="text-2xl">6999</b></p>
-                    </div>
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Average</h4></CardHeader>
+                    <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-2">
+                        <div>
+                            <p>Waiting</p>
+                            <p><b className="text-2xl">6999</b></p>
+                        </div>
+                        <div>
+                            <p>Turnaround Time</p>
+                            <p><b className="text-2xl">6999</b></p>
+                        </div>
+                        </CardContent>
+                </Card>
+            </div>
+            <div className="h-full row-span-1 col-span-1">
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
+                    <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-6">
+                        <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
+                        <div className="grid col-span-5 justify-items-start">insert</div>
                     </CardContent>
-            </Card>
+                </Card>
             </div>
-            <div className="h-full row-span-1 col-span-1">
-            <Card className="bg-slate-100 h-full">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
-                <CardContent className="items-center h-[100px] py-2 grid grid-cols-6">
-                    <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                    <div className="grid col-span-5 justify-items-start">b</div>
-                </CardContent>
-            </Card>
+            <div className="col-span-3 h-full">
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
+                    <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-10">
+                        <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
+                        <div className="grid col-span-9 justify-items-start">insert</div>
+                    </CardContent>
+                </Card>
             </div>
-            <div className="col-span-3">
-            <Card className="bg-slate-100 h-full">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
-                <CardContent className="items-center h-[100px] py-2 grid grid-cols-10">
-                    <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                    <div className="grid col-span-9 justify-items-start">b</div>
-                </CardContent>
-            </Card>
-            </div>
+        </div>
         </div>
         </>
     );
