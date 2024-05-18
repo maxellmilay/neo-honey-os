@@ -7,6 +7,7 @@ import { Cross2Icon,
     TrackNextIcon,
     PlusIcon,
     ReloadIcon,
+    ChevronRightIcon,
  } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
 import {
@@ -30,7 +31,7 @@ import {
   TableHeader,
 } from "../../components/ui/table";
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
-import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
+import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll, ChevronLeftIcon } from "lucide-react";
 import pcbIcon from "../../assets/img/pcbIcon.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "../../components/pcb/dummydata";
@@ -86,7 +87,7 @@ function PCB() {
                         </div>
                         <div className = "flex gap-6">
                             <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-yellow-400"><PlusIcon /> Create New Task</Button>
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2"><ReloadIcon />Start New Simulation</Button>
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-gray-400"><ReloadIcon />Start New Simulation</Button>
                         </div>
                     </div>
                 </CardContent>
@@ -139,13 +140,19 @@ function PCB() {
             <div className="h-full row-span-1 col-span-1">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
-                <CardContent>Test</CardContent>
+                <CardContent className="items-center h-[100px] py-2 grid grid-cols-6">
+                    <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
+                    <div className="grid col-span-5 justify-items-start">b</div>
+                </CardContent>
             </Card>
             </div>
             <div className="col-span-3">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
-                <CardContent>Test</CardContent>
+                <CardContent className="items-center h-[100px] py-2 grid grid-cols-10">
+                    <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
+                    <div className="grid col-span-9 justify-items-start">b</div>
+                </CardContent>
             </Card>
             </div>
         </div>
