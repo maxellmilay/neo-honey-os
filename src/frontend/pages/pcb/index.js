@@ -32,40 +32,40 @@ function PCB() {
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-auto w-full p-5 justify-center items-center rounded-lg  gap-4">     
+        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-auto w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
             <div className="col-span-2">
             <Card>
-                <CardHeader>PCB</CardHeader>
+                <CardHeader>Data</CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
             <div>
             <Card>
-                <CardHeader>PCB</CardHeader>
+                <CardHeader>CPU</CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
-            <div className="row-span-2 col-span-2">
-            <Card>
-                <CardHeader>PCB</CardHeader>
+            <div className="h-full row-span-2 col-span-2">
+            <Card className="h-full">
+                <CardHeader><h4>Job Pool (PCB)</h4></CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
-            <div className="row-span-1 col-span-1">
-            <Card>
-                <CardHeader>PCB</CardHeader>
-                <CardContent>Test</CardContent>
+            <div className="h-full row-span-1 col-span-1">
+            <Card className="bg-slate-100 h-full">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Average</h4></CardHeader>
+                <CardContent className=" justify-center items-center py-2">Test</CardContent>
             </Card>
             </div>
-            <div className="row-span-1 col-span-1">
-            <Card>
-                <CardHeader>PCB</CardHeader>
+            <div className="h-full row-span-1 col-span-1">
+            <Card className="h-full">
+                <CardHeader>Ready Queue</CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
             <div className="col-span-3">
             <Card>
-                <CardHeader>PCB</CardHeader>
+                <CardHeader>Gantt Chart</CardHeader>
                 <CardContent>Test</CardContent>
             </Card>
             </div>
