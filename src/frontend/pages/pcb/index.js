@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import Draggable from "react-draggable";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "../../components/ui/dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -36,14 +25,15 @@ function PCB() {
 
     return (
         <>
-        <div className="grid grid-cols-3 items-center w-screen">
-            <h3 className="col-start-2 col-end-3 text-center">BusyBee PCB</h3> 
+        <div className="grid grid-cols-3 items-center w-screen py-2">
+            <h3 className="col-start-2 col-end-3 text-center">BusyBee</h3> 
             <div className="col-start-3 col-end-4 text-right">
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="bg-white h-60 w-screen">            
-            test
+        <div className="relative flex bg-orange-50 h-[720px] w-full p-5 justify-center items-center rounded-lg grid grid-cols-3 gap-4">     
+            <div className="col-span-2">Column 1</div>
+            <div>Column 2</div>
         </div>
         </>
     );
