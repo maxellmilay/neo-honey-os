@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon,
+    PlayIcon,
+    PauseIcon,
+    StopIcon,
+    TrackNextIcon,
+    PlusIcon,
+    ReloadIcon,
+ } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
 import {
     Select,
@@ -45,7 +52,7 @@ function PCB() {
             <div className="col-span-2">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
-                <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-5">
+                <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
                     <div>
                         <p>No. of Jobs</p>
                         <p><b className="text-2xl">6999</b></p>
@@ -53,7 +60,7 @@ function PCB() {
                     <div className="justify-center items-center">
                         <p>Algorithm</p>
                         <Select>
-                            <SelectTrigger className="h-1/4 w-full">
+                            <SelectTrigger  className="h-[30px] w-full">
                                 <SelectValue placeholder="Select a policy" />
                             </SelectTrigger>
                             <SelectContent>
@@ -71,15 +78,15 @@ function PCB() {
                         <p><b className="text-2xl">6999</b></p>
                     </div>
                     <div className="col-span-2">
-                        <div className = "gap-2">
-                            <button>Start</button>
-                            <button>Stop</button>
-                            <button>Pause</button>
-                            <button>Next</button>
+                        <div className = "flex gap-3 py-1">
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-green-500"><PlayIcon />Start</Button>
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-red-500"><StopIcon /> Stop</Button>
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-orange-500"><PauseIcon />Pause</Button>
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-gray-500"><TrackNextIcon />Next</Button>
                         </div>
-                        <div className = "gap-2">
-                            <button>Create New Task</button>
-                            <button>Start Simulation</button>
+                        <div className = "flex gap-6">
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-yellow-400"><PlusIcon /> Create New Task</Button>
+                            <Button variant = "nohover" className = "h-1/4 flex gap-2"><ReloadIcon />Start New Simulation</Button>
                         </div>
                     </div>
                 </CardContent>
