@@ -10,7 +10,7 @@ import {
 import styles from "./pcb.module.css";
 import { ScrollArea } from "../../components/ui/scroll-area";
 
-function JobPoolTable() {
+function JobPoolTable({ simulation }) {
     return(
         <Table className="w-full h-full"> 
             <ScrollArea className="h-[300px] w-auto p-2">
@@ -23,6 +23,7 @@ function JobPoolTable() {
                 <TableHead>Priority</TableHead>
                 <TableHead>Start</TableHead>
                 <TableHead>Finish</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Remaining Time</TableHead>
                 <TableHead>Turnaround</TableHead>
                 <TableHead>Waiting Time</TableHead>
@@ -30,17 +31,20 @@ function JobPoolTable() {
             </TableRow>
             </TableHeader>
             <TableBody>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
-                <TableCell>69</TableCell>
+                {simulation?.jobs.map((item, index) => (
+                <TableRow key={index}>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.arrivalTime}</TableCell>
+                    <TableCell>{item.burst}</TableCell>
+                    <TableCell>{item.priority}</TableCell>
+                    <TableCell>{item.startTime}</TableCell>
+                    <TableCell>{item.finishTime}</TableCell>
+                    <TableCell>{item.remaining}</TableCell>
+                    <TableCell>{item.getTurnaroundTime(simulation.time)}</TableCell>
+                    <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>
+                    <TableCell>{item.percent}</TableCell>
+                </TableRow>
+                ))}
             </TableBody>
             </ScrollArea>
       </Table>

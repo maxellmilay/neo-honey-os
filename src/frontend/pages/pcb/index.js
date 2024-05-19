@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Cross2Icon,
     PlayIcon,
@@ -19,28 +19,129 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../../components/ui/select"
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Textarea } from "../../components/ui/textarea";
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableHeader,
-} from "../../components/ui/table";
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
-import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll, ChevronLeftIcon } from "lucide-react";
-import pcbIcon from "../../assets/img/pcbIcon.png";
-import styles from "./pcb.module.css";
-import { generateRandomProcessControlBlock } from "../../components/pcb/dummydata";
 import JobPoolTable from '../../components/jobPoolTable';
-import { ScrollArea } from "../../components/ui/scroll-area";
+import { FirstComeFirstServe, 
+ShortestJobFirst, 
+Priority, 
+PreemptivePriority, 
+STRF, 
+RoundRobin 
+} from '../../../classes/algorithm';
+import { Job } from '../../../classes/job';
+import { Simulation } from '../../../classes/simulation';
+
 
 function PCB() {
 
     const navigate = useNavigate();
+    const [title, setTitle] = useState('CPU-Scheduling-Simulator');
+    const [simulation, setSimulation] = useState(null);
+    const [jobs, setJobs] = useState([]);
+    const [simSpeed, setSimSpeed] = useState(5000);
+    const [quantum, setQuantum] = useState(2);
+    const [jobCount, setJobCount] = useState(8);
+    const [algo, setAlgo] = useState('fcfs');
+    const [running, setRunning] = useState(false);
+    const intervalRef = useRef(null);
+
+    useEffect(() => {
+        newSim();
+    }, []);
+
+    const setTimer = (time) => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        if (time === 0) return;
+        intervalRef.current = setInterval(() => {
+        if (simulation.isFinished()) {
+            clearInterval(intervalRef.current);
+            setRunning(false);
+        }
+        simulation.nextStep();
+        }, time);
+    };
+
+    const getAlgorithm = () => {
+        switch (algo) {
+        case 'fcfs':
+            return new FirstComeFirstServe();
+        case 'sjf':
+            return new ShortestJobFirst();
+        case 'rr':
+            return new RoundRobin();
+        case 'p':
+            return new Priority();
+        case 'pp':
+            return new PreemptivePriority();
+        case 'strf':
+            return new STRF();
+        default:
+            return new FirstComeFirstServe();
+        }
+    };
+
+    const newSim = (sameJobs = false) => {
+        stop();
+        if (!sameJobs) {
+        const newJobs = [];
+        for (let i = 0; i < Number(jobCount); i++) {
+            newJobs.push(Job.createRandomJob(i + 1));
+        }
+        setJobs(newJobs);
+        }
+        const algorithm = getAlgorithm();
+        algorithm.quantumTime = Number(quantum);
+        const sim = new Simulation(algorithm, jobs);
+        sim.reset();
+        setSimulation(sim);
+    };
+
+    const play = () => {
+        if (simulation.isFinished()) {
+        simulation.reset();
+        }
+        setRunning(true);
+        setTimer(simSpeed);
+    };
+
+    const stop = () => {
+        setRunning(false);
+        setTimer(0);
+    };
+
+    const next = () => {
+        stop();
+        simulation.nextStep();
+    };
+
+    const finish = () => {
+        setTimer(1);
+    };
+
+    const reset = () => {
+        stop();
+        simulation.reset();
+    };
+
+    const handleSpeedChange = (e) => {
+        setSimSpeed(Number(e.target.value));
+        setTimer(Number(e.target.value));
+    };
+
+    const handleAlgoChange = (e) => {
+        setAlgo(e.target.value);
+        newSim(jobs.length === jobCount);
+    };
+
+    const handleJobCountChange = (e) => {
+        setJobCount(Number(e.target.value));
+        newSim(jobs.length === jobCount);
+    };
+
+    const handleQuantumChange = (e) => {
+        setQuantum(Number(e.target.value));
+        newSim(jobs.length === jobCount);
+    };
 
     return (
         <>
@@ -62,16 +163,19 @@ function PCB() {
                     </div>
                     <div className="justify-center items-center">
                         <p>Algorithm</p>
-                        <Select>
+                        <Select className="form-control"
+                                value={algo}
+                                disabled={running}
+                                onChange={handleAlgoChange}>
                             <SelectTrigger  className="h-[30px] w-full">
                                 <SelectValue placeholder="Select a policy" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectItem value = "FCFS">First Come, First Served</SelectItem>
-                                    <SelectItem value = "SJF">Shortest Job First</SelectItem>
-                                    <SelectItem value = "Priority">Priority</SelectItem>
-                                    <SelectItem value = "Round Robin">Round Robin</SelectItem>
+                                    <SelectItem value = "fcfs">First Come, First Served</SelectItem>
+                                    <SelectItem value = "strf">Shortest Job First</SelectItem>
+                                    <SelectItem value = "p">Priority</SelectItem>
+                                    <SelectItem value = "rr">Round Robin</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -82,14 +186,26 @@ function PCB() {
                     </div>
                     <div className="col-span-2">
                         <div className = "flex gap-3 py-1">
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-green-500"><PlayIcon />Start</Button>
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-red-500"><StopIcon /> Stop</Button>
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-orange-500"><PauseIcon />Pause</Button>
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-gray-500"><TrackNextIcon />Next</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-green-500" 
+                                    onClick={play}><PlayIcon />Start</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-red-500" 
+                                    onClick={finish}><StopIcon /> Stop</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-orange-500" 
+                                    onClick={stop}><PauseIcon />Pause</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-gray-500" 
+                                    onClick={next}><TrackNextIcon />Next</Button>
                         </div>
                         <div className = "flex gap-6">
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-yellow-400"><PlusIcon /> Create New Task</Button>
-                            <Button variant = "nohover" className = "h-1/4 flex gap-2 bg-gray-400"><ReloadIcon />Start New Simulation</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-yellow-400" 
+                                    onClick={() => newSim()}><PlusIcon /> Create New Task</Button>
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-gray-400" 
+                                    onClick={reset}><ReloadIcon />Start New Simulation</Button>
                         </div>
                     </div>
                 </CardContent>
@@ -101,19 +217,19 @@ function PCB() {
                 <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-4">
                     <div>
                         <p>Current Job</p>
-                        <p><b className="text-2xl">6999</b></p>
+                        <p><b className="text-2xl">{simulation?.jobText}</b></p>
                     </div>
                     <div>
                         <p>Current Time</p>
-                        <p><b className="text-2xl">6999</b></p>
+                        <p><b className="text-2xl">{simulation?.time}</b></p>
                     </div>
                     <div>
                         <p>Idle Time</p>
-                        <p><b className="text-2xl">6999</b></p>
+                        <p><b className="text-2xl">{simulation?.idleTime}</b></p>
                     </div>
                     <div>
                         <p>Utilization</p>
-                        <p><b className="text-2xl">69.99%</b></p>
+                        <p><b className="text-2xl">{simulation?.utilization}%</b></p>
                     </div>
                 </CardContent>
             </Card>
@@ -121,7 +237,7 @@ function PCB() {
             <div className="h-full row-span-2 col-span-2">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
-                    <CardContent className="m-0"><JobPoolTable /></CardContent>
+                    <CardContent className="m-0"><JobPoolTable simulation={simulation} /></CardContent>
                 </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
@@ -130,11 +246,11 @@ function PCB() {
                     <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-2">
                         <div>
                             <p>Waiting</p>
-                            <p><b className="text-2xl">6999</b></p>
+                            <p><b className="text-2xl">{simulation?.averageWait}</b></p>
                         </div>
                         <div>
                             <p>Turnaround Time</p>
-                            <p><b className="text-2xl">6999</b></p>
+                            <p><b className="text-2xl">{simulation?.averageTurnaround}</b></p>
                         </div>
                         </CardContent>
                 </Card>
@@ -144,7 +260,12 @@ function PCB() {
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
                     <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-6">
                         <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                        <div className="grid col-span-5 justify-items-start">insert</div>
+                        <div className="grid col-span-5 justify-items-start">
+                            {/* insert */}
+                      {simulation?.readyQueue.map((item, index) => (
+                        <div key={index} className={`gantt-lg-${item.id}`}>{item.id}</div>
+                      ))}
+                        </div>
                     </CardContent>
                 </Card>
             </div>
@@ -153,7 +274,13 @@ function PCB() {
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
                     <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-10">
                         <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                        <div className="grid col-span-9 justify-items-start">insert</div>
+                        <div className="grid col-span-9 justify-items-start">
+                            {/* insert */}
+                            
+                  {simulation?.ganttChart.map((item, index) => (
+                    <div key={index} className={`gantt-sm-${item}`}>{item}</div>
+                  ))}
+                        </div>
                     </CardContent>
                 </Card>
             </div>
