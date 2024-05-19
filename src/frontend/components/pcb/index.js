@@ -68,7 +68,7 @@ function PCB() {
       dialogContentArray.push(
         <>
           <Draggable positionOffset={{ x: "-50%", y: "-50%" }}>
-            <DialogContent key={i} className=" h-fit w-fit object-center">
+            <DialogContent key={i} className="h-fit w-fit">
               <div className="">
                 <DialogHeader>
                   <DialogTitle className="text-s">

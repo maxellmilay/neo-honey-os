@@ -1,86 +1,108 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import _ from "lodash";
 import Fade from "react-reveal/Fade";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../ui/table";
 
-export default class Table extends Component {
-    render() {
-        let {referenceString, frameNumber, algorithmLabel, algorithm, colorMap, resetTurns, swapToggle, animationToggle, detailToggle} = this.props;
-        let {pageInMemArray, pageFaults, pageNotInMemArray, referenceMapArray} = algorithm(referenceString, frameNumber, resetTurns);
-        let frameNumberArray = _.range(0, frameNumber, 1);
+export default class TableVM extends Component {
+  // Define a function to generate color palette
+  generateColorPalette = () => {
+    const excludedColors = [ "#006400", "#FF0000"]; // Green and Red
+    const availableColors = [ "#C1B6A3", // Light brown
+  "#FFCC99", // Light orange
+  "#FFD699", // Light yellow
+  "#FFE6CC", // Light peach
+  "#CCFFFF", // Light cyan
+  "#99CCFF", // Light blue
+  "#CCCCFF", // Light lavender
+  "#FFCCFF", // Light pink
+  "#FFFF99"];
+    const colors = availableColors.filter(color => !excludedColors.includes(color));
+    return colors;
+  };
 
-        return (
-            <div>
-                <label>{algorithmLabel + ":"}</label>
-                <div className="table-responsive">
-                    <table className="table table-bordered table-sm table-custom-style">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Reference:</th>
-                                {frameNumberArray.map(f => (
-                                    <th key={f} className="table-cell-align-center">Frame {f + 1}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-    {referenceString.map((ref, idx) => (
-        <tr key={idx}>
-            <th className="table-cell-align-center">{ref}</th>
-            {frameNumberArray.map(f => (
-                animationToggle ? (
-                    <Fade right key={f}>
-                        <td className={colorMap.get(pageInMemArray[idx][f]) + " table-cell-align-center"}>
-                            {pageInMemArray[idx][f]}
-                            {detailToggle && (
-                                <sub>
-                                    <sub>
-                                        {(referenceMapArray[idx] ? referenceMapArray[idx].get(pageInMemArray[idx][f]) : "")}
-                                    </sub>
-                                </sub>
-                            )}
-                        </td>
-                    </Fade>
-                ) : (
-                    <td key={f} className={colorMap.get(pageInMemArray[idx][f]) + " table-cell-align-center"}>
-                        {pageInMemArray[idx][f]}
-                        {detailToggle && (
-                            <sub>
-                                <sub>
-                                    {(referenceMapArray[idx] ? referenceMapArray[idx].get(pageInMemArray[idx][f]) : "")}
-                                </sub>
-                            </sub>
-                        )}
-                    </td>
-                )
+  render() {
+    let {
+      referenceString,
+      frameNumber,
+      algorithmLabel,
+      algorithm,
+      resetTurns,
+    } = this.props;
+    let { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
+      referenceString,
+      frameNumber,
+      resetTurns
+    );
+    let frameNumberArray = _.range(0, frameNumber, 1);
+    const colorPalette = this.generateColorPalette();
+
+    return (
+      <div>
+        <Table>
+          <TableCaption></TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Job Process</TableHead>
+              <TableHead>Memory Size</TableHead>
+              <TableHead>Working Set</TableHead>
+              <TableHead>Swapped Memory</TableHead>
+              <TableHead>Page Fault</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {referenceString.map((ref, idx) => (
+              <TableRow key={idx}>
+                <TableCell className="font-medium">{ref}</TableCell>
+                <TableCell></TableCell> {/* Memory Size column */}
+                <TableCell>
+                  {pageInMemArray[idx].map((frame, idx) => (
+                    <TableCell
+                      key={idx}
+                      style={{
+                        backgroundColor:
+                          colorPalette[frame % colorPalette.length],
+                      }}
+                    >
+                      {frame}
+                    </TableCell>
+                  ))}
+                </TableCell>
+                <TableCell>
+                  {pageNotInMemArray[idx].map((frame, idx) => (
+                    <TableCell
+                      key={idx}
+                      style={{
+                        backgroundColor:
+                          colorPalette[frame % colorPalette.length],
+                      }}
+                    >
+                      {frame}
+                    </TableCell>
+                  ))}
+                </TableCell>{" "}
+                {/* Swapped Memory column */}
+                <TableCell>
+                  <Fade right>
+                    {pageFaults[idx] === "F" ? (
+                      <span style={{ color: "#FF0000" }}>{pageFaults[idx]}</span>
+                    ) : (
+                      <span style={{ color:  "#006400" }}>{pageFaults[idx]}</span>
+                    )}
+                  </Fade>
+                </TableCell>
+              </TableRow>
             ))}
-        </tr>
-    ))}
-    {swapToggle && referenceString.map((ref, idx) => (
-        <tr key={idx} className="thead-light">
-            <th className="table-cell-align-center">Swap {idx + 1}</th>
-            {frameNumberArray.map(f => (
-                animationToggle ? (
-                    <Fade right key={f}>
-                        <td className="table-cell-align-center">{pageNotInMemArray[idx][f]}</td>
-                    </Fade>
-                ) : (
-                    <td key={f} className="table-cell-align-center">{pageNotInMemArray[idx][f]}</td>
-                )
-            ))}
-            {/* Insert a column for page fault for each swap */}
-            {animationToggle ? (
-                <Fade right>
-                    <td className="table-cell-align-center">{pageFaults[idx]}</td>
-                </Fade>
-            ) : (
-                <td className="table-cell-align-center">{pageFaults[idx]}</td>
-            )}
-        </tr>
-    ))}
-</tbody>
-
-                    </table>
-                </div>
-            </div>
-        );
-    }
+          </TableBody>
+        </Table>
+      </div>
+    );
+  }
 }
