@@ -1,111 +1,113 @@
-import React, { useState } from 'react';
+import React, {Component} from 'react';
 import Header from "./component/header";
 import Tables from "./component/tables";
-import { refStringGen } from "./randomRefStringGen";
+import {refStringGen} from "./randomRefStringGen"
 import List from "./component/list";
-import './custom-style.css';
-
+import styles from "./custom-style.css";
 import {
     firstInFirstOut,
 } from "./algorithms";
 
-const VirtualMemory = () => {
-    const [referenceInputTextField, setReferenceInputTextField] = useState("0,2,3,1,2,1,4,5,6,2,4,5,3,2,3,8,5,7,2,0,6,4,1,9");
-    const [referenceString, setReferenceString] = useState(["0", "2", "3", "1", "2", "1", "4", "5", "6", "2", "4", "5", "3", "2", "3", "8", "5", "7", "2", "0", "6", "4", "1", "9"]);
-    const [frameNumber, setFrameNumber] = useState(4);
-    const [resetTurns, setResetTurns] = useState(4);
-    const [swapToggle, setSwapToggle] = useState(false);
-    const [animationToggle, setAnimationToggle] = useState(true);
-    const [detailToggle, setDetailToggle] = useState(false);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState({ name: "Show All" });
+class VisualMemory extends Component{
+    state = {
+        referenceInputTextField : "2,3,4,5,6,2,7,8",
+        referenceString : ["2", "3", "4", "5", "6", "2", "7", "8"],
+        frameNumber : 5,
+        resetTurns: 4,
+        swapToggle: false,
+        animationToggle: true,
+        detailToggle: false,
+        selectedAlgorithm: {name: "First In First Out"},
+    }
 
-    const handleRefChange = ({ target }) => {
-        let { value } = target;
+    handleRefChange = ({target}) => {
+        let {value} = target;
         if (value.match(/^$|^[0-9,]+$/) && !value.match(/,,+,*|[0-9][0-9]+[0-9]*/g)) {
-            let tempReferenceString = [...value.split(",")];
-            let filteredReferenceString = tempReferenceString.filter((value) => value !== "");
-            setReferenceInputTextField(value);
-            setReferenceString(filteredReferenceString);
+                let tempReferenceString = [...value.split(",")];
+                let filteredReferenceString = tempReferenceString.filter((value) => value !== "");
+                this.setState({referenceInputTextField: value, referenceString: filteredReferenceString});
         }
     }
 
-    const handleFrameChange = ({ target }) => {
-        if ((target.value <= 7 && target.value >= 3) || target.value == 0)
-            setFrameNumber(target.value);
+    handleFrameChange = ({target}) =>{
+        if((target.value <= 7 && target.value >=3) || target.value == 0)
+            this.setState({frameNumber: target.value});
     }
 
-    const handleResetTurnsChange = ({ target }) => {
+    handleResetTurnsChange = ({target}) => {
         if (target.value <= 9 && target.value >= 0)
-            setResetTurns(target.value);
+            this.setState({resetTurns: target.value});
     }
 
-    const handleSwapToggle = () => {
-        setSwapToggle(!swapToggle);
+    handleSwapToggle = () => {
+        this.setState({swapToggle: !this.state.swapToggle});
     }
 
-    const handleRefStringGenClick = () => {
-        let tempReferenceStringInput = refStringGen(24, 9);
+    handleRefStringGenClick = () => {
+        let tempReferenceStringInput =  refStringGen(24,9);
         let tempReferenceString = [...tempReferenceStringInput.split(",")];
         let filteredReferenceString = tempReferenceString.filter((value) => value !== "");
-        setReferenceInputTextField(tempReferenceStringInput);
-        setReferenceString(filteredReferenceString);
+        this.setState({referenceInputTextField: tempReferenceStringInput, referenceString: filteredReferenceString});
     }
 
-    const handleAnimationToggle = () => {
-        setAnimationToggle(!animationToggle);
+    handleAnimationToggle = () =>{
+        this.setState({animationToggle: !this.state.animationToggle});
     }
 
-    const handleDetailToggle = () => {
-        setDetailToggle(!detailToggle);
+    handleDetailToggle = () =>{
+        this.setState({detailToggle: !this.state.detailToggle});
     }
 
-    const handleListChange = (algorithm) => {
-        setSelectedAlgorithm(algorithm);
+    handleListChange = (algorithm) => {
+        this.setState({selectedAlgorithm:algorithm});
     }
 
-    const algorithms = [
-        { name: "First In First Out", f: firstInFirstOut },
-    ];
 
-    const filteredAlgorithm = selectedAlgorithm && selectedAlgorithm['f'] ? algorithms.filter(a => a['name'] === selectedAlgorithm['name']) : algorithms.filter(a => a['name'] !== "Show All");
-
-    return (
-        <main className="container">
-            <div className="row">
-                <div className="col">
-                    <Header
-                        handleRefChange={handleRefChange}
-                        handleFrameChange={handleFrameChange}
-                        handleResetTurnsChange={handleResetTurnsChange}
-                        handleRefStringGenClick={handleRefStringGenClick}
-                        handleSwapToggle={handleSwapToggle}
-                        handleAnimationToggle={handleAnimationToggle}
-                        handleDetailToggle={handleDetailToggle}
-                        detailToggle={detailToggle}
-                        frameNumber={frameNumber}
+    render() {
+        let {frameNumber, resetTurns, referenceString, referenceInputTextField, swapToggle, animationToggle, detailToggle, selectedAlgorithm} = this.state;
+        let {handleRefChange, handleFrameChange, handleResetTurnsChange, handleRefStringGenClick, handleAnimationToggle, handleSwapToggle, handleListChange, handleDetailToggle} = this;
+        const algorithms = [
+            {name : "First In First Out", f : firstInFirstOut},
+]
+        const filteredAlgorithm = selectedAlgorithm && selectedAlgorithm['f']? algorithms.filter(a => a['name'] === selectedAlgorithm['name']) : algorithms.filter(a=> a['name'] !== "Show All");
+        return (
+            <main className="container">
+                <div className="row">
+                    <div className="col">
+                        <Header
+                            handleRefChange={handleRefChange}
+                            handleFrameChange={handleFrameChange}
+                            handleResetTurnsChange={handleResetTurnsChange}
+                            handleRefStringGenClick={handleRefStringGenClick}
+                            handleSwapToggle={handleSwapToggle}
+                            handleAnimationToggle={handleAnimationToggle}
+                            handleDetailToggle={handleDetailToggle}
+                            detailToggle={detailToggle}
+                            frameNumber={frameNumber}
+                            resetTurns={resetTurns}
+                            referenceInputTextField={referenceInputTextField}
+                            animationToggle={animationToggle}
+                            swapToggle={swapToggle}
+                        />
+                    </div>
+                    <div className="col-3 mt-2 list-group-outer-padding">
+                        <List algorithms={algorithms} handleListChange={handleListChange} selectedAlgorithm={selectedAlgorithm}/>
+                    </div>
+                </div>
+                    <div>
+                        <Tables
+                        frameNumber={5}
                         resetTurns={resetTurns}
-                        referenceInputTextField={referenceInputTextField}
-                        animationToggle={animationToggle}
+                        referenceString={referenceString}
                         swapToggle={swapToggle}
+                        animationToggle={animationToggle}
+                        detailToggle={detailToggle}
+                        algorithms={filteredAlgorithm}
                     />
-                </div>
-                <div className="col-3 mt-2 list-group-outer-padding">
-                    <List algorithms={algorithms} handleListChange={handleListChange} selectedAlgorithm={selectedAlgorithm} />
-                </div>
-            </div>
-            <div>
-                <Tables
-                    frameNumber={frameNumber}
-                    resetTurns={resetTurns}
-                    referenceString={referenceString}
-                    swapToggle={swapToggle}
-                    animationToggle={animationToggle}
-                    detailToggle={detailToggle}
-                    algorithms={filteredAlgorithm}
-                />
-            </div>
-        </main>
-    );
+                    </div>
+            </main>
+        );
+    }
 }
 
-export default VirtualMemory;
+export default VisualMemory;
