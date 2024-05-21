@@ -21,6 +21,7 @@ import {
 } from "../../components/ui/select"
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
 import JobPoolTable from '../../components/jobPoolTable';
+import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area";
 import { FirstComeFirstServe, 
 ShortestJobFirst, 
 Priority, 
@@ -30,6 +31,8 @@ RoundRobin
 } from '../../../classes/algorithm';
 import { Job } from '../../../classes/job';
 import { Simulation } from '../../../classes/simulation';
+// import './styles.css'
+import './styles.scss'
 
 
 function PCB() {
@@ -253,28 +256,35 @@ function PCB() {
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
                     <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-6">
-                        <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                        <div className="grid col-span-5 justify-items-start">
-                            {/* insert */}
-                      {simulation?.readyQueue.map((item, index) => (
-                        <div key={index} className={`gantt-lg-${item.id}`}>{item.id}</div>
-                      ))}
+                        <div className="flex items-center">
+                            <ChevronRightIcon className="h-[20px] w-[20px]"/>
                         </div>
+                            <ScrollArea className="whitespace-nowrap">
+                                <div className="flex flex-grow justify-center items-center">
+                                    {simulation?.readyQueue.map((item, index) => (
+                                        <div key={index} className={`gantt-lg-${item.id}`}>{item.id}</div>
+                                    ))}
+                                </div>
+                            <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
                     </CardContent>
                 </Card>
             </div>
             <div className="col-span-3 h-full">
                 <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Gantt Chart</h4></CardHeader>
-                    <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-10">
-                        <div className="col-span-1"><ChevronRightIcon className="h-[20px] w-[20px]"/></div>
-                        <div className="grid col-span-9 justify-items-start">
-                            {/* insert */}
-                            
-                  {simulation?.ganttChart.map((item, index) => (
-                    <div key={index} className={`gantt-sm-${item}`}>{item}</div>
-                  ))}
-                        </div>
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                        <h4>Gantt Chart</h4>
+                    </CardHeader>
+                    <CardContent className="flex flex-start h-[100px] pt-8 inline-block align-middle justify-start"> 
+                            <ScrollArea className="whitespace-nowrap">
+                                <div className="flex flex-grow justify-items-start items-center">   
+                                    <ChevronRightIcon className="h-[20px] w-[20px]"/>
+                                    {simulation?.ganttChart.map((item, index) => (
+                                        <div key={index} className={`gantt-lg-${item}`}>{item}</div>
+                                    ))}
+                                </div>
+                            <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
                     </CardContent>
                 </Card>
             </div>
