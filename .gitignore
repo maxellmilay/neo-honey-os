@@ -29,3 +29,4 @@ yarn-error.log*
 
 # Packaged files
 /dist
+package.json
