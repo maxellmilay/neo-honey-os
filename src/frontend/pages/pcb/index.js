@@ -38,7 +38,7 @@ function PCB() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');
     const [simulation, setSimulation] = useState(null);
     const [jobs, setJobs] = useState([]);
-    const [simSpeed, setSimSpeed] = useState(5000);
+    const [simSpeed, setSimSpeed] = useState(1000);
     const [quantum, setQuantum] = useState(2);
     const [jobCount, setJobCount] = useState(8);
     const [algo, setAlgo] = useState('fcfs');
@@ -47,14 +47,23 @@ function PCB() {
 
     useEffect(() => {
         newSim();
-    }, []);
+    }, [algo, jobCount, quantum]);
+
+    useEffect(() => {
+        if (running) {
+            setTimer(simSpeed);
+        } else {
+            setTimer(0);
+        }
+        return () => clearInterval(intervalRef.current); // Cleanup on unmount
+    }, [running, simSpeed, simulation]);
 
     const setTimer = (time) => {
         if (intervalRef.current) clearInterval(intervalRef.current);
         if (time === 0) return;
         intervalRef.current = setInterval(() => {
         if (simulation.isFinished()) {
-            clearInterval(intervalRef.current);
+             clearInterval(intervalRef.current);
             setRunning(false);
         }
         simulation.nextStep();
@@ -101,12 +110,12 @@ function PCB() {
         simulation.reset();
         }
         setRunning(true);
-        setTimer(simSpeed);
+        // setTimer(simSpeed);
     };
 
     const stop = () => {
         setRunning(false);
-        setTimer(0);
+        // setTimer(0);
     };
 
     const next = () => {
@@ -121,25 +130,10 @@ function PCB() {
     const reset = () => {
         stop();
         simulation.reset();
-    };
-
-    const handleSpeedChange = (e) => {
-        setSimSpeed(Number(e.target.value));
-        setTimer(Number(e.target.value));
-    };
-
+    }; 
+    
     const handleAlgoChange = (e) => {
         setAlgo(e.target.value);
-        newSim(jobs.length === jobCount);
-    };
-
-    const handleJobCountChange = (e) => {
-        setJobCount(Number(e.target.value));
-        newSim(jobs.length === jobCount);
-    };
-
-    const handleQuantumChange = (e) => {
-        setQuantum(Number(e.target.value));
         newSim(jobs.length === jobCount);
     };
 
@@ -187,24 +181,24 @@ function PCB() {
                     <div className="col-span-2">
                         <div className = "flex gap-3 py-1">
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-green-500" 
+                                    className = "h-1/4 flex gap-2 bg-green-500 active:bg-green-600" 
                                     onClick={play}><PlayIcon />Start</Button>
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-red-500" 
+                                    className = "h-1/4 flex gap-2 bg-red-500 active:bg-red-600" 
                                     onClick={finish}><StopIcon /> Stop</Button>
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-orange-500" 
+                                    className = "h-1/4 flex gap-2 bg-orange-500 active:bg-orange-600" 
                                     onClick={stop}><PauseIcon />Pause</Button>
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-500" 
+                                    className = "h-1/4 flex gap-2 bg-gray-500 active:bg-gray-600" 
                                     onClick={next}><TrackNextIcon />Next</Button>
                         </div>
                         <div className = "flex gap-6">
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-yellow-400" 
+                                    className = "h-1/4 flex gap-2 bg-yellow-400 active:bg-yellow-600" 
                                     onClick={() => newSim()}><PlusIcon /> Create New Task</Button>
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-400" 
+                                    className = "h-1/4 flex gap-2 bg-gray-400 active:bg-gra-600" 
                                     onClick={reset}><ReloadIcon />Start New Simulation</Button>
                         </div>
                     </div>

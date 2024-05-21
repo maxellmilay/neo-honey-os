@@ -16,18 +16,18 @@ function JobPoolTable({ simulation }) {
             <ScrollArea className="h-[300px] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Arrival Time</TableHead>
-                <TableHead>Burst Time</TableHead>
-                <TableHead>Memory Size</TableHead>
-                <TableHead>Priority</TableHead>
-                <TableHead>Start</TableHead>
-                <TableHead>Finish</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Remaining Time</TableHead>
-                <TableHead>Turnaround</TableHead>
-                <TableHead>Waiting Time</TableHead>
-                <TableHead>%</TableHead>
+                <TableHead className="text-center">ID</TableHead>
+                <TableHead className="text-center">Arrival</TableHead>
+                <TableHead className="text-center">Burst</TableHead>
+                <TableHead className="text-center">Memory</TableHead>
+                <TableHead className="text-center">Priority</TableHead>
+                <TableHead className="text-center">Start</TableHead>
+                <TableHead className="text-center">Finish</TableHead>
+                <TableHead className="text-center">Status</TableHead>
+                <TableHead className="text-center">Remaining</TableHead>
+                <TableHead className="text-center">Turnaround</TableHead>
+                <TableHead className="text-center">Waiting</TableHead>
+                <TableHead className="text-center">%</TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
@@ -36,9 +36,11 @@ function JobPoolTable({ simulation }) {
                     <TableCell>{item.id}</TableCell>
                     <TableCell>{item.arrivalTime}</TableCell>
                     <TableCell>{item.burst}</TableCell>
+                    <TableCell>{item.memory} kb</TableCell>
                     <TableCell>{item.priority}</TableCell>
                     <TableCell>{item.startTime}</TableCell>
                     <TableCell>{item.finishTime}</TableCell>
+                    <TableCell>Ready or not</TableCell> {/*New, Ready, Running, Waiting, Suspended, Terminated*/}
                     <TableCell>{item.remaining}</TableCell>
                     <TableCell>{item.getTurnaroundTime(simulation.time)}</TableCell>
                     <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>

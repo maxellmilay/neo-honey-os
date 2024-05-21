@@ -1,9 +1,10 @@
 export class Job {
-  constructor(jobId, arriveTime, burst, priority) {
+  constructor(jobId, arriveTime, burst, priority, memory) {
     this.id = jobId;
     this.arrivalTime = arriveTime;
     this.burst = burst;
     this.priority = priority;
+    this.memory = memory;
     this.startTime = 0;
     this.finishTime = 0;
     this.remaining = this.burst;
@@ -15,8 +16,9 @@ export class Job {
     const random = (max, min = 1) => Math.floor(Math.random() * max) + min;
     const arriveTime = jobId === 1 ? 1 : random(30, 2);
     const burst = random(12);
-    const priority = random(125);
-    return new Job(jobId, arriveTime, burst, priority);
+    const priority = random(100);
+    const memory = jobId === 1 ? 1 : random(9, 1);
+    return new Job(jobId, arriveTime, burst, priority, memory);
   }
 
   get started() {
@@ -89,6 +91,11 @@ export class Job {
   compareByPriority(other) {
     const tmp = this.priority - other.priority;
     return tmp === 0 ? this.compareByArrive(other) : tmp;
+  }
+
+  compareByMemory(other) {
+    const tmp = this.priority - other.priority;
+    return tmp === 0 ? this.compareById(other) : tmp;
   }
 
   compareByRemaining(other) {
