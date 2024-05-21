@@ -14,18 +14,27 @@ import {
 export default class TableVM extends Component {
   // Define a function to generate color palette
   generateColorPalette = () => {
-    const excludedColors = [ "#006400", "#FF0000"]; // Green and Red
-    const availableColors = [ "#C1B6A3", // Light brown
-  "#FFCC99", // Light orange
-  "#FFD699", // Light yellow
-  "#FFE6CC", // Light peach
-  "#CCFFFF", // Light cyan
-  "#99CCFF", // Light blue
-  "#CCCCFF", // Light lavender
-  "#FFCCFF", // Light pink
-  "#FFFF99"];
+    const excludedColors = ["#006400", "#FF0000"]; // Green and Red
+    const availableColors = [
+      "#C1B6A3", // Light brown
+      "#FFCC99", // Light orange
+      "#FFD699", // Light yellow
+      "#FFE6CC", // Light peach
+      "#CCFFFF", // Light cyan
+      "#99CCFF", // Light blue
+      "#CCCCFF", // Light lavender
+      "#FFCCFF", // Light pink
+      "#FFFF99"
+    ];
     const colors = availableColors.filter(color => !excludedColors.includes(color));
     return colors;
+  };
+
+  // Define a function to generate a random memory size
+  generateRandomMemorySize = () => {
+    const minSize = 1;
+    const maxSize = 100; // Adjust as needed for realistic memory sizes
+    return Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
   };
 
   render() {
@@ -44,6 +53,9 @@ export default class TableVM extends Component {
     let frameNumberArray = _.range(0, frameNumber, 1);
     const colorPalette = this.generateColorPalette();
 
+    // Generate random memory sizes for each job process
+    const memorySizes = referenceString.map(() => this.generateRandomMemorySize());
+
     return (
       <div>
         <Table>
@@ -61,14 +73,13 @@ export default class TableVM extends Component {
             {referenceString.map((ref, idx) => (
               <TableRow key={idx}>
                 <TableCell className="font-medium">{ref}</TableCell>
-                <TableCell></TableCell> {/* Memory Size column */}
+                <TableCell>{memorySizes[idx]}</TableCell> {/* Memory Size column */}
                 <TableCell>
-                  {pageInMemArray[idx].map((frame, idx) => (
+                  {pageInMemArray[idx].map((frame, frameIdx) => (
                     <TableCell
-                      key={idx}
+                      key={frameIdx}
                       style={{
-                        backgroundColor:
-                          colorPalette[frame % colorPalette.length],
+                        backgroundColor: colorPalette[frame % colorPalette.length],
                       }}
                     >
                       {frame}
@@ -76,25 +87,23 @@ export default class TableVM extends Component {
                   ))}
                 </TableCell>
                 <TableCell>
-                  {pageNotInMemArray[idx].map((frame, idx) => (
+                  {pageNotInMemArray[idx].map((frame, frameIdx) => (
                     <TableCell
-                      key={idx}
+                      key={frameIdx}
                       style={{
-                        backgroundColor:
-                          colorPalette[frame % colorPalette.length],
+                        backgroundColor: colorPalette[frame % colorPalette.length],
                       }}
                     >
                       {frame}
                     </TableCell>
                   ))}
-                </TableCell>{" "}
-                {/* Swapped Memory column */}
+                </TableCell> {/* Swapped Memory column */}
                 <TableCell>
                   <Fade right>
                     {pageFaults[idx] === "F" ? (
                       <span style={{ color: "#FF0000" }}>{pageFaults[idx]}</span>
                     ) : (
-                      <span style={{ color:  "#006400" }}>{pageFaults[idx]}</span>
+                      <span style={{ color: "#006400" }}>{pageFaults[idx]}</span>
                     )}
                   </Fade>
                 </TableCell>
