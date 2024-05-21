@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Notepad from '../../components/notepad/Notepad';
-import PCB from '../../components/pcb';
+import PCB from '../pcb';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
