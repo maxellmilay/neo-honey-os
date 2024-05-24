@@ -19,6 +19,11 @@ export class Simulation {
       this.currentJob = undefined;
     }
 
+    // Add new jobs dynamically every few time units
+    if (this.time % 10 === 0) {
+      this.addNewJob();
+    }
+
     const newJobs = this.jobs.filter(job => job.arrivalTime === this.time);
     this.readyQueue.push(...newJobs);
     this.algorithm.processQueue(this.readyQueue, this.currentJob);
@@ -31,6 +36,12 @@ export class Simulation {
       this.ganttChart.push(this.currentJob ? this.currentJob.id : 0);
       this.idleTime += this.currentJob ? 0 : 1;
     }
+  }
+
+  addNewJob() {
+    const newJobId = this.jobs.length + 1;
+    const newJob = Job.createRandomJob(newJobId);
+    this.jobs.push(newJob);
   }
 
   reset() {

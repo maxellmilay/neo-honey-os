@@ -36,14 +36,13 @@ import './styles.scss'
 
 
 function PCB() {
-
     const navigate = useNavigate();
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');
     const [simulation, setSimulation] = useState(null);
     const [jobs, setJobs] = useState([]);
     const [simSpeed, setSimSpeed] = useState(1000);
-    const [quantum, setQuantum] = useState(2);
-    const [jobCount, setJobCount] = useState(8);
+    const [quantum, setQuantum] = useState(4);
+    const [jobCount, setJobCount] = useState(3);
     const [algo, setAlgo] = useState('fcfs');
     const [running, setRunning] = useState(false);
     const intervalRef = useRef(null);
@@ -70,6 +69,7 @@ function PCB() {
             setRunning(false);
         }
         simulation.nextStep();
+        setJobs([...simulation.jobs]);
         }, time);
     };
 
@@ -95,11 +95,11 @@ function PCB() {
     const newSim = (sameJobs = false) => {
         stop();
         if (!sameJobs) {
-        const newJobs = [];
-        for (let i = 0; i < Number(jobCount); i++) {
-            newJobs.push(Job.createRandomJob(i + 1));
-        }
-        setJobs(newJobs);
+            const newJobs = [];
+            for (let i = 0; i < Number(jobCount); i++) {
+                newJobs.push(Job.createRandomJob(i + 1));
+            }
+            setJobs(newJobs);
         }
         const algorithm = getAlgorithm();
         algorithm.quantumTime = Number(quantum);
@@ -156,7 +156,7 @@ function PCB() {
                 <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
                     <div>
                         <p>No. of Jobs</p>
-                        <p><b className="text-2xl">6999</b></p>
+                        <p><b className="text-2xl">{jobs.length}</b></p>
                     </div>
                     <div className="justify-center items-center">
                         <p>Algorithm</p>
@@ -235,21 +235,6 @@ function PCB() {
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                     <CardContent className="m-0"><JobPoolTable simulation={simulation} /></CardContent>
-                </Card>
-            </div>
-            <div className="h-full row-span-1 col-span-1">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Average</h4></CardHeader>
-                    <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-2">
-                        <div>
-                            <p>Waiting</p>
-                            <p><b className="text-2xl">{simulation?.averageWait}</b></p>
-                        </div>
-                        <div>
-                            <p>Turnaround Time</p>
-                            <p><b className="text-2xl">{simulation?.averageTurnaround}</b></p>
-                        </div>
-                        </CardContent>
                 </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
