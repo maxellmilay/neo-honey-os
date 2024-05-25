@@ -13,12 +13,12 @@ $colors: transparent, #9C0000, darkgreen, #505050, #171515, #0000E6, #40A800, #7
         @extend .gantt-base;
         background-color: nth($colors, $i + 1);
         height: 50px;
-        width: 12px;
+        width: 20px;
     }
     .gantt-lg-#{$i} {
         @extend .gantt-base;
         background-color: nth($colors, $i + 1);
         height: 55px;
-        width: 20px;
+        width: 35px;
     }
 }

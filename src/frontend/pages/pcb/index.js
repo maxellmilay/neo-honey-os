@@ -42,14 +42,14 @@ function PCB() {
     const [jobs, setJobs] = useState([]);
     const [simSpeed, setSimSpeed] = useState(500);
     const [quantum, setQuantum] = useState(4);
-    const [jobCount, setJobCount] = useState(3);
-    const [algo, setAlgo] = useState('fcfs');
+    const [jobCount, setJobCount] = useState(2);
+    const [algo, setAlgo] = useState('rr');
     const [running, setRunning] = useState(false);
     const intervalRef = useRef(null);
 
     useEffect(() => {
         newSim();
-    }, [algo, jobCount, quantum]);
+    }, [algo]);
 
     useEffect(() => {
         if (running) {
@@ -78,15 +78,11 @@ function PCB() {
         case 'fcfs':
             return new FirstComeFirstServe();
         case 'sjf':
-            return new ShortestJobFirst();
-        case 'rr':
-            return new RoundRobin();
+            return new STRF();
         case 'p':
             return new Priority();
-        case 'pp':
-            return new PreemptivePriority();
-        case 'strf':
-            return new STRF();
+        case 'rr':
+            return new RoundRobin();
         default:
             return new FirstComeFirstServe();
         }
@@ -109,6 +105,7 @@ function PCB() {
     };
 
     const play = () => {
+        console.log(algo)
         if (simulation.isFinished()) {
         simulation.reset();
         }
@@ -133,8 +130,8 @@ function PCB() {
         simulation.reset();
     }; 
     
-    const handleAlgoChange = (e) => {
-        setAlgo(e.target.value);
+    const handleAlgoChange = (value) => {
+        setAlgo(value);
         newSim(jobs.length === jobCount);
     };
 
@@ -159,7 +156,6 @@ function PCB() {
                     <div className="justify-center items-center">
                         <p>Algorithm</p>
                         <Select className="form-control"
-                                value={algo}
                                 disabled={running}
                                 onChange={handleAlgoChange}>
                             <SelectTrigger  className="h-[30px] w-full">
