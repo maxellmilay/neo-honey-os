@@ -98,6 +98,7 @@ export class Simulation {
     this.currentJob = undefined;
     this.ganttChart = [];
     this.idleTime = 0;
+    this.lastArrivalTime = 0; // Track the last arrival time
   }
 
   nextStep() {
@@ -119,7 +120,7 @@ export class Simulation {
         this.readyQueue.push(job);
       }
     });
-    
+
     this.algorithm.processQueue(this.readyQueue, this.currentJob);
 
     this.currentJob = this.readyQueue.shift();
@@ -134,8 +135,13 @@ export class Simulation {
 
   addNewJob() {
     const newJobId = this.jobs.length + 1;
+
+    // Generate a new arrival time that is random but greater than the last arrival time
+    const arrivalIncrement = Math.floor(Math.random() * 5) + 1; // Random increment between 1 and 5
+    this.lastArrivalTime += arrivalIncrement;
+
     const newJob = Job.createRandomJob(newJobId);
-    newJob.arrivalTime = this.time; // Set arrivalTime to the current time
+    newJob.arrivalTime = this.lastArrivalTime; // Set arrivalTime to the new calculated time
     this.jobs.push(newJob);
     this.readyQueue.push(newJob);
   }
@@ -147,6 +153,7 @@ export class Simulation {
     this.currentJob = undefined;
     this.ganttChart = [];
     this.idleTime = 0;
+    this.lastArrivalTime = 0; // Reset the last arrival time
   }
 
   isFinished() {
