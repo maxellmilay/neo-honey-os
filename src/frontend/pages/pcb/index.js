@@ -277,7 +277,7 @@ useEffect(() => {
                         <div className="flex items-center">
                             <ChevronRightIcon className="h-[20px] w-[20px]"/>
                         </div>
-                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto"
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full h-full max-w-9xl mx-auto"
                         ref={scrollAreaRef}>
                                 <div className="flex flex-grow justify-start items-start">
                                     
