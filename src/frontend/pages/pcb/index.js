@@ -207,8 +207,8 @@ function PCB() {
             <div className="row-span-3 col-start-1 row-start-4 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>CPU</h4></CardHeader>
-                    <CardContent className="justify-center items-center h-[150px] py-2 grid grid-cols-3 gap-4">
-                        <div className="grid grid-rows-2 gap-2">
+                    <CardContent className="justify-center items-center align-middle h-[150px] pt-8 grid grid-cols-3 gap-4">
+                        <div className="grid grid-rows-2 gap-8">
                             <div>
                                 <p>No. of Jobs</p>
                                 <p><b className="text-2xl">{jobs.length}</b></p>
@@ -218,7 +218,7 @@ function PCB() {
                                 <p><b className="text-2xl">{simulation?.jobText}</b></p>
                             </div>
                         </div>
-                        <div className="grid grid-rows-2 gap-2">
+                        <div className="grid grid-rows-2 gap-8">
                             <div>
                                 <p>Idle Time</p>
                                 <p><b className="text-2xl">{simulation?.idleTime}</b></p>
