@@ -92,10 +92,8 @@ function PCB() {
     const newSim = (sameJobs = false) => {
         stop();
         if (!sameJobs) {
-            const newJobs = [];
-            for (let i = 0; i < Number(jobCount); i++) {
-                newJobs.push(Job.createRandomJob(i + 1));
-            }
+            const newJobs = [...jobs];
+            newJobs.push(Job.createRandomJob(newJobs.length + 1));
             setJobs(newJobs);
         }
         const algorithm = getAlgorithm();
@@ -104,6 +102,7 @@ function PCB() {
         sim.reset();
         setSimulation(sim);
     };
+
 
     const play = () => {
         console.log(algo)
