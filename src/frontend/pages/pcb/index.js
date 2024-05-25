@@ -171,11 +171,11 @@ function PCB() {
                                     First Come, First Served
                                 </Button>
                             </ToggleGroupItem>
-                            <ToggleGroupItem className="row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"
+                            <ToggleGroupItem className="row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
                                 disabled={running}
                                 onClick={handleAlgoChange}>
-                                <Button variant="link" value="fcfs">
-                                    Shortest Job First
+                                <Button variant="link" value="sjf">
+                                Shortest Job First
                                 </Button>
                             </ToggleGroupItem>
                             <ToggleGroupItem className="row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
@@ -308,11 +308,11 @@ function PCB() {
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
                     </CardHeader>
-                      <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4">
-                        <div className="flex items-center">
-                            <ChevronRightIcon className="h-[20px] w-[20px]"/>
+                      <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-8">
+                        <div className="flex items-center mb-3">
+                            <ChevronRightIcon className="h-[20px] w-[20px]" />
                         </div>
-                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto"
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full h-full max-w-9xl mx-auto"
                         ref={scrollAreaRef}>
                                 <div className="flex flex-grow justify-start items-start space-x-1">
                                 {simulation?.ganttChart.map((item, index) => (
