@@ -22,7 +22,7 @@ function PCB() {
     const [simSpeed, setSimSpeed] = useState(500);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(2);  // State for the number of jobs
-    const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
+    const [algo, setAlgo] = useState('p');  // State for the selected algorithm
     const [running, setRunning] = useState(false);  // State to determine if the simulation is running
     const intervalRef = useRef(null);  // Ref for the simulation interval
 
@@ -58,32 +58,30 @@ function PCB() {
     // Function to get the selected scheduling algorithm
     const getAlgorithm = () => {
         switch (algo) {
-        case 'fcfs':
-            return new FirstComeFirstServe();
-        case 'sjf':
-            return new STRF();
-        case 'p':
-            return new Priority();
-        case 'rr':
-            return new RoundRobin();
-        default:
-            return new FirstComeFirstServe();
+            case 'fcfs':
+                return new FirstComeFirstServe();
+            case 'sjf':
+                return new STRF();
+            case 'p':
+                return new Priority();
+            case 'rr':
+                return new RoundRobin();
+            default:
+                return new FirstComeFirstServe();
         }
     };
 
     // Function to create a new simulation
-    const newSim = (sameJobs = false) => {
+    const newSim = () => {
         stop();
-        if (!sameJobs) {
-            const newJobs = [];
-            for (let i = 0; i < Number(jobCount); i++) {
-                newJobs.push(Job.createRandomJob(i + 1));
-            }
-            setJobs(newJobs);
+        const newJobs = [];
+        for (let i = 0; i < Number(jobCount); i++) {
+            newJobs.push(Job.createRandomJob(i + 1));
         }
+        setJobs(newJobs);
         const algorithm = getAlgorithm();
         algorithm.quantumTime = Number(quantum);
-        const sim = new Simulation(algorithm, jobs);
+        const sim = new Simulation(algorithm, newJobs);
         sim.reset();
         setSimulation(sim);
     };
@@ -91,9 +89,7 @@ function PCB() {
     // Function to start the simulation
     const play = () => {
         console.log(algo)
-        if (simulation.isFinished()) {
-        simulation.reset();
-        }
+        newSim();
         setRunning(true);
     };
 
@@ -102,21 +98,11 @@ function PCB() {
         setRunning(false);
     };
 
-    // Function to execute the next step of the simulation
-    const next = () => {
-        stop();
-        simulation.nextStep();
-    };
-
-    // Function to finish the simulation immediately
-    const finish = () => {
-        setTimer(1);
-    };
-
     // Function to reset the simulation
     const reset = () => {
         stop();
         simulation.reset();
+        setSimulation(null);
     }; 
     
     // Function to handle the change of the selected algorithm
@@ -149,11 +135,12 @@ function PCB() {
             </div>
         </div>
         <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
-            <div className=" row-span-3 h-full" >
+            {/* Scheduling Policy Card */}
+            <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
-                <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
-                    <div className="justify-center items-center">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
+                <CardContent className="justify-center justify-items-center items-center h-42 py-2 grid grid-rows-2">
+                    <div className="justify-center items-center row-start-1">
                         <p>Algorithm</p>
                         <Select className="form-control"
                                 disabled={running}
@@ -171,32 +158,23 @@ function PCB() {
                             </SelectContent>
                         </Select>
                     </div>
-                    <div>
+                    <div className="row-start-1">
                         <p>Quantum</p>
                         <p><b className="text-2xl">{quantum}</b></p>
                     </div>
-                    <div className="col-span-2">
+                    <div className="row-start-2">
                         <div className = "flex gap-3 py-1">
                             <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-green-500 active:bg-green-600" 
-                                    onClick={play}><PlayIcon />Start</Button>
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-red-500 active:bg-red-600" 
-                                    onClick={finish}><StopIcon /> Stop</Button>
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-orange-500 active:bg-orange-600" 
-                                    onClick={stop}><PauseIcon />Pause</Button>
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-500 active:bg-gray-600" 
-                                    onClick={next}><TrackNextIcon />Next</Button>
+                                    onClick={play}
+                                    disabled={running}>
+                                        <PlayIcon />Start</Button>
                         </div>
                         <div className = "flex gap-6">
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-yellow-400 active:bg-yellow-600" 
-                                    onClick={() => newSim()}><PlusIcon /> Create New Task</Button>
-                            <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-gray-400 active:bg-gra-600" 
-                                    onClick={reset}><ReloadIcon />Start New Simulation</Button>
+                                    onClick={reset}
+                                    disabled={!running}><ReloadIcon/>Clear</Button>
                         </div>
                     </div>
                 </CardContent>
@@ -241,7 +219,7 @@ function PCB() {
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                     <CardContent className="m-0">
-                        <JobPoolTable simulation={simulation} />
+                        <JobPoolTable simulation={simulation}  jobs={[]} />
                     </CardContent>
                 </Card>
             </div>
