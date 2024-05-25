@@ -26,7 +26,7 @@ export class Job {
     // won't exceed the program screen limits
     const random = (max, min = 1) => Math.floor(Math.random() * max) + min;
     const arriveTime = jobId === 1 ? 1 : random(20, 2);
-    const burst = random(12);
+    const burst = random(12,2);
     const priority = random(15);
     const memory = jobId === 1 ? 1 : random(9, 1);
     return new Job(jobId, arriveTime, burst, priority, memory);

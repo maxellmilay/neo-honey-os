@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Cross2Icon, PlayIcon, PauseIcon, StopIcon, TrackNextIcon, PlusIcon, ReloadIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, PauseIcon, StopIcon, TrackNextIcon, CheckIcon, ReloadIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "../../components/ui/toggle-group"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
 import JobPoolTable from '../../components/jobPoolTable';
@@ -10,6 +14,7 @@ import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area";
 import { FirstComeFirstServe, ShortestJobFirst, Priority, PreemptivePriority, STRF, RoundRobin } from '../../../classes/algorithm';
 import { Job } from '../../../classes/job';
 import { Simulation } from '../../../classes/simulation';
+import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
 // import './styles.css'
 import './styles.scss'
 
@@ -21,15 +26,15 @@ function PCB() {
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
     const [simSpeed, setSimSpeed] = useState(500);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
-    const [jobCount, setJobCount] = useState(2);  // State for the number of jobs
-    const [algo, setAlgo] = useState('p');  // State for the selected algorithm
+    const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
+    const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
     const [running, setRunning] = useState(false);  // State to determine if the simulation is running
     const intervalRef = useRef(null);  // Ref for the simulation interval
 
     // useEffect to create a new simulation whenever the algorithm changes
-    useEffect(() => {
-        newSim();
-    }, [algo]);
+    // useEffect(() => {
+    //     newSim();
+    // }, [algo]);
 
     // useEffect to manage the simulation timer when the running state or simSpeed changes
     useEffect(() => {
@@ -56,46 +61,55 @@ function PCB() {
     };
 
     // Function to get the selected scheduling algorithm
-    const getAlgorithm = () => {
-        switch (algo) {
+    const getAlgorithm = (selectedAlgo) => {
+        let algorithm;
+        switch (selectedAlgo) {
             case 'fcfs':
-                return new FirstComeFirstServe();
+                algorithm = new FirstComeFirstServe();
+                break;
             case 'sjf':
-                return new STRF();
+                algorithm = new STRF();
+                break;
             case 'p':
-                return new Priority();
+                algorithm = new Priority();
+                break;
             case 'rr':
-                return new RoundRobin();
+                algorithm = new RoundRobin();
+                algorithm.quantumTime = Number(quantum); // Ensure quantum time is set
+                break;
             default:
-                return new FirstComeFirstServe();
+                algorithm = new FirstComeFirstServe();
         }
+        return algorithm;
     };
 
     // Function to create a new simulation
-    const newSim = () => {
-        stop();
+    const newSim = (selectedAlgo) => {
+        console.log("newSim")
         const newJobs = [];
-        for (let i = 0; i < Number(jobCount); i++) {
+        for (let i = 0; i < Number(1); i++) {
             newJobs.push(Job.createRandomJob(i + 1));
         }
         setJobs(newJobs);
-        const algorithm = getAlgorithm();
+        const algorithm = getAlgorithm(selectedAlgo); // Pass the selected algorithm
         algorithm.quantumTime = Number(quantum);
         const sim = new Simulation(algorithm, newJobs);
         sim.reset();
         setSimulation(sim);
     };
-
     // Function to start the simulation
-    const play = () => {
-        console.log(algo)
-        newSim();
-        setRunning(true);
+    const play = (selectedAlgo) => {
+        if (!running) {
+            newSim(selectedAlgo);
+            setRunning(true);
+            console.log(algo)
+        }
     };
 
     // Function to stop the simulation
     const stop = () => {
         setRunning(false);
+        console.log("stop")
     };
 
     // Function to reset the simulation
@@ -103,16 +117,13 @@ function PCB() {
         stop();
         simulation.reset();
         setSimulation(null);
+        setJobCount(0);
+        setRunning(false);
+        setJobs([]);
     }; 
     
-    // Function to handle the change of the selected algorithm
-    const handleAlgoChange = (value) => {
-        setAlgo(value);
-        newSim(jobs.length === jobCount);
-    };
 
     const scrollAreaRef = useRef(null);
-
     // useEffect to handle scrolling of the Gantt chart area
     useEffect(() => {
         if (scrollAreaRef.current) {
@@ -123,6 +134,13 @@ function PCB() {
             scrollAreaRef.current.scrollLeft = totalContentWidth;
         }
     }, [simulation?.ganttChart]); // Assuming simulation?.ganttChart determines when the content updates
+
+    // Function to handle the change of the selected algorithm
+    const handleAlgoChange = (event) => {
+        const newValue = event.target.value;
+        setAlgo(newValue);
+    }
+    
 
     // JSX for the PCB component UI
     return (
@@ -139,42 +157,60 @@ function PCB() {
             <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
-                <CardContent className="justify-center justify-items-center items-center h-42 py-2 grid grid-rows-2">
-                    <div className="justify-center items-center row-start-1">
-                        <p>Algorithm</p>
-                        <Select className="form-control"
+                <CardContent className="justify-center justify-items-center items-center h-42 pt-6 px-6 grid grid-rows-2">
+                    <div className="justify-between items-center row-start-1 flex">
+                        <div>
+                        {/* <p>Choose Algorithm</p> */}
+                        <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-4"
+                            onChange={handleAlgoChange}
+                            aria-label="Demo Text Alignment">
+                            <ToggleGroupItem className="row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
                                 disabled={running}
-                                onChange={handleAlgoChange}>
-                            <SelectTrigger  className="h-[30px] w-full">
-                                <SelectValue placeholder="Select a policy" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value = "fcfs">First Come, First Served</SelectItem>
-                                    <SelectItem value = "strf">Shortest Job First</SelectItem>
-                                    <SelectItem value = "p">Priority</SelectItem>
-                                    <SelectItem value = "rr">Round Robin</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                                onClick={handleAlgoChange} >
+                                <Button variant="link" value="fcfs">
+                                    First Come, First Served
+                                </Button>
+                            </ToggleGroupItem>
+                            <ToggleGroupItem className="row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"
+                                disabled={running}
+                                onClick={handleAlgoChange}>
+                                <Button variant="link" value="fcfs">
+                                    Shortest Job First
+                                </Button>
+                            </ToggleGroupItem>
+                            <ToggleGroupItem className="row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
+                                disabled={running}
+                                onClick={handleAlgoChange}>
+                                <Button variant="link" value="p">
+                                Priority Scheduling
+                                </Button>
+                            </ToggleGroupItem>
+                            <ToggleGroupItem className="row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
+                                disabled={running}
+                                onClick={handleAlgoChange}>
+                                <Button variant="link" value="rr">
+                                    Round Robin
+                                </Button>
+                            </ToggleGroupItem>
+                        </ToggleGroup>
+                            </div>
                     </div>
-                    <div className="row-start-1">
-                        <p>Quantum</p>
-                        <p><b className="text-2xl">{quantum}</b></p>
-                    </div>
-                    <div className="row-start-2">
-                        <div className = "flex gap-3 py-1">
+                    <div className="row-start-2 ">
+                        <div className = "flex gap-3">
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-green-500 active:bg-green-600" 
-                                    onClick={play}
+                                    className = "h-1/4 flex gap-2 bg-green-500 bg-green-600" 
+                                    onClick={() => play(algo)}
                                     disabled={running}>
-                                        <PlayIcon />Start</Button>
-                        </div>
-                        <div className = "flex gap-6">
+                                    <PlayIcon/>
+                                        Start Simulation
+                            </Button>
                             <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-400 active:bg-gra-600" 
+                                    className = "h-1/4 flex gap-2 bg-gray-400 bg-red-600" 
                                     onClick={reset}
-                                    disabled={!running}><ReloadIcon/>Clear</Button>
+                                    disabled={!running}>
+                                    <ReloadIcon/>
+                                        Clear Simulation
+                            </Button>
                         </div>
                     </div>
                 </CardContent>
@@ -193,23 +229,38 @@ function PCB() {
                             </div>
                             <div>
                                 <p>Current Job</p>
-                                <p><b className="text-2xl">{simulation?.jobText}</b></p>
+                                <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                             </div>
                         </div>
                         <div className="grid grid-rows-2 gap-8">
                             <div>
                                 <p>Idle Time</p>
-                                <p><b className="text-2xl">{simulation?.idleTime}</b></p>
+                                <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
                             </div>
                             <div>
                                 <p>Current Time</p>
-                                <p><b className="text-2xl">{simulation?.time}</b></p>
+                                <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                             </div>
                         </div>
-                        <div>
-                            <p>Utilization</p>
-                            <p><b className="text-2xl">{simulation?.utilization}%</b></p>
-                        </div>
+                            {algo !== "rr" ? (
+                                <div>
+                                    <p>Utilization</p>
+                                    <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                    </b></p>
+                                </div>
+                            ) : (
+                             <div className="grid grid-rows-2 gap-8">
+                                <div>
+                                    <p>Utilization</p>
+                                    <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                    </b></p>
+                                </div>
+                                <div>
+                                    <p>Quantum</p>
+                                    <p><b className="text-2xl">{quantum}</b></p>
+                                </div>
+                            </div>
+                            )}
                     </CardContent>
                 </Card>
             </div>
