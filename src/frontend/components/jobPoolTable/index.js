@@ -13,7 +13,7 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 function JobPoolTable({ simulation }) {
     return(
         <Table className="w-full h-full"> 
-            <ScrollArea className="h-[26rem] w-auto p-2">
+            <ScrollArea className="h-[32rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow>
                 <TableHead className="text-center">ID</TableHead>

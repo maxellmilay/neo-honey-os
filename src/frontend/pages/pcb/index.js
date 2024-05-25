@@ -75,10 +75,8 @@ function PCB() {
     const newSim = (sameJobs = false) => {
         stop();
         if (!sameJobs) {
-            const newJobs = [];
-            for (let i = 0; i < Number(jobCount); i++) {
-                newJobs.push(Job.createRandomJob(i + 1));
-            }
+            const newJobs = [...jobs];
+            newJobs.push(Job.createRandomJob(newJobs.length + 1));
             setJobs(newJobs);
         }
         const algorithm = getAlgorithm();
@@ -87,6 +85,7 @@ function PCB() {
         sim.reset();
         setSimulation(sim);
     };
+
 
     // Function to start the simulation
     const play = () => {
@@ -148,8 +147,8 @@ function PCB() {
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-3 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
-            <div className="h-full" >
+        <div className="grid grid-cols-3 grid-rows-6 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
+            <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
                 <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
@@ -272,22 +271,16 @@ function PCB() {
                     </CardContent>
                 </Card>
             </div>
-
-
-
-
-            
-
-            <div className="col-span-3 row-start-3 h-full">
+            <div className="col-span-3 row-span-2 row-start- 7h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
                     </CardHeader>
                       <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4">
-                        <div className="flex items-center">
+                        <div className="flex items-center align-center pb-6 pr-2">
                             <ChevronRightIcon className="h-[20px] w-[20px]"/>
                         </div>
-                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto"
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full h-full max-w-9xl mx-auto"
                         ref={scrollAreaRef}>
                                 <div className="flex flex-grow justify-start items-start">
                                     
