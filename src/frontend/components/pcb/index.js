@@ -24,7 +24,7 @@ import {
   TableHeader,
 } from "../../components/ui/table";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
-import pcbIcon from "../../assets/img/pcbIcon.png";
+import pcbIcon from "../../assets/img/bee.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "./dummydata";
 import { ScrollArea } from "../../components/ui/scroll-area";

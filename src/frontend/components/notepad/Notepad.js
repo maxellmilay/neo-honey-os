@@ -16,7 +16,7 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
 import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
-import notepadIcon from "../../assets/img/notepad icon.png";
+import notepadIcon from "../../assets/img/buzzpad.png";
 
 function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
