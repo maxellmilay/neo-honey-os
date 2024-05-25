@@ -157,35 +157,35 @@ function PCB() {
             <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
-                <CardContent className="justify-center justify-items-center items-center h-42 pt-6 px-6 grid grid-rows-2">
-                    <div className="justify-between items-center row-start-1 flex">
+                <CardContent className="justify-center justify-items-center items-center h-42 pt-4 px-6 grid grid-rows-2 gap-0">
+                    <div className="justify-between items-center row-start-1 flex p-1 ">
                         <div>
                         {/* <p>Choose Algorithm</p> */}
                         <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-4"
                             onChange={handleAlgoChange}
                             aria-label="Demo Text Alignment">
-                            <ToggleGroupItem className="row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
+                            <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
                                 disabled={running}
                                 onClick={handleAlgoChange} >
                                 <Button variant="link" value="fcfs">
                                     First Come, First Served
                                 </Button>
                             </ToggleGroupItem>
-                            <ToggleGroupItem className="row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
+                            <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
                                 disabled={running}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="sjf">
                                 Shortest Job First
                                 </Button>
                             </ToggleGroupItem>
-                            <ToggleGroupItem className="row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
+                            <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
                                 disabled={running}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="p">
                                 Priority Scheduling
                                 </Button>
                             </ToggleGroupItem>
-                            <ToggleGroupItem className="row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
+                            <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
                                 disabled={running}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="rr">
@@ -195,7 +195,7 @@ function PCB() {
                         </ToggleGroup>
                             </div>
                     </div>
-                    <div className="row-start-2 ">
+                    <div className="row-start-2">
                         <div className = "flex gap-3">
                             <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-green-500 bg-green-600" 
