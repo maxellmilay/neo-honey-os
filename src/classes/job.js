@@ -43,7 +43,8 @@ export class Job {
 
   process(simulationTime) {
     if (this.finished || this.processed) {
-      return; // Skip processing if the job is finished or already processed
+      console.log("Job already finished or processed", this.id, this.finished, this.processed);
+      return;
     }
     if (!this.started) {
       this.startTime = simulationTime;

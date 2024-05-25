@@ -41,7 +41,7 @@ function PCB() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');
     const [simulation, setSimulation] = useState(null);
     const [jobs, setJobs] = useState([]);
-    const [simSpeed, setSimSpeed] = useState(500);
+    const [simSpeed, setSimSpeed] = useState(1000);
     const [quantum, setQuantum] = useState(4);
     const [jobCount, setJobCount] = useState(2);
     const [algo, setAlgo] = useState('fcfs');
