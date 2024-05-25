@@ -21,6 +21,7 @@ import {
 } from "../../components/ui/select"
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
 import JobPoolTable from '../../components/jobPoolTable';
+import ReadyQTable from '../../components/readyQTable';
 import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area";
 import { FirstComeFirstServe, 
 ShortestJobFirst, 
@@ -43,7 +44,7 @@ function PCB() {
     const [simSpeed, setSimSpeed] = useState(500);
     const [quantum, setQuantum] = useState(4);
     const [jobCount, setJobCount] = useState(2);
-    const [algo, setAlgo] = useState('rr');
+    const [algo, setAlgo] = useState('fcfs');
     const [running, setRunning] = useState(false);
     const intervalRef = useRef(null);
 
@@ -134,6 +135,17 @@ function PCB() {
         setAlgo(value);
         newSim(jobs.length === jobCount);
     };
+const scrollAreaRef = useRef(null);
+
+useEffect(() => {
+    if (scrollAreaRef.current) {
+        // Calculate the total width of all content within the scroll area
+        const totalContentWidth = scrollAreaRef.current.scrollWidth;
+
+        // Set the scrollLeft property to the total width of all content
+        scrollAreaRef.current.scrollLeft = totalContentWidth;
+    }
+}, [simulation?.ganttChart]); // Assuming simulation?.ganttChart determines when the content updates
 
     return (
         <>
@@ -144,15 +156,11 @@ function PCB() {
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-4 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
-            <div className="col-span-2">
+        <div className="grid grid-cols-3 grid-rows-3 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
+            <div className="h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
                 <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
-                    <div>
-                        <p>No. of Jobs</p>
-                        <p><b className="text-2xl">{jobs.length}</b></p>
-                    </div>
                     <div className="justify-center items-center">
                         <p>Algorithm</p>
                         <Select className="form-control"
@@ -202,10 +210,14 @@ function PCB() {
                 </CardContent>
             </Card>
             </div>
-            <div>
+            <div className="col-start-1 row-start-2 h-full">
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>CPU</h4></CardHeader>
                 <CardContent className="justify-center items-center h-[100px] py-2 grid grid-cols-4">
+                    <div>
+                        <p>No. of Jobs</p>
+                        <p><b className="text-2xl">{jobs.length}</b></p>
+                    </div>
                     <div>
                         <p>Current Job</p>
                         <p><b className="text-2xl">{simulation?.jobText}</b></p>
@@ -225,35 +237,38 @@ function PCB() {
                 </CardContent>
             </Card>
             </div>
-            <div className="h-full row-span-2 col-span-2">
+            <div className="row-span-2 col-start-2 row-start-1 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                     <CardContent className="m-0">
-                        <JobPoolTable 
-                            // jobs={jobs}
-                            simulation={simulation} 
-                        /></CardContent>
-                </Card>
-            </div>
-            <div className="h-full row-span-1 col-span-1">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
-                    <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4">
-                        <div className="flex items-center">
-                            <ChevronRightIcon className="h-[20px] w-[20px]"/>
-                        </div>
-                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
-                                <div className="flex flex-grow justify-start items-start">
-                                    {simulation?.readyQueue.map((item, index) => (
-                                        <div key={index} className={`gantt-lg-${item.id}`}>{item.id}</div>
-                                    ))}
-                                </div>
-                            <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
+                        <JobPoolTable simulation={simulation} />
                     </CardContent>
                 </Card>
             </div>
-            <div className="col-span-3 h-full">
+            <div className="row-span-2 col-start-3 row-start-1 h-full">
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
+                    <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4 grid grid-rows-3">
+                        <div className="row-span-2">
+                            <ReadyQTable simulation={simulation} />
+                        </div>
+                        <div className="row-start-3">
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-[20px] w-[20px]"/>
+                            </div>
+                            <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
+                                    <div className="flex flex-grow justify-start items-start">
+                                        {simulation?.readyQueue.map((item, index) => (
+                                            <div key={index} className={`rounded-md gantt-lg-${item.id}`}>{item.id}</div>
+                                        ))}
+                                    </div>
+                                <ScrollBar orientation="horizontal" />
+                            </ScrollArea>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+            <div className="col-span-3 row-start-3 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
@@ -262,11 +277,12 @@ function PCB() {
                         <div className="flex items-center">
                             <ChevronRightIcon className="h-[20px] w-[20px]"/>
                         </div>
-                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto">
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto"
+                        ref={scrollAreaRef}>
                                 <div className="flex flex-grow justify-start items-start">
                                     
                                 {simulation?.ganttChart.map((item, index) => (
-                                    <div key={index} className={`gantt-lg-${item}`}>
+                                    <div key={index} className={`rounded-md gantt-lg-${item}`}>
                                         {item}
                                     </div>
                                 ))}
