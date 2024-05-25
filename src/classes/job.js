@@ -9,7 +9,17 @@ export class Job {
     this.finishTime = 0;
     this.remaining = this.burst;
     this.processed = false; // Added to track if the job has been processed
+    this.status = "New";
   }
+
+  setStatus(status) {
+    const validStatuses = ["New", "Ready", "Running", "Waiting", "Suspended", "Terminated"];
+    if (validStatuses.includes(status)) {
+        this.status = status;
+    } else {
+        throw new Error(`Invalid status: ${status}`);
+    }
+}
 
   static createRandomJob(jobId) {
     // Random numbers limits are selected by trial and error to ensure job GUI representation

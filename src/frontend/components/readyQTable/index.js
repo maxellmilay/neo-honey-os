@@ -27,7 +27,7 @@ function ReadyQTable({ simulation }) {
                 {simulation?.jobs.map((item, index) => (
                 <TableRow key={index}>
                     <TableCell>{item.id}</TableCell>
-                    <TableCell>Ready or not</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
+                    <TableCell>{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
                     <TableCell>{item.remaining}</TableCell>
                     <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>
                     <TableCell>{item.percent}</TableCell>

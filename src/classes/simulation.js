@@ -130,6 +130,20 @@ export class Simulation {
       this.ganttChart.push(this.currentJob ? this.currentJob.id : 0);
       this.idleTime += this.currentJob ? 0 : 1;
     }
+
+    this.jobs.forEach(job => {
+      if (job.remaining === 0) {
+          job.setStatus("Terminated");
+      } else if (this.currentJob === job) {
+          job.setStatus("Running");
+      } else if (this.readyQueue.includes(job)) {
+          job.setStatus("Waiting"); // Changed from "Ready" to "Waiting"
+      } else {
+          job.setStatus("Ready"); // Changed from "New" to "Ready"
+      }
+      // Add more conditions here if needed
+  });
+
   }
 
   addNewJob() {
