@@ -44,7 +44,7 @@ function PCB() {
     const [simSpeed, setSimSpeed] = useState(1000);
     const [quantum, setQuantum] = useState(4);
     const [jobCount, setJobCount] = useState(2);
-    const [algo, setAlgo] = useState('fcfs');
+    const [algo, setAlgo] = useState('p');
     const [running, setRunning] = useState(false);
     const intervalRef = useRef(null);
 
