@@ -148,8 +148,8 @@ function PCB() {
                 <Button variant="icon" onClick={()=>navigate('/desktop')}><Cross2Icon /></Button>
             </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-3 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
-            <div className="h-full" >
+        <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
+            <div className=" row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Data</h4></CardHeader>
                 <CardContent className="justify-center justify-items-center items-center h-[100px] py-2 grid grid-cols-5">
@@ -204,7 +204,7 @@ function PCB() {
             </div>
 
             {/* CPU Card */}
-            <div className="col-start-1 row-start-2 h-full">
+            <div className="row-span-3 col-start-1 row-start-4 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>CPU</h4></CardHeader>
                     <CardContent className="justify-center items-center h-[150px] py-2 grid grid-cols-3 gap-4">
@@ -237,7 +237,7 @@ function PCB() {
             </div>
 
             {/* Job Pool Card */}
-            <div className="row-span-2 col-start-2 row-start-1 h-full">
+            <div className="row-span-6 col-start-2 row-start-1 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                     <CardContent className="m-0">
@@ -247,21 +247,21 @@ function PCB() {
             </div>
 
             {/* Ready Queue Card */}
-            <div className="row-span-2 col-start-3 row-start-1 h-full">
+            <div className="row-span-6 col-start-3 row-start-1 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Ready Queue</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '80%' }}>
+                        <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '90%' }}>
                             <div className="h-full">
                                 <ReadyQTable simulation={simulation} />
                             </div>
                         </div>
-                        <div className="row-span-1 flex justify-start items-center space-x-2" style={{ maxHeight: '20%' }}>
+                        <div className="row-span-1 flex justify-start items-center space-x-2" style={{ maxHeight: '10%' }}>
                             <ChevronRightIcon className="h-[20px] w-[20px]" />
                             <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
-                                <div className="flex flex-grow justify-start items-start space-x-2">
+                                <div className="flex flex-grow justify-start items-start space-x-1">
                                     {simulation?.readyQueue.map((item, index) => (
                                         <div key={index} className={`rounded-md gantt-lg-${item.id}`}>{item.id}</div>
                                     ))}
@@ -273,7 +273,8 @@ function PCB() {
                 </Card>
             </div>
 
-            <div className="col-span-3 row-start-3 h-full">
+            {/* Gantt Chart Card */}
+            <div className="col-span-3 row-span-2 row-start-7 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
@@ -284,8 +285,7 @@ function PCB() {
                         </div>
                         <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto"
                         ref={scrollAreaRef}>
-                                <div className="flex flex-grow justify-start items-start">
-                                    
+                                <div className="flex flex-grow justify-start items-start space-x-1">
                                 {simulation?.ganttChart.map((item, index) => (
                                     <div key={index} className={`rounded-md gantt-lg-${item}`}>
                                         {item}
