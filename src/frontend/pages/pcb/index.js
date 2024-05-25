@@ -40,7 +40,7 @@ function PCB() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');
     const [simulation, setSimulation] = useState(null);
     const [jobs, setJobs] = useState([]);
-    const [simSpeed, setSimSpeed] = useState(1000);
+    const [simSpeed, setSimSpeed] = useState(500);
     const [quantum, setQuantum] = useState(4);
     const [jobCount, setJobCount] = useState(3);
     const [algo, setAlgo] = useState('fcfs');
@@ -113,12 +113,10 @@ function PCB() {
         simulation.reset();
         }
         setRunning(true);
-        // setTimer(simSpeed);
     };
 
     const stop = () => {
         setRunning(false);
-        // setTimer(0);
     };
 
     const next = () => {
@@ -179,7 +177,7 @@ function PCB() {
                     </div>
                     <div>
                         <p>Quantum</p>
-                        <p><b className="text-2xl">6999</b></p>
+                        <p><b className="text-2xl">{quantum}</b></p>
                     </div>
                     <div className="col-span-2">
                         <div className = "flex gap-3 py-1">
@@ -234,18 +232,22 @@ function PCB() {
             <div className="h-full row-span-2 col-span-2">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
-                    <CardContent className="m-0"><JobPoolTable simulation={simulation} /></CardContent>
+                    <CardContent className="m-0">
+                        <JobPoolTable 
+                            // jobs={jobs}
+                            simulation={simulation} 
+                        /></CardContent>
                 </Card>
             </div>
             <div className="h-full row-span-1 col-span-1">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Ready Queue</h4></CardHeader>
-                    <CardContent className="items-center justify-center h-[100px] py-2 grid grid-cols-6">
+                    <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4">
                         <div className="flex items-center">
                             <ChevronRightIcon className="h-[20px] w-[20px]"/>
                         </div>
-                            <ScrollArea className="whitespace-nowrap">
-                                <div className="flex flex-grow justify-center items-center">
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
+                                <div className="flex flex-grow justify-start items-start">
                                     {simulation?.readyQueue.map((item, index) => (
                                         <div key={index} className={`gantt-lg-${item.id}`}>{item.id}</div>
                                     ))}
@@ -260,13 +262,18 @@ function PCB() {
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
                     </CardHeader>
-                    <CardContent className="flex flex-start h-[100px] pt-8 inline-block align-middle justify-start"> 
-                            <ScrollArea className="whitespace-nowrap">
-                                <div className="flex flex-grow justify-items-start items-center">   
-                                    <ChevronRightIcon className="h-[20px] w-[20px]"/>
-                                    {simulation?.ganttChart.map((item, index) => (
-                                        <div key={index} className={`gantt-lg-${item}`}>{item}</div>
-                                    ))}
+                      <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-4">
+                        <div className="flex items-center">
+                            <ChevronRightIcon className="h-[20px] w-[20px]"/>
+                        </div>
+                        <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-9xl mx-auto">
+                                <div className="flex flex-grow justify-start items-start">
+                                    
+                                {simulation?.ganttChart.map((item, index) => (
+                                    <div key={index} className={`gantt-lg-${item}`}>
+                                        {item}
+                                    </div>
+                                ))}
                                 </div>
                             <ScrollBar orientation="horizontal" />
                         </ScrollArea>

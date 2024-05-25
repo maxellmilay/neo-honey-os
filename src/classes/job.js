@@ -8,15 +8,16 @@ export class Job {
     this.startTime = 0;
     this.finishTime = 0;
     this.remaining = this.burst;
+    this.processed = false; // Added to track if the job has been processed
   }
 
   static createRandomJob(jobId) {
     // Random numbers limits are selected by trial and error to ensure job GUI representation
     // won't exceed the program screen limits
     const random = (max, min = 1) => Math.floor(Math.random() * max) + min;
-    const arriveTime = jobId === 1 ? 1 : random(30, 2);
+    const arriveTime = jobId === 1 ? 1 : random(20, 2);
     const burst = random(12);
-    const priority = random(100);
+    const priority = random(15);
     const memory = jobId === 1 ? 1 : random(9, 1);
     return new Job(jobId, arriveTime, burst, priority, memory);
   }
@@ -37,11 +38,12 @@ export class Job {
     this.startTime = 0;
     this.finishTime = 0;
     this.remaining = this.burst;
+    this.processed = false; // Reset processed flag
   }
 
   process(simulationTime) {
-    if (this.finished) {
-      throw new Error("Can't work on finished job");
+    if (this.finished || this.processed) {
+      return; // Skip processing if the job is finished or already processed
     }
     if (!this.started) {
       this.startTime = simulationTime;
@@ -71,6 +73,7 @@ export class Job {
     job.startTime = this.startTime;
     job.finishTime = this.finishTime;
     job.remaining = this.remaining;
+    job.processed = this.processed; 
     return job;
   }
 

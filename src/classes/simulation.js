@@ -15,13 +15,14 @@ export class Simulation {
   nextStep() {
     if (this.isFinished()) return;
     this.time++;
-    if (this.currentJob && this.currentJob.finished) {
-      this.currentJob = undefined;
-    }
 
     // Add new jobs dynamically every few time units
-    if (this.time % 10 === 0) {
+    if (this.time % 5 === 0) {
       this.addNewJob();
+    }
+
+    if (this.currentJob && this.currentJob.finished) {
+      this.currentJob = undefined;
     }
 
     const newJobs = this.jobs.filter(job => job.arrivalTime === this.time);
@@ -38,10 +39,12 @@ export class Simulation {
     }
   }
 
+
   addNewJob() {
     const newJobId = this.jobs.length + 1;
     const newJob = Job.createRandomJob(newJobId);
     this.jobs.push(newJob);
+    this.readyQueue.push(newJob); 
   }
 
   reset() {

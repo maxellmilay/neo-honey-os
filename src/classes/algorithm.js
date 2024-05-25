@@ -53,23 +53,35 @@ export class STRF extends Algorithm {
 }
 
 export class RoundRobin extends Algorithm {
-  constructor() {
+  constructor(quantum) {
     super();
-    this.quantumTime = 4;
+    this.quantumTime = quantum;
     this.processTime = 0;
   }
 
-  processQueue(readyQueue, currentJob) {
-    if (!currentJob) {
-      this.processTime = 0;
-      return;
+  // processQueue(readyQueue, currentJob) {
+  //   if (!currentJob) {
+  //     this.processTime = 0;
+  //     return;
+  //   }
+  //   this.processTime++;
+  //   if (this.processTime === this.quantumTime) {
+  //     readyQueue.push(currentJob);
+  //     this.processTime = 0;
+  //   } else {
+  //     readyQueue.unshift(currentJob);
+  //   }
+  // }
+
+  
+    processQueue(readyQueue, currentJob) {
+        if (currentJob && this.currentQuantum < this.quantum && !currentJob.finished) {
+            this.currentQuantum++;
+            return;
+        }
+
+        this.currentQuantum = 1;
+        readyQueue.push(currentJob);  // Push the current job back to the queue
+        readyQueue.sort((a, b) => a.arrivalTime - b.arrivalTime);
     }
-    this.processTime++;
-    if (this.processTime === this.quantumTime) {
-      readyQueue.push(currentJob);
-      this.processTime = 0;
-    } else {
-      readyQueue.unshift(currentJob);
-    }
-  }
 }
