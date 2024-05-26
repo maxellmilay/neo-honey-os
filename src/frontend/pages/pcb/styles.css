@@ -1,5 +1,4 @@
 
-  .grid-custom {
-    @apply grid grid-cols-3 gap-4;
-    grid-template-rows: auto auto 1fr;
-  }
+.filled {
+  fill: currentColor;
+}
