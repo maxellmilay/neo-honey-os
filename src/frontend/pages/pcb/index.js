@@ -20,7 +20,7 @@ import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 import './styles.scss'
 
 // PCB component simulates a CPU scheduling simulation using various algorithms
-function PCB() {
+function PCB2() {
     const navigate = useNavigate();  // Hook to navigate programmatically
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
@@ -161,15 +161,15 @@ function PCB() {
     return (
         <>
         <div className="h-screen">
-        <div className="grid grid-cols-3 items-center w-screen py-2">
+        {/* <div className="grid grid-cols-3 items-center w-screen p-0">
           <h2 className="col-start-2 col-end-3 text-center">BusyBee</h2>
-          <div className="col-start-3 col-end-4 text-right">
+          <div className="text-right">
             <Button variant="icon" onClick={() => navigate("/desktop")}>
               <Cross2Icon />
             </Button>
           </div>
-        </div>
-        <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[790px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
+        </div> */}
+        <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
             <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
@@ -370,4 +370,4 @@ function PCB() {
   );
 }
 
-export default PCB;
+export default PCB2;
