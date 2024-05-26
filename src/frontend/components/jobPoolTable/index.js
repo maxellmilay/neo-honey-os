@@ -16,7 +16,7 @@ function JobPoolTable({ simulation, selectedAlgo }) {
             <ScrollArea className="h-[31rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow>
-                <TableHead className="text-center font-bold">ID</TableHead>
+                <TableHead className="text-center font-bold">Process ID</TableHead>
                 <TableHead className="text-center font-bold">Arrival</TableHead>
                 <TableHead className="text-center font-bold">Burst</TableHead>
                 <TableHead className="text-center font-bold">Memory</TableHead>

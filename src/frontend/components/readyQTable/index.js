@@ -16,7 +16,7 @@ function ReadyQTable({ simulation }) {
             <ScrollArea className="h-[25rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow className="font-bold">
-                <TableHead className="text-center font-bold">ID</TableHead>
+                <TableHead className="text-center font-bold">Process ID</TableHead>
                 <TableHead className="text-center font-bold">Status</TableHead>
                 <TableHead className="text-center font-bold">Remaining</TableHead>
                 <TableHead className="text-center font-bold">Waiting</TableHead>
