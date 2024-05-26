@@ -18,6 +18,7 @@ module.exports = {
       sans: ['Honey Jar Free Trial', 'sans-serif'],
       workSans: ['Work Sans', 'sans-serif'],
       oneLittleFont: ['One Little Font Regular', 'sans-serif'],
+      bobble: ['Bubble Bobble', 'sans-serif'],
     },
     extend: {
       colors: {

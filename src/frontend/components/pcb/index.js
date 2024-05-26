@@ -209,13 +209,13 @@ function PCB() {
           <Draggable positionOffset={{ x: '-50%', y: '-56%' }}>
             <DialogContent key={i} className="w-[98%] h-[86%] flex" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-full">
-                <DialogHeader>
-                  <DialogTitle className="text-s">
-                BusyBee (PCB)
-                  </DialogTitle>
-                </DialogHeader>
               {/* For TABS, Scheduler and Virtual Memory */}
-              <Tabs defaultValue="Tabs" className="w-full">
+              <Tabs defaultValue="Scheduler" className="w-full">
+                <DialogTitle>
+                  <h2 className="flex flex-col space-y-1.5 text-center">
+                    BusyBee (PCB)
+                  </h2>
+                </DialogTitle>
                 <TabsList>
                   <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
                   <TabsTrigger value="Virtual Memory">Virtual Memory</TabsTrigger>

@@ -174,11 +174,11 @@ function PCB2() {
             <div className="row-span-3 h-full" >
             <Card className="bg-slate-100 h-full">
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
-                <CardContent className="justify-center justify-items-center items-center h-42 pt-4 px-6 grid grid-rows-2 gap-0">
+                <CardContent className="justify-center justify-items-center items-center h-[155px] pt-7 px-6 grid grid-rows-2 gap-">
                     <div className="justify-between items-center row-start-1 flex p-1 ">
                         <div>
                         {/* <p>Choose Algorithm</p> */}
-                        <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-4"
+                        <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-3"
                             value={algo}
                             onChange={handleAlgoChange}
                             aria-label="Demo Text Alignment">
@@ -217,7 +217,7 @@ function PCB2() {
                         </ToggleGroup>
                             </div>
                     </div>
-                    <div className="row-start-2">
+                    <div className="row-start-2 pt-6">
                         <div className = "flex grid-cols-3 gap-3">
                             <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-green-500 bg-green-600" 

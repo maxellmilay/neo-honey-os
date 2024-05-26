@@ -1,11 +1,11 @@
 
 @font-face {
-    font-family: 'One Little Font Regular';
-    src: url('../../assets/fonts/OneLittleFontRegular.otf') format('opentype');
+    font-family: 'Bubble Bobble';
+    src: url('../../assets/fonts/BubbleBobble.otf') format('opentype');
   }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'One Little Font Regular' !important;
+    font-family: 'Bubble Bobble';
 }
 
 .appIconButton {
