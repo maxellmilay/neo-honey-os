@@ -162,6 +162,7 @@ function PCB() {
                         <div>
                         {/* <p>Choose Algorithm</p> */}
                         <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-4"
+                            value={algo}
                             onChange={handleAlgoChange}
                             aria-label="Demo Text Alignment">
                             <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
