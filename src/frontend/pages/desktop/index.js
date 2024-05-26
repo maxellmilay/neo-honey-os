@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Notepad from '../../components/notepad/Notepad';
 import PCB from '../../components/pcb';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   HomeIcon,
   LogOut
@@ -25,8 +25,11 @@ export const Desktop = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const history = useNavigate();
+
   const handleExit = () => {
-    window.close(); // Close the window to exit the app
+    // window.close(); // Close the window to exit the app
+    history('/boot')
   };
 
   return (
