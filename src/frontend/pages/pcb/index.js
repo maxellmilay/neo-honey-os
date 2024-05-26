@@ -178,28 +178,28 @@ function PCB() {
                             onChange={handleAlgoChange}
                             aria-label="Demo Text Alignment">
                             <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
-                                disabled={running}
+                                disabled={running || paused}
                                 onClick={handleAlgoChange} >
                                 <Button variant="link" value="fcfs">
                                     First Come, First Served
                                 </Button>
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
-                                disabled={running}
+                                disabled={running || paused}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="sjf">
                                 Shortest Job First
                                 </Button>
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
-                                disabled={running}
+                                disabled={running || paused}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="p">
                                 Priority Scheduling
                                 </Button>
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
-                                disabled={running}
+                                disabled={running || paused}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="rr">
                                     Round Robin

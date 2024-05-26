@@ -16,7 +16,7 @@ function JobPoolTable({ simulation, selectedAlgo }) {
             <ScrollArea className="h-[31rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow>
-                <TableHead className="text-center font-bold">ID</TableHead>
+                <TableHead className="text-center font-bold">Process ID</TableHead>
                 <TableHead className="text-center font-bold">Arrival</TableHead>
                 <TableHead className="text-center font-bold">Burst</TableHead>
                 <TableHead className="text-center font-bold">Memory</TableHead>
@@ -28,19 +28,21 @@ function JobPoolTable({ simulation, selectedAlgo }) {
             </TableRow>
             </TableHeader>
             <TableBody>
-                {simulation?.jobs.map((item, index) => (
-                 <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
-                    <TableCell>{item.id}</TableCell>
-                    <TableCell>{item.arrivalTime}</TableCell>
-                    <TableCell>{item.burst}</TableCell>
-                    <TableCell>{item.memory} kb</TableCell>
-                    <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
-                    {/* <TableCell>Ready or not</TableCell> New, Ready, Running, Waiting, Suspended, Terminated
-                    <TableCell>{item.remaining}</TableCell>
-                    <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>
-                    <TableCell>{item.percent}</TableCell> */}
-                </TableRow>
-                ))}
+                {([...(simulation?.jobs || [])] // Provide a default value
+                .sort((a, b) => {
+                    if (a === simulation.currentJob) return -1;
+                    if (b === simulation.currentJob) return 1;
+                    return a.id - b.id;
+                })
+                .map((item, index) => (
+                    <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
+                        <TableCell>{item.id}</TableCell>
+                        <TableCell>{item.arrivalTime}</TableCell>
+                        <TableCell>{item.burst}</TableCell>
+                        <TableCell>{item.memory} kb</TableCell>
+                        <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
+                    </TableRow>
+                )))}
             </TableBody>
             </ScrollArea>
       </Table>
