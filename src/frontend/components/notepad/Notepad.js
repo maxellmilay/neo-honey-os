@@ -237,26 +237,30 @@ function Notepad() {
   };
 
   return (
-          <Dialog>
-            <DialogTrigger asChild>
-  <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-              <Button id="notepad-button" 
-                      variant="outline" 
-                      icon="icon"
-                      className={`${styles.appIconButton} transparent`} >
-                <img src={notepadIcon} alt="notepad-icon"/>
-              </Button>
-      </TooltipTrigger>
-        <TooltipContent>
-          BuzzNote
-        </TooltipContent>
-      </Tooltip>
+    <TooltipProvider>
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className="relative">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  id="notepad-button" 
+                  variant="outline" 
+                  icon="icon"
+                  className={`${styles.appIconButton} transparent`}
+                >
+                  <img src={notepadIcon} alt="notepad-icon"/>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                BuzzNote
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        </DialogTrigger>
+        {renderDialogContent()}
+      </Dialog>
     </TooltipProvider>
-            </DialogTrigger>
-            {renderDialogContent()}
-          </Dialog>
   );
 }
 export default Notepad;
