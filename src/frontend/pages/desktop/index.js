@@ -8,6 +8,7 @@ import styles from './desktop.module.css';
 import { VoiceRecog } from '../../components/voiceRecog';
 import beeLogo from '../../assets/img/bee.png';
 import buzzpadLogo from '../../assets/img/buzzpad.png';
+import './desktop.module.css'
 
 export const Desktop = () => {
   const [currentTime, setCurrentTime] = useState('');
@@ -38,25 +39,27 @@ export const Desktop = () => {
 
   return (
     <>
-      <div className={`${styles.taskbar} flex items-center justify-between fixed bottom-0 w-full h-16 shadow-lg p-4`}>
+      <div className={`${styles.taskbar} flex items-center justify-between fixed bottom-0 w-full h-25 shadow-lg p-4`}>
         <div className="flex items-center space-x-4">
-          <Button variant="link" size="icon">
+          <Button variant="outline" size="icon" className={`${styles.appIconButton} transparent`}>
             <Link to="/boot">
-              <HomeIcon className="h-7 w-7 text-neutral-900 hover:text-neutral-50" />
+              <HomeIcon/>
             </Link>
           </Button>
-          <Button variant="link" size="icon">
+          {/* <Button variant="link" size="icon">
             <Link to="/PCB">
               <img src={beeLogo} alt="PCB" className="h-10 w-10" />
             </Link>
-          </Button>
-          <Button variant="link" size="icon">
+          </Button> */}
+          <PCB />
+          {/* <Button variant="link" size="icon">
             <img src={buzzpadLogo} alt="Notepad" className="h-7 w-7" />
-          </Button>
+          </Button> */}
+          <Notepad />
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-neutral-900 text-lg ">{currentTime}</span>
-          <Button variant="link" size="icon">
+          <Button variant="ghost" size="icon">
             <VoiceRecog />
           </Button>
         </div>
@@ -74,8 +77,8 @@ export const Desktop = () => {
           </div>
         )}
       </div>
-      <Notepad />
-      <PCB />
+      {/* <Notepad /> */}
+      {/* <PCB /> */}
     </>
   );
 };

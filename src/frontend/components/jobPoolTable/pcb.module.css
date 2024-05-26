@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     text-align: center;
     background: transparent; /* ensures no background color */
-    border: none; /* removes border */
+    border: 1; /* removes border */
     padding: 8px; /* or any suitable padding */
 }
 

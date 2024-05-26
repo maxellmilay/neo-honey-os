@@ -28,6 +28,13 @@ import pcbIcon from "../../assets/img/bee.png";
 import styles from "./pcb.module.css";
 import { generateRandomProcessControlBlock } from "./dummydata";
 import { ScrollArea } from "../../components/ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../components/ui/tooltip"
+
 
 function PCB() {
   const [dialogCount, setDialogCount] = useState(1);
@@ -157,15 +164,23 @@ function PCB() {
     return dialogContentArray;
   };
 
-  return (
-        <Button id="pcbButton" 
-                variant="outline" 
-                size="appIcon" 
-                className={`${styles.appIconButton} transparent`} 
-                onClick = {() => navigate('/PCB')} >
-            <img src={pcbIcon} alt="pcb-icon"/>
-            <div>PCB</div>
-        </Button>
+  return (  
+  <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button id="pcbButton" 
+                  variant="outline" 
+                  size="icon" 
+                  className={`${styles.appIconButton} transparent`} 
+                  onClick = {() => navigate('/PCB')} >
+              <img src={pcbIcon} alt="pcb-icon"/>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          BusyBee (PCB)
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 
