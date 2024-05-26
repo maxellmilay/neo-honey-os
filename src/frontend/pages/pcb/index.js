@@ -322,12 +322,12 @@ function PCB2() {
                         <h4>Ready Queue</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '90%' }}>
+                        <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
                                 <ReadyQTable simulation={simulation} />
                             </div>
                         </div>
-                        <div className="row-span-1 flex justify-start items-center space-x-2" style={{ maxHeight: '10%' }}>
+                        <div className="row-span-1 flex justify-start items-center space-x-2" style={{ maxHeight: '12%' }}>
                             <ChevronRightIcon className="h-[20px] w-[20px]" />
                             <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
                                 <div className="flex flex-grow justify-start items-start space-x-1">
