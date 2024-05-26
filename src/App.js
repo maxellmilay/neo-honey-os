@@ -7,7 +7,7 @@ import { Desktop } from "./frontend/pages/desktop"
 import { BootApp } from "./frontend/pages/boot"
 import Login from './frontend/pages/login'; 
 import PCB from './frontend/pages/pcb';
-
+import { ShutDown } from "./frontend/pages/shutdown"
 
 function App() {
 	
@@ -28,6 +28,8 @@ function App() {
 								element={<Desktop/>} />
 							<Route path="/PCB"
 								element={<PCB/>} />
+							<Route path="/shutdown" 
+								element={<ShutDown />} />
 						</Routes>
 					</Router>
 				</div>
