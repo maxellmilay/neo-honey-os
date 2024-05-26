@@ -31,11 +31,11 @@ export const Desktop = () => {
 
   return (
     <>
-      <div className={`${styles.taskbar} flex items-center justify-between fixed bottom-0 w-full h-16 bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg p-4`}>
+      <div className={`${styles.taskbar} flex items-center justify-between fixed bottom-0 w-full h-16 shadow-lg p-4`}>
         <div className="flex items-center space-x-4">
           <Button variant="link" size="icon">
             <Link to="/boot">
-              <HomeIcon className="h-7 w-7 text-yellow-200 hover:text-gray-300" />
+              <HomeIcon className="h-7 w-7 text-neutral-900 hover:text-neutral-50" />
             </Link>
           </Button>
           <Button variant="link" size="icon">
@@ -48,7 +48,7 @@ export const Desktop = () => {
           </Button>
         </div>
         <div className="flex items-center space-x-4">
-          <span className="text-yellow-200 text-lg ">{currentTime}</span>
+          <span className="text-neutral-900 text-lg ">{currentTime}</span>
           <Button variant="link" size="icon">
             <VoiceRecog />
           </Button>
@@ -56,7 +56,7 @@ export const Desktop = () => {
       </div>
       <div className="fixed bottom-8 right-5">
         <Button variant="link" size="icon" onClick={handleExit}>
-          <LogOut className="h-5 w-5 text-yellow-800 hover:text-yellow-950" />
+          <LogOut className="h-5 w-5 text-neutral-900 hover:text-neutral-50" />
         </Button>
       </div>
       <Notepad />
