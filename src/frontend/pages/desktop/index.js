@@ -4,7 +4,6 @@ import PCB from '../../components/pcb';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
-  Mic,
   LogOut
 } from 'lucide-react'
 import { Button } from '../../components/ui/button'
@@ -36,7 +35,7 @@ export const Desktop = () => {
         <div className="flex items-center space-x-4">
           <Button variant="link" size="icon">
             <Link to="/boot">
-              <HomeIcon className="h-7 w-7 text-yellow-200" />
+              <HomeIcon className="h-7 w-7 text-yellow-200 hover:text-gray-300" />
             </Link>
           </Button>
           <Button variant="link" size="icon">
@@ -49,7 +48,7 @@ export const Desktop = () => {
           </Button>
         </div>
         <div className="flex items-center space-x-4">
-          <span className="text-yellow-200 text-lg">{currentTime}</span>
+          <span className="text-yellow-200 text-lg ">{currentTime}</span>
           <Button variant="link" size="icon">
             <VoiceRecog />
           </Button>
@@ -57,7 +56,7 @@ export const Desktop = () => {
       </div>
       <div className="fixed bottom-8 right-5">
         <Button variant="link" size="icon" onClick={handleExit}>
-          <LogOut className="h-5 w-5 text-yellow-950" />
+          <LogOut className="h-5 w-5 text-yellow-800 hover:text-yellow-950" />
         </Button>
       </div>
       <Notepad />
