@@ -7,7 +7,7 @@ const getRandomInt = (min, max) => {
 
 // Function to generate random status
 const getRandomStatus = () => {
-    const statuses = ["New", "Ready", "Running", "Waiting", "Terminated"];
+    const statuses = ["New", "Ready", "Running", "Waiting", "Suspended", "Terminated"];
     return statuses[getRandomInt(0, statuses.length - 1)];
 };
 

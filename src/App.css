@@ -21,3 +21,19 @@
 	gap: 3em;
 	overflow-y: auto;
 }
+
+.page-enter {
+	transform: translateY(100%);
+  }
+  .page-enter-active {
+	transform: translateY(0);
+	transition: transform 500ms ease-in-out;
+  }
+  .page-exit {
+	transform: translateY(0);
+  }
+  .page-exit-active {
+	transform: translateY(-100%);
+	transition: transform 500ms ease-in-out;
+  }
+  

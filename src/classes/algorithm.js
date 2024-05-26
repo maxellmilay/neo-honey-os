@@ -53,9 +53,9 @@ export class STRF extends Algorithm {
 }
 
 export class RoundRobin extends Algorithm {
-  constructor() {
+  constructor(quantum) {
     super();
-    this.quantumTime = 2;
+    this.quantumTime = quantum;
     this.processTime = 0;
   }
 

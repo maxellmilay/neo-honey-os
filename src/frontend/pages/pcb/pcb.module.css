@@ -1,43 +1,170 @@
-
 @font-face {
     font-family: 'One Little Font Regular';
     src: url('../../assets/fonts/OneLittleFontRegular.otf') format('opentype');
-  }
+}
 
 @font-face {
-font-family: 'Helvetica Now Display Regular';
-src: url('../../assets/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
+    font-family: 'Helvetica Now Display Regular';
+    src: url('../../assets/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
 }
-  
+
 @font-face {
     font-family: 'Work Sans';
     src: url('../../assets/fonts/WorkSans.ttf') format('truetype');
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'One Little Font Regular' !important;
+    font-family: 'One Little Font Regular', sans-serif;
 }
 
 p, b {
-    font-family: 'Helvetica Now Display Regular' !important;
+    font-family: 'Helvetica Now Display Regular', sans-serif;
 }
 
 .appIconButton {
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: transparent; /* ensures no background color */
-    border: none; /* removes border */
-    padding: 8px; /* or any suitable padding */
+    background: transparent;
+    border: none;
 }
 
 .appIconButton img {
-    width: 48px; /* or your desired size */
-    height: auto; /* maintains aspect ratio */
+    width: 48px;
+    height: auto;
 }
 
 .appIconButton div {
-    font-size: 16px; /* or your desired font size */
-    color: black; /* or any color based on your theme */
+    font-size: 16px;
+    color: black;
+}
+
+.gantt-base {
+    display: inline-block;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    text-align: center;
+    color: white;
+    padding: 15px 0;
+}
+
+.gantt-sm-0 {
+    background-color: transparent;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-1 {
+    background-color: #9C0000;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-2 {
+    background-color: darkgreen;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-3 {
+    background-color: #505050;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-4 {
+    background-color: #171515;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-5 {
+    background-color: #0000E6;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-6 {
+    background-color: #40A800;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-7 {
+    background-color: #720E9E;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-8 {
+    background-color: #c45608;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-sm-9 {
+    background-color: #634d40;
+    height: 50px;
+    width: 12px;
+}
+
+.gantt-lg-0 {
+    background-color: transparent;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-1 {
+    background-color: #9C0000;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-2 {
+    background-color: darkgreen;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-3 {
+    background-color: #505050;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-4 {
+    background-color: #171515;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-5 {
+    background-color: #0000E6;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-6 {
+    background-color: #40A800;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-7 {
+    background-color: #720E9E;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-8 {
+    background-color: #c45608;
+    height: 55px;
+    width: 20px;
+}
+
+.gantt-lg-9 {
+    background-color: #634d40;
+    height: 55px;
+    width: 20px;
 }
