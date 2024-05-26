@@ -22,8 +22,8 @@ function App() {
 								to={"/boot"} />} />
 							<Route path="/boot" 
 									element={<BootApp />} />
-							<Route path="/login" 
-								element={<Login/>} />
+							{/* <Route path="/login" 
+								element={<Login/>} /> */}
 							<Route path="/desktop" 
 								element={<Desktop/>} />
 							<Route path="/PCB"

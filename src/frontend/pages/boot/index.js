@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Label } from '../../components/ui/label';
-import styles from './boot.module.css'; 
+import styles from './boot.module.css';
 
 export const BootApp = () => {
   const navigate = useNavigate();
@@ -22,7 +22,20 @@ export const BootApp = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleClick = () => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === 'Space') {
+        handleTransition();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  const handleTransition = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       navigate('/desktop');
@@ -30,9 +43,9 @@ export const BootApp = () => {
   };
 
   return (
-    <div 
-      className={`${styles.bodyBackground} ${isTransitioning ? styles.slideUp : ''}`} 
-      onClick={handleClick}
+    <div
+      className={`${styles.bodyBackground} ${isTransitioning ? styles.slideUp : ''}`}
+      onClick={handleTransition}
     >
       <Label className={styles.currentTime}>{currentTime}</Label>
       <Label className={styles.currentDate}>{currentDate}</Label>
