@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Notepad from '../../components/notepad/Notepad';
 import PCB from '../../components/pcb';
 import { Link, useNavigate } from "react-router-dom";
-import {
-  HomeIcon,
-  LogOut
-} from 'lucide-react'
-import { Button } from '../../components/ui/button'
-import styles from './desktop.module.css'
+import { HomeIcon, Power } from 'lucide-react';
+import { Button } from '../../components/ui/button';
+import styles from './desktop.module.css';
 import { VoiceRecog } from '../../components/voiceRecog';
 import beeLogo from '../../assets/img/bee.png';
 import buzzpadLogo from '../../assets/img/buzzpad.png';
 
 export const Desktop = () => {
   const [currentTime, setCurrentTime] = useState('');
+  const [showPowerOptions, setShowPowerOptions] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,11 +24,16 @@ export const Desktop = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const history = useNavigate();
+  const handlePowerButtonClick = () => {
+    setShowPowerOptions(!showPowerOptions);
+  };
 
-  const handleExit = () => {
-    // window.close(); // Close the window to exit the app
-    history('/boot')
+  const handlePowerOff = () => {
+    window.close(); // Close the window to exit the app
+  };
+
+  const handleSignOut = () => {
+    navigate('/boot'); // Navigate to boot page
   };
 
   return (
@@ -58,12 +62,20 @@ export const Desktop = () => {
         </div>
       </div>
       <div className="fixed bottom-8 right-5">
-        <Button variant="link" size="icon" onClick={handleExit}>
-          <LogOut className="h-5 w-5 text-neutral-900 hover:text-neutral-50" />
+        <Button variant="link" size="icon" onClick={handlePowerButtonClick}>
+          <Power className="h-5 w-5 text-neutral-900 hover:text-neutral-50" />
         </Button>
+        {showPowerOptions && (
+          <div className="absolute right-0 bottom-12 w-40 bg-neutral-50 shadow-lg rounded-lg z-50">
+            <ul>
+              <li className="px-4 py-3 hover:bg-gray-200 hover:rounded-lg cursor-pointer border-b border-gray-300" onClick={handleSignOut}>Sign Out</li>
+              <li className="px-4 py-3 hover:bg-gray-200 hover:rounded-lg cursor-pointer" onClick={handlePowerOff}>Power Off</li>
+            </ul>
+          </div>
+        )}
       </div>
       <Notepad />
       <PCB />
     </>
-  )
-}
+  );
+};
