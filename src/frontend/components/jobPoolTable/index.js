@@ -28,19 +28,21 @@ function JobPoolTable({ simulation, selectedAlgo }) {
             </TableRow>
             </TableHeader>
             <TableBody>
-                {simulation?.jobs.map((item, index) => (
-                 <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
-                    <TableCell>{item.id}</TableCell>
-                    <TableCell>{item.arrivalTime}</TableCell>
-                    <TableCell>{item.burst}</TableCell>
-                    <TableCell>{item.memory} kb</TableCell>
-                    <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
-                    {/* <TableCell>Ready or not</TableCell> New, Ready, Running, Waiting, Suspended, Terminated
-                    <TableCell>{item.remaining}</TableCell>
-                    <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>
-                    <TableCell>{item.percent}</TableCell> */}
-                </TableRow>
-                ))}
+                {([...(simulation?.jobs || [])] // Provide a default value
+                .sort((a, b) => {
+                    if (a === simulation.currentJob) return -1;
+                    if (b === simulation.currentJob) return 1;
+                    return a.id - b.id;
+                })
+                .map((item, index) => (
+                    <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
+                        <TableCell>{item.id}</TableCell>
+                        <TableCell>{item.arrivalTime}</TableCell>
+                        <TableCell>{item.burst}</TableCell>
+                        <TableCell>{item.memory} kb</TableCell>
+                        <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
+                    </TableRow>
+                )))}
             </TableBody>
             </ScrollArea>
       </Table>
