@@ -16,15 +16,45 @@ body {
     align-items: center;
     padding: 0 20px;
     /* box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.5); */
-    border: 1px solid #d6d6d6;
+    border: 1px solid #857437;
     border-radius: 5px;
   }
 
-  .currentTime {
-    color: #d6d6d6;
-    font-family: 'Helvetica Now Display Regular', sans-serif !important;
-    font-size: 8px;
-    position: absolute;
+  .taskbar div {
+    display: flex;
+    align-items: center;
   }
-
   
+  .taskbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .taskbar .time {
+    color: white;
+    font-size: 1.25rem;
+  }
+  
+  .taskbar .icon {
+    color: white;
+    margin-right: 1rem;
+    font-size: 1.75rem;
+  }
+  
+  .taskbar img {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+  
+  .fixed {
+    position: fixed;
+  }
+  
+  .bottom-4 {
+    bottom: 1rem;
+  }
+  
+  .right-4 {
+    right: 1rem;
+  }

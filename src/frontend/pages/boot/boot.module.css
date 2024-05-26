@@ -27,6 +27,18 @@
   font-family: 'Helvetica Now Display Regular', sans-serif !important;
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-up {
+  animation: slideUp 1s forwards;
+}
 
 
 .error{

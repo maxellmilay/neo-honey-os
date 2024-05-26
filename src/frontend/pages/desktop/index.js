@@ -1,42 +1,67 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Notepad from '../../components/notepad/Notepad';
 import PCB from '../../components/pcb';
 import { Link } from "react-router-dom";
 import {
   HomeIcon,
-  ArrowRightFromLineIcon,
+  Mic,
+  LogOut
 } from 'lucide-react'
 import { Button } from '../../components/ui/button'
-import { Label } from '../../components/ui/label'
 import styles from './desktop.module.css'
 import { VoiceRecog } from '../../components/voiceRecog';
+import beeLogo from '../../assets/img/bee.png';
+import buzzpadLogo from '../../assets/img/buzzpad.png';
 
-export const Desktop = ({ }) => {
+export const Desktop = () => {
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      setCurrentTime(timeString);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const handleExit = () => {
+    window.close(); // Close the window to exit the app
+  };
+
   return (
     <>
-   <div className={`${styles.taskbar} flex align-left h-screen flex-row`}>
-      <aside className="w-full bg-gradient drop-shadow-md flex flex-row justify-between">
-        <div className="h-12 flex items-center justify-center border-b-2 border-white-250">
+      <div className={`${styles.taskbar} flex items-center justify-between fixed bottom-0 w-full h-16 bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg p-4`}>
+        <div className="flex items-center space-x-4">
           <Button variant="link" size="icon">
             <Link to="/boot">
-              <HomeIcon className="h-7 w-7 text-white" />
+              <HomeIcon className="h-7 w-7 text-yellow-200" />
             </Link>
           </Button>
-        </div> 
-        <div className="h-12 flex items-center justify-center border-t-2 border-white-250">
           <Button variant="link" size="icon">
-            <Link to="/">
-              <ArrowRightFromLineIcon className="h-7 w-7 text-white" />
+            <Link to="/PCB">
+              <img src={beeLogo} alt="PCB" className="h-10 w-10" />
             </Link>
+          </Button>
+          <Button variant="link" size="icon">
+            <img src={buzzpadLogo} alt="Notepad" className="h-7 w-7" />
           </Button>
         </div>
-      </aside>
-    </div>
-    <div className={`items-center justify-center pb-12 mb-12`}>
-         <VoiceRecog />
-    </div>
-    <Notepad />
-    <PCB />
+        <div className="flex items-center space-x-4">
+          <span className="text-yellow-200 text-lg">{currentTime}</span>
+          <Button variant="link" size="icon">
+            <VoiceRecog />
+          </Button>
+        </div>
+      </div>
+      <div className="fixed bottom-8 right-5">
+        <Button variant="link" size="icon" onClick={handleExit}>
+          <LogOut className="h-5 w-5 text-yellow-950" />
+        </Button>
+      </div>
+      <Notepad />
+      <PCB />
     </>
   )
 }

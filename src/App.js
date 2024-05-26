@@ -19,7 +19,7 @@ function App() {
 						<Routes>
 							<Route path="/" 
 								element={<Navigate 
-								to={"/desktop"} />} />
+								to={"/boot"} />} />
 							<Route path="/boot" 
 									element={<BootApp />} />
 							<Route path="/login" 
