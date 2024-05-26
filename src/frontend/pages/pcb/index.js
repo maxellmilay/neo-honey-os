@@ -29,6 +29,7 @@ function PCB() {
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
+    const [selectedAlgo, setSelectedAlgo] = useState(false);  // State for the selected algorithm
     const [running, setRunning] = useState(false);  // State to determine if the simulation is running
     const [started, setStarted] = useState(false); // simulation started
     const [paused, setPaused] = useState(false); // simulation paused
@@ -130,6 +131,7 @@ function PCB() {
         simulation.reset();
         setSimulation(null);
         setJobCount(0);
+        setSelectedAlgo(false);
         setRunning(false);
         setJobs([]);
         console.log(started)
@@ -152,6 +154,7 @@ function PCB() {
     const handleAlgoChange = (event) => {
         const newValue = event.target.value;
         setAlgo(newValue);
+        setSelectedAlgo(true);
     }
     
     // JSX for the PCB component UI
@@ -179,6 +182,7 @@ function PCB() {
                             aria-label="Demo Text Alignment">
                             <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
                                 disabled={running || paused}
+                                running={selectedAlgo}
                                 onClick={handleAlgoChange} >
                                 <Button variant="link" value="fcfs">
                                     First Come, First Served
@@ -186,6 +190,7 @@ function PCB() {
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
                                 disabled={running || paused}
+                                running={selectedAlgo}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="sjf">
                                 Shortest Job First
@@ -193,6 +198,7 @@ function PCB() {
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
                                 disabled={running || paused}
+                                running={selectedAlgo}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="p">
                                 Priority Scheduling
@@ -200,6 +206,7 @@ function PCB() {
                             </ToggleGroupItem>
                             <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
                                 disabled={running || paused}
+                                running={selectedAlgo}
                                 onClick={handleAlgoChange}>
                                 <Button variant="link" value="rr">
                                     Round Robin
