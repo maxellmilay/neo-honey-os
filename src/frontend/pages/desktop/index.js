@@ -29,7 +29,7 @@ export const Desktop = () => {
   };
 
   const handlePowerOff = () => {
-    window.close(); // Close the window to exit the app
+    navigate('/shutdown');
   };
 
   const handleSignOut = () => {
