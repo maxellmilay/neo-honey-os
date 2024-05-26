@@ -171,8 +171,8 @@ function PCB2() {
         </div> */}
         <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
-            <div className="row-span-3 h-full" >
-            <Card className="bg-slate-100 h-full">
+            <div className="row-span-4 h-full gap-4" >
+            <Card className="bg-slate-100 h-full mb-4" style={{ maxHeight: '75%' }}>
                 <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
                 <CardContent className="justify-center justify-items-center items-center h-[155px] pt-7 px-6 grid grid-rows-2 gap-">
                     <div className="justify-between items-center row-start-1 flex p-1 ">
@@ -253,13 +253,15 @@ function PCB2() {
                     </div>
                 </CardContent>
             </Card>
-            </div>
+            {/* </div> */}
 
             {/* CPU Card */}
-            <div className="row-span-3 col-start-1 row-start-4 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>CPU</h4></CardHeader>
-                    <CardContent className="justify-center items-center align-middle h-[150px] pt-8 grid grid-cols-3 gap-4">
+            {/* <div className="row-span-3 col-start-1 row-start-4 h-full"> */}
+                <Card className="bg-slate-100 h-full" style={{ maxHeight: '71.95%' }}>
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                        <h4> CPU </h4>
+                    </CardHeader>
+                    <CardContent className="justify-center items-center align-middle h-[150px] pt-2 grid grid-cols-3 gap-4">
                         <div className="grid grid-rows-2 gap-8">
                             <div>
                                 <p>No. of Jobs</p>
@@ -346,8 +348,8 @@ function PCB2() {
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
                     </CardHeader>
-                      <CardContent className="flex flex- start items-center justify-center h-[100px] px-4 pt-8">
-                        <div className="flex items-center mb-3">
+                      <CardContent className="flex flex- start items-center justify-center h-[85px] px-4 pt-4">
+                        <div className="flex items-center mb-4">
                             <ChevronRightIcon className="h-[20px] w-[20px]" />
                         </div>
                         <ScrollArea className="overflow-x-auto whitespace-nowrap w-full h-full max-w-9xl mx-auto"
