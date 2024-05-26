@@ -271,7 +271,7 @@ function PCB() {
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool (PCB)</h4></CardHeader>
                     <CardContent className="m-0">
-                        <JobPoolTable simulation={simulation}  jobs={[]} />
+                        <JobPoolTable simulation={simulation} selectedAlgo={algo} jobs={[]} />
                     </CardContent>
                 </Card>
             </div>

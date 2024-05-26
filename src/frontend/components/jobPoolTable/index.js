@@ -10,7 +10,7 @@ import {
 import styles from "./pcb.module.css";
 import { ScrollArea } from "../../components/ui/scroll-area";
 
-function JobPoolTable({ simulation }) {
+function JobPoolTable({ simulation, selectedAlgo }) {
     return(
         <Table className="w-full h-full"> 
             <ScrollArea className="h-[31rem] w-auto p-2">
@@ -20,7 +20,7 @@ function JobPoolTable({ simulation }) {
                 <TableHead className="text-center">Arrival</TableHead>
                 <TableHead className="text-center">Burst</TableHead>
                 <TableHead className="text-center">Memory</TableHead>
-                <TableHead className="text-center">Priority</TableHead>
+                <TableHead className="text-center">{selectedAlgo === 'p' && "Priority"}</TableHead>
                 {/* <TableHead className="text-center">Status</TableHead>
                 <TableHead className="text-center">Remaining</TableHead>
                 <TableHead className="text-center">Waiting</TableHead>
@@ -34,7 +34,7 @@ function JobPoolTable({ simulation }) {
                     <TableCell>{item.arrivalTime}</TableCell>
                     <TableCell>{item.burst}</TableCell>
                     <TableCell>{item.memory} kb</TableCell>
-                    <TableCell>{item.priority}</TableCell>
+                    <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
                     {/* <TableCell>Ready or not</TableCell> New, Ready, Running, Waiting, Suspended, Terminated
                     <TableCell>{item.remaining}</TableCell>
                     <TableCell>{item.getWaitingTime(simulation.time)}</TableCell>
