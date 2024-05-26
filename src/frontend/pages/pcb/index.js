@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Cross2Icon, PauseIcon, StopIcon, TrackNextIcon, CheckIcon, ReloadIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, ReloadIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
 import {
   ToggleGroup,
@@ -15,6 +15,7 @@ import { FirstComeFirstServe, ShortestJobFirst, Priority, PreemptivePriority, ST
 import { Job } from '../../../classes/job';
 import { Simulation } from '../../../classes/simulation';
 import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
+import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'
 import './styles.scss'
 
@@ -29,12 +30,9 @@ function PCB() {
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
     const [running, setRunning] = useState(false);  // State to determine if the simulation is running
+    const [started, setStarted] = useState(false); // simulation started
+    const [paused, setPaused] = useState(false); // simulation paused
     const intervalRef = useRef(null);  // Ref for the simulation interval
-
-    // useEffect to create a new simulation whenever the algorithm changes
-    // useEffect(() => {
-    //     newSim();
-    // }, [algo]);
 
     // useEffect to manage the simulation timer when the running state or simSpeed changes
     useEffect(() => {
@@ -97,29 +95,44 @@ function PCB() {
         sim.reset();
         setSimulation(sim);
     };
+
     // Function to start the simulation
     const play = (selectedAlgo) => {
+        setStarted(true);
         if (!running) {
             newSim(selectedAlgo);
             setRunning(true);
             console.log(algo)
         }
+        console.log(started)
     };
 
     // Function to stop the simulation
     const stop = () => {
         setRunning(false);
-        console.log("stop")
+    };
+
+
+    const pause = () => {
+        setRunning(false);
+        setPaused(true);
+    };
+
+    const resume = () => {
+        setRunning(true);
     };
 
     // Function to reset the simulation
     const reset = () => {
         stop();
+        setPaused(false);
+        setStarted(false);
         simulation.reset();
         setSimulation(null);
         setJobCount(0);
         setRunning(false);
         setJobs([]);
+        console.log(started)
     }; 
     
 
@@ -141,7 +154,6 @@ function PCB() {
         setAlgo(newValue);
     }
     
-
     // JSX for the PCB component UI
     return (
         <>
@@ -196,20 +208,36 @@ function PCB() {
                             </div>
                     </div>
                     <div className="row-start-2">
-                        <div className = "flex gap-3">
+                        <div className = "flex grid-cols-3 gap-3">
                             <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-green-500 bg-green-600" 
                                     onClick={() => play(algo)}
-                                    disabled={running}>
+                                    disabled={running || paused}>
                                     <PlayIcon/>
-                                        Start Simulation
+                                        Start
                             </Button>
+                              {running !== true ? (
+                                <Button variant = "nohover" 
+                                        className = "h-1/4 flex gap-2 bg-gray-400 bg-orange-600" 
+                                        onClick={resume}
+                                        disabled={!started}>
+                                        <PausePlayIcon/>
+                                            Resume
+                                </Button>
+                            ) : (
+                            <Button variant = "nohover" 
+                                    className = "h-1/4 flex gap-2 bg-gray-400 bg-orange-600" 
+                                    onClick={pause}>
+                                    <PausePlayIcon/>
+                                        Pause
+                            </Button>
+                            )}
                             <Button variant = "nohover" 
                                     className = "h-1/4 flex gap-2 bg-gray-400 bg-red-600" 
                                     onClick={reset}
-                                    disabled={!running}>
+                                    disabled={!started}>
                                     <ReloadIcon/>
-                                        Clear Simulation
+                                        Clear
                             </Button>
                         </div>
                     </div>

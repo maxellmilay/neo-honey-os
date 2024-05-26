@@ -12,8 +12,8 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 
 function ReadyQTable({ simulation }) {
     return(
-        <Table className="w-full h-full" style={{ maxHeight: '80%' }}> 
-            <ScrollArea className="h-[22rem] w-auto p-2">
+        <Table className="w-full h-full" style={{ maxHeight: '90%' }}> 
+            <ScrollArea className="h-[25rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
             <TableRow>
                 <TableHead className="text-center">ID</TableHead>
