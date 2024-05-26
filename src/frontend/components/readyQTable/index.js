@@ -15,17 +15,17 @@ function ReadyQTable({ simulation }) {
         <Table className="w-full h-full" style={{ maxHeight: '80%' }}> 
             <ScrollArea className="h-[22rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
-            <TableRow>
-                <TableHead className="text-center">ID</TableHead>
-                <TableHead className="text-center">Status</TableHead>
-                <TableHead className="text-center">Remaining</TableHead>
-                <TableHead className="text-center">Waiting</TableHead>
-                <TableHead className="text-center">%</TableHead>
+            <TableRow className="font-bold">
+                <TableHead className="text-center font-bold">ID</TableHead>
+                <TableHead className="text-center font-bold">Status</TableHead>
+                <TableHead className="text-center font-bold">Remaining</TableHead>
+                <TableHead className="text-center font-bold">Waiting</TableHead>
+                <TableHead className="text-center font-bold">%</TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
                 {simulation?.jobs.map((item, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
                     <TableCell>{item.id}</TableCell>
                     <TableCell>{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
                     <TableCell>{item.remaining}</TableCell>
