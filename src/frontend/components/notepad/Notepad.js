@@ -146,7 +146,7 @@ function Notepad() {
             <DialogContent key={i} className="w-9/12 h-5/6 flex" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-1/4">
                 <DialogHeader>
-                  <DialogTitle className="text-s">BuzzPad</DialogTitle>
+                  <DialogTitle className="text-s">BuzzNote</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col">
                   <div className="mb-2">

@@ -6,6 +6,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "../../components/ui/toggle-group"
+import { Input } from "../../components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../components/ui/card";
 import JobPoolTable from '../../components/jobPoolTable';
@@ -157,6 +158,12 @@ function PCB2() {
         setSelectedAlgo(true);
     }
     
+    
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    setQuantum(value);
+  };
+
     // JSX for the PCB component UI
     return (
         <>
@@ -169,144 +176,194 @@ function PCB2() {
             </Button>
           </div>
         </div> */}
-        <div className="grid grid-cols-3 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
+        <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
-            <div className="row-span-4 h-full gap-4" >
-            <Card className="bg-slate-100 h-full mb-4" style={{ maxHeight: '75%' }}>
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Scheduling Policy</h4></CardHeader>
-                <CardContent className="justify-center justify-items-center items-center h-[155px] pt-7 px-6 grid grid-rows-2 gap-">
-                    <div className="justify-between items-center row-start-1 flex p-1 ">
-                        <div>
-                        {/* <p>Choose Algorithm</p> */}
-                        <ToggleGroup type="single" className="grid grid-cols-2 grid-rows-2 gap-3"
-                            value={algo}
-                            onChange={handleAlgoChange}
-                            aria-label="Demo Text Alignment">
-                            <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="fcfs" aria-label="Toggle fcfs"
-                                disabled={running || paused}
-                                running={selectedAlgo}
-                                onClick={handleAlgoChange} >
-                                <Button variant="link" value="fcfs">
-                                    First Come, First Served
-                                </Button>
-                            </ToggleGroupItem>
-                            <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-1 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="sjf" aria-label="Toggle sjf"  
-                                disabled={running || paused}
-                                running={selectedAlgo}
-                                onClick={handleAlgoChange}>
-                                <Button variant="link" value="sjf">
-                                Shortest Job First
-                                </Button>
-                            </ToggleGroupItem>
-                            <ToggleGroupItem className="border-2 bg-white row-start-1 col-start-2 data-[state=on]:bg-yellow-300 hover:bg-yellow-100" value="p" aria-label="Toggle p"  
-                                disabled={running || paused}
-                                running={selectedAlgo}
-                                onClick={handleAlgoChange}>
-                                <Button variant="link" value="p">
-                                Priority Scheduling
-                                </Button>
-                            </ToggleGroupItem>
-                            <ToggleGroupItem className="border-2 bg-white row-start-2 col-start-2 data-[state=on]:bg-yellow-300" value="rr" aria-label="Toggle rr"
-                                disabled={running || paused}
-                                running={selectedAlgo}
-                                onClick={handleAlgoChange}>
-                                <Button variant="link" value="rr">
-                                    Round Robin
-                                </Button>
-                            </ToggleGroupItem>
-                        </ToggleGroup>
-                            </div>
+            <div className="row-span-6  h-full gap-4" >
+            <Card className="bg-slate-100 h-full mb-4">
+                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Policy</h4></CardHeader>
+                <CardContent className="flex flex-col justify-center items-center h-[400px] px-4">
+                    <div className="w-full flex flex-col items-center">
+                        <div className="flex justify-between items-center w-full">
+                            <ToggleGroup
+                                type="single"
+                                className="grid grid-cols-1 gap-3 w-full"
+                                value={algo}
+                                onChange={handleAlgoChange}
+                                aria-label="Choose Algorithm"
+                            >
+                                <ToggleGroupItem
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    value="fcfs"
+                                    aria-label="Toggle fcfs"
+                                    disabled={running || paused}
+                                    running={selectedAlgo}
+                                    onClick={handleAlgoChange}
+                                >
+                                    <Button variant="link" value="fcfs">
+                                        First Come, First Serve
+                                    </Button>
+                                </ToggleGroupItem>
+                                <ToggleGroupItem
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    value="sjf"
+                                    aria-label="Toggle sjf"
+                                    disabled={running || paused}
+                                    running={selectedAlgo}
+                                    onClick={handleAlgoChange}
+                                >
+                                    <Button variant="link" value="sjf">
+                                        Shortest Job First
+                                    </Button>
+                                </ToggleGroupItem>
+                                <ToggleGroupItem
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    value="p"
+                                    aria-label="Toggle p"
+                                    disabled={running || paused}
+                                    running={selectedAlgo}
+                                    onClick={handleAlgoChange}
+                                >
+                                    <Button variant="link" value="p">
+                                        Priority Scheduling
+                                    </Button>
+                                </ToggleGroupItem>
+                                <ToggleGroupItem
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300"
+                                    value="rr"
+                                    aria-label="Toggle rr"
+                                    disabled={running || paused}
+                                    running={selectedAlgo}
+                                    onClick={handleAlgoChange}
+                                >
+                                    <Button variant="link" value="rr">
+                                        Round Robin
+                                    </Button>
+                                </ToggleGroupItem>
+                            </ToggleGroup>
+                        </div>
                     </div>
-                    <div className="row-start-2 pt-6">
-                        <div className = "flex grid-cols-3 gap-3">
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-green-500 bg-green-600" 
-                                    onClick={() => play(algo)}
-                                    disabled={running || paused}>
-                                    <PlayIcon/>
-                                        Start
+                    <div className="flex flex-col items-center w-full mt-3">
+                        <div className="grid grid-cols-1 gap-3 w-full">
+                            <Button
+                                variant="nohover"
+                                className="h-10 flex gap-2 bg-green-500 bg-green-600"
+                                onClick={() => play(algo)}
+                                disabled={running || paused}
+                            >
+                                <PlayIcon />
+                                Start
                             </Button>
-                              {running !== true ? (
-                                <Button variant = "nohover" 
-                                        className = "h-1/4 flex gap-2 bg-gray-400 bg-orange-600" 
-                                        onClick={resume}
-                                        disabled={!started}>
-                                        <PausePlayIcon/>
-                                            Resume
+                            {running !== true ? (
+                                <Button
+                                    variant="nohover"
+                                    className="h-10 flex gap-2 bg-gray-400 bg-orange-600"
+                                    onClick={resume}
+                                    disabled={!started}
+                                >
+                                    <PausePlayIcon />
+                                    Resume
                                 </Button>
                             ) : (
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-400 bg-orange-600" 
-                                    onClick={pause}>
-                                    <PausePlayIcon/>
-                                        Pause
-                            </Button>
+                                <Button
+                                    variant="nohover"
+                                    className="h-10 flex gap-2 bg-gray-400 bg-orange-600"
+                                    onClick={pause}
+                                    disabled={!started}
+                                >
+                                    <PausePlayIcon />
+                                    Pause
+                                </Button>
                             )}
-                            <Button variant = "nohover" 
-                                    className = "h-1/4 flex gap-2 bg-gray-400 bg-red-600" 
-                                    onClick={reset}
-                                    disabled={!started}>
-                                    <ReloadIcon/>
-                                        Clear
+                            <Button
+                                variant="nohover"
+                                className="h-10 flex gap-2 bg-gray-400 bg-red-600"
+                                onClick={reset}
+                                disabled={!started}
+                            >
+                                <ReloadIcon />
+                                Clear
                             </Button>
                         </div>
                     </div>
                 </CardContent>
             </Card>
-            {/* </div> */}
+            </div>
 
             {/* CPU Card */}
-            {/* <div className="row-span-3 col-start-1 row-start-4 h-full"> */}
-                <Card className="bg-slate-100 h-full" style={{ maxHeight: '71.95%' }}>
+            <div className="col-span-3 row-span-2 col-start-1 row-start-7 h-full">
+                <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4> CPU </h4>
                     </CardHeader>
-                    <CardContent className="justify-center items-center align-middle h-[150px] pt-2 grid grid-cols-3 gap-4">
-                        <div className="grid grid-rows-2 gap-4">
-                            <div>
-                                <p>No. of Jobs</p>
-                                <p><b className="text-2xl">{jobs.length}</b></p>
-                            </div>
-                            <div>
-                                <p>Idle Time</p>
-                                <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
-                            </div>
-                        </div>
-                        <div className="grid grid-rows-2 gap-4">
-                            <div>
-                                <p>Current Job</p>
-                                <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
-                            </div>
-                            <div>
-                                <p>Current Time</p>
-                                <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
-                            </div>
-                        </div>
                             {algo !== "rr" ? (
-                                <div>
-                                    <p>Utilization</p>
-                                    <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
-                                    </b></p>
-                                </div>
-                            ) : (
-                             <div className="grid grid-rows-2 gap-4">
-                                <div>
-                                    <p>Utilization</p>
-                                    <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
-                                    </b></p>
-                                </div>
-                                <div>
-                                    <p>Quantum Time</p>
-                                    <p><b className="text-2xl">{quantum}</b></p>
-                                </div>
-                            </div>
+                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4">
+                                    <div>
+                                        <p>No. of Jobs</p>
+                                        <p><b className="text-2xl">{jobs.length}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Idle Time</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Current Job</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Current Time</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Utilization</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                        </b></p>
+                                    </div>
+                                </CardContent>
+                            ):( 
+                                <CardContent className="justify-center flex items-center align-middle pt-4 grid grid-cols-6 px-4 gap-4">
+                                    <div>
+                                        <p>No. of Jobs</p>
+                                        <p><b className="text-2xl">{jobs.length}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Idle Time</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Current Job</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Current Time</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
+                                    </div>
+                                    <div>
+                                        <p>Utilization</p>
+                                        <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                        </b></p>
+                                    </div>
+                                    {/* <div>
+                                        <p>Quantum</p>
+                                    {started === false ? ( */}
+                                        <div className="flex flex-col items-center justify-center">
+                                        <p>Quantum</p>
+                                        {started === false? (
+                                            <Input 
+                                                value={quantum} 
+                                                onChange={handleInputChange} 
+                                                className="outline-none border-b-2 h-8 w-16 bg-border-orange-500 text-2xl font-bold rounded-lg text-sm focus:outline-none"
+                                                type="number" />
+                                    ) : (
+                                        <p><b className="text-2xl">{quantum}</b></p>
+                                    )}
+                                    </div>
+                            </CardContent>
                             )}
-                    </CardContent>
                 </Card>
             </div>
 
             {/* Job Pool Card */}
-            <div className="row-span-6 col-start-2 row-start-1 h-full">
+            <div className="row-span-6 col-start-2 col-span-2 row-start-1 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool</h4></CardHeader>
                     <CardContent className="m-0">
@@ -316,7 +373,7 @@ function PCB2() {
             </div>
 
             {/* Ready Queue Card */}
-            <div className="row-span-6 col-start-3 row-start-1 h-full">
+            <div className="row-span-6 col-start-4 col-span-2 row-start-1 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Ready Queue</h4>
@@ -342,8 +399,20 @@ function PCB2() {
                 </Card>
             </div>
 
+            {/* Memory Card */}
+            <div className="row-span-6 col-start-6 row-start-1 h-full">
+                <Card className="bg-slate-100 h-full">
+                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                        <h4>Memory</h4>
+                    </CardHeader>
+                    <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
+                        memory part
+                    </CardContent>
+                </Card>
+            </div>
+
             {/* Gantt Chart Card */}
-            <div className="col-span-3 row-span-2 row-start-7 h-full">
+            <div className="col-span-3 row-span-2 col-start-4 row-start-7 h-full">
                 <Card className="bg-slate-100 h-full">
                     <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
