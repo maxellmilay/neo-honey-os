@@ -12,6 +12,29 @@ import {
 } from "../../ui/table";
 
 export default class TableVM extends Component {
+  state = {
+    currentIndex: 0,
+  };
+
+  componentDidMount() {
+    this.interval = setInterval(this.updateIndex, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  updateIndex = () => {
+    const { referenceString } = this.props;
+    const { currentIndex } = this.state;
+    const nextIndex = (currentIndex + 1) % referenceString.length;
+    if (nextIndex === 0) {
+      clearInterval(this.interval);
+    } else {
+      this.setState({ currentIndex: nextIndex });
+    }
+  };
+
   // Define a function to generate color palette
   generateColorPalette = () => {
     const excludedColors = ["#006400", "#FF0000"]; // Green and Red
@@ -24,7 +47,7 @@ export default class TableVM extends Component {
       "#99CCFF", // Light blue
       "#CCCCFF", // Light lavender
       "#FFCCFF", // Light pink
-      "#FFFF99"
+      "#FFFF99", // Light yellow
     ];
     const colors = availableColors.filter(color => !excludedColors.includes(color));
     return colors;
@@ -38,7 +61,7 @@ export default class TableVM extends Component {
   };
 
   render() {
-    let {
+    const {
       referenceString,
       frameNumber,
       algorithmLabel,
@@ -47,16 +70,14 @@ export default class TableVM extends Component {
       jobProcessID,
       memorySize // Retrieve jobProcessID and memorySize from props
     } = this.props;
-    let { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
+    const { currentIndex } = this.state;
+    const { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
       referenceString,
       frameNumber,
       resetTurns
     );
-    let frameNumberArray = _.range(0, frameNumber, 1);
+    const frameNumberArray = _.range(0, frameNumber, 1);
     const colorPalette = this.generateColorPalette();
-
-    // Generate random memory sizes for each Reference String
-    const memorySizes = referenceString.map(() => this.generateRandomMemorySize());
 
     return (
       <div>
@@ -73,46 +94,47 @@ export default class TableVM extends Component {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {referenceString.map((ref, idx) => (
-              <TableRow key={idx}>
-                <TableCell className="font-medium">{jobProcessID}</TableCell> {/* Display Job Process ID */}
-                <TableCell>{memorySize}</TableCell> {/* Display Memory Size */}
-                <TableCell className="font-medium">{ref}</TableCell>
-                <TableCell>
-                  {pageInMemArray[idx].map((frame, frameIdx) => (
-                    <TableCell
-                      key={frameIdx}
-                      style={{
-                        backgroundColor: colorPalette[frame % colorPalette.length],
-                      }}
-                    >
-                      {frame}
-                    </TableCell>
-                  ))}
-                </TableCell>
-                <TableCell>
-                  {pageNotInMemArray[idx].map((frame, frameIdx) => (
-                    <TableCell
-                      key={frameIdx}
-                      style={{
-                        backgroundColor: colorPalette[frame % colorPalette.length],
-                      }}
-                    >
-                      {frame}
-                    </TableCell>
-                  ))}
-                </TableCell>
-                <TableCell>
-                  <Fade right>
-                    {pageFaults[idx] === "F" ? (
-                      <span style={{ color: "#FF0000" }}>{pageFaults[idx]}</span>
-                    ) : (
-                      <span style={{ color: "#006400" }}>{pageFaults[idx]}</span>
-                    )}
-                  </Fade>
-                </TableCell>
-              </TableRow>
-            ))}
+            <TableRow>
+              <TableCell className="font-medium">{jobProcessID}</TableCell> {/* Display Job Process ID */}
+              <TableCell>{memorySize}</TableCell> {/* Display Memory Size */}
+              <TableCell className="font-medium">{referenceString[currentIndex]}</TableCell>
+              <TableCell>
+                {pageInMemArray[currentIndex].map((frame, frameIdx) => (
+                  <TableCell
+                    key={frameIdx}
+                    style={{
+                      backgroundColor: colorPalette[frame % colorPalette.length],
+                    }}
+                  >
+                    {frame}
+                  </TableCell>
+                ))}
+              </TableCell>
+              <TableCell>
+                {pageNotInMemArray[currentIndex].map((frame, frameIdx) => (
+                  <TableCell
+                    key={frameIdx}
+                    style={{
+                      backgroundColor:
+                        frameIdx === 0
+                          ? colorPalette[frame % colorPalette.length]
+                          : "#D3D3D3", // Gray background for values after the leftmost
+                    }}
+                  >
+                    {frame}
+                  </TableCell>
+                ))}
+              </TableCell>
+              <TableCell>
+                <Fade right>
+                  {pageFaults[currentIndex] === "F" ? (
+                    <span style={{ color: "#FF0000" }}>{pageFaults[currentIndex]}</span>
+                  ) : (
+                    <span style={{ color: "#006400" }}>{pageFaults[currentIndex]}</span>
+                  )}
+                </Fade>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </div>
