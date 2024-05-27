@@ -44,7 +44,8 @@ export default class TableVM extends Component {
       algorithmLabel,
       algorithm,
       resetTurns,
-      jobProcessID // Receive jobProcessID as a prop
+      jobProcessID,
+      memorySize // Retrieve jobProcessID and memorySize from props
     } = this.props;
     let { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
       referenceString,
@@ -54,6 +55,8 @@ export default class TableVM extends Component {
     let frameNumberArray = _.range(0, frameNumber, 1);
     const colorPalette = this.generateColorPalette();
 
+    // Generate random memory sizes for each Reference String
+    const memorySizes = referenceString.map(() => this.generateRandomMemorySize());
 
     return (
       <div>
@@ -61,9 +64,9 @@ export default class TableVM extends Component {
           <TableCaption></TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead>Job Process ID</TableHead> {/* Job Process ID header */}
-              <TableHead>Memory Size</TableHead> {/* Memory Size header */}
-              <TableHead className="w-[100px]">Reference String</TableHead>
+              <TableHead className="w-[100px]">Job Process ID</TableHead>
+              <TableHead>Memory Size</TableHead>
+              <TableHead>Reference String</TableHead>
               <TableHead>Working Set</TableHead>
               <TableHead>Swapped Memory</TableHead>
               <TableHead>Page Fault</TableHead>
@@ -72,8 +75,8 @@ export default class TableVM extends Component {
           <TableBody>
             {referenceString.map((ref, idx) => (
               <TableRow key={idx}>
-                <TableCell>{jobProcessID}</TableCell> {/* Display Job Process ID */}
-                <TableCell>{}</TableCell> {/* Display Memory Size */}
+                <TableCell className="font-medium">{jobProcessID}</TableCell> {/* Display Job Process ID */}
+                <TableCell>{memorySize}</TableCell> {/* Display Memory Size */}
                 <TableCell className="font-medium">{ref}</TableCell>
                 <TableCell>
                   {pageInMemArray[idx].map((frame, frameIdx) => (
@@ -98,7 +101,7 @@ export default class TableVM extends Component {
                       {frame}
                     </TableCell>
                   ))}
-                </TableCell> {/* Swapped Memory column */}
+                </TableCell>
                 <TableCell>
                   <Fade right>
                     {pageFaults[idx] === "F" ? (

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Header extends Component {
     render() {
-        let { handleRefChange, handleResetTurnsChange, handleRefStringGenClick, handleJobProcessIDChange, referenceInputTextField, resetTurns, jobProcessID } = this.props;
+        let { handleRefChange, handleResetTurnsChange, handleRefStringGenClick, handleJobProcessIDChange, handleMemorySizeChange, referenceInputTextField, resetTurns, jobProcessID, memorySize } = this.props;
         const frameNumber = 5; // Fixed frame number
 
         return (
@@ -19,6 +19,13 @@ export default class Header extends Component {
                         <span className="input-group-text">Job Process ID</span>
                     </div>
                     <input type="text" name="jobProcessID" className="form-control" placeholder="Job Process ID" value={jobProcessID} onChange={handleJobProcessIDChange.bind(this)} />
+                </div>
+                
+                <div className="input-group mt-2">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">Memory Size</span>
+                    </div>
+                    <input type="text" name="memorySize" className="form-control" placeholder="Memory Size" value={memorySize} onChange={handleMemorySizeChange.bind(this)} />
                 </div>
             
                 <button type="button" className={"btn btn-danger mt-2 mr-2"} onClick={handleRefStringGenClick}>Generate String</button>
