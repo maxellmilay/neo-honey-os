@@ -144,9 +144,9 @@ function MemoryManagement() {
         }
 
         while (block != null) {
-          let height = (block.size / heap.size) * 100;
+          let height = (block.size / heap.size) * 48;
           if (block.fromPartition) {
-            height += (memControlBlockSize / heap.size) * 100;
+            height += (memControlBlockSize / heap.size) * 48;
           }
 
           // Create div block element
@@ -230,7 +230,7 @@ function MemoryManagement() {
     // Initialize heap
     const heap = new Heap();
     const memControlBlockSize = 16;
-    const blockSizes = [256, 256, 256, 256];
+    const blockSizes = [256];
     for (let i = 0; i < blockSizes.length; i++) {
       heap.add(new MemControlBlock(blockSizes[i]));
     }
@@ -276,7 +276,7 @@ function MemoryManagement() {
   }, []); // Empty dependency array to run only once on component mount
 
   return (
-    <div className={styles.mainContainer}>
+    <div>
 
       <div className={`styles.rightContainer pt-5 pl-5 `}>
         <div id="memoryContainer">
@@ -285,16 +285,16 @@ function MemoryManagement() {
       </div>
 
             <div className={styles.leftContainer}>
-                <h2>Add Process</h2>
+                {/* <h2>Add Process</h2> */}
                 <form className={styles.processForm}>
-                    <input type="text" name="processSize" placeholder="Process size" autoComplete="off" />
+                    {/* <input type="text" name="processSize" placeholder="Process size" autoComplete="off" />
                     <input type="text" name="processTime" placeholder="Process time" autoComplete="off" />
-                    <button type="submit" style={{ display: 'none' }}></button>
+                    <button type="submit" style={{ display: 'none' }}></button> */}
                 </form>
                 <br /><br />
-                <h2>Process Queue</h2>
+                {/* <h2>Process Queue</h2> */}
                 <table className={styles.processTable} id="processTable">
-                    <tr><th>Process ID</th><th>Size (K)</th><th>Time Units Remaining</th></tr>
+                    {/* <tr><th>Process ID</th><th>Size (K)</th><th>Time Units Remaining</th></tr> */}
                 </table>
                 <br /><br />
                 <div className={styles.logBoxContainer}>

@@ -31,7 +31,7 @@ import {
   TabsTrigger,
 } from "../../components/ui/tabs";
 import PCB2 from "../../pages/pcb"
-import PCBOrig from "../../pages/pcb/test"
+import PCB1 from "../../pages/pcb/test"
 import VirtualMemory from "./VirtualMemory";
 
 function PCB() {
@@ -62,6 +62,7 @@ function PCB() {
                 <TabsList>
                   <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
                   <TabsTrigger value="Virtual Memory">Virtual Memory</TabsTrigger>
+                  <TabsTrigger value="Memory Test">Memory Test</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Scheduler">
                   {/* Add content for Scheduler tab if needed */}
@@ -69,6 +70,9 @@ function PCB() {
                 </TabsContent>
                 <TabsContent value="Virtual Memory">
                   <VirtualMemory />
+                </TabsContent>
+                <TabsContent value="Memory Test">
+                  <PCB1 />
                 </TabsContent>
               </Tabs>
               </div>

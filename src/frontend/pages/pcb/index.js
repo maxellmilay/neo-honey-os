@@ -284,7 +284,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                         <h4> CPU </h4>
                     </CardHeader>
                             {algo !== "rr" ? (
-                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4 text-yellow-950">
+                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4 text-slate-950">
                                     <div>
                                         <p>No. of Jobs</p>
                                         <p><b className="text-2xl">{jobs.length}</b></p>
