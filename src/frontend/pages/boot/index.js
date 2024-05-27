@@ -38,7 +38,7 @@ export const BootApp = () => {
   const handleTransition = () => {
     setIsTransitioning(true);
     setTimeout(() => {
-      navigate('/desktop');
+      navigate('/login');
     }, 1000); // Matches the duration of the slide-up animation
   };
 
