@@ -1,0 +1,17 @@
+/* customCursor.css */
+body {
+    cursor: url('../../assets/img/cursor.gif') 16 16, auto;
+  }
+  
+
+.cursor-trail {
+    position: absolute;
+    width: 20px; /* Length of each dash */
+    height: 2px; /* Thickness of the dash */
+    background: black; /* Color of the dash */
+    border-radius: 1px; /* Rounding the edges of the dash */
+    pointer-events: none;
+    opacity: 0.8;
+    transform-origin: left; /* Makes sure the dash follows the cursor accurately */
+    transition: transform 0.1s linear, opacity 0.5s;
+}
