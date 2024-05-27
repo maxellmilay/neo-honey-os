@@ -20,6 +20,7 @@ import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'
 import './styles.scss'
 import MemoryManagement from "../../components/pcb/MemoryManagement";
+// import './cursor.css'; // custom cursor
 
 // PCB component simulates a CPU scheduling simulation using various algorithms
 function PCB2() {
