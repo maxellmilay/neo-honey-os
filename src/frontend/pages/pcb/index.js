@@ -19,6 +19,7 @@ import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
 import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'
 import './styles.scss'
+import MemoryManagement from "../../components/pcb/MemoryManagement";
 
 // PCB component simulates a CPU scheduling simulation using various algorithms
 function PCB2() {
@@ -403,7 +404,7 @@ function PCB2() {
                         <h4>Memory</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        memory part
+                        <MemoryManagement />
                     </CardContent>
                 </Card>
             </div>
