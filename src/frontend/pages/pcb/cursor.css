@@ -1,8 +1,6 @@
-/* customCursor.css */
-body {
+.custom-cursor {
     cursor: url('../../assets/img/cursor.gif') 16 16, auto;
-  }
-  
+}
 
 .cursor-trail {
     position: absolute;

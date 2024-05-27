@@ -1,6 +1,7 @@
 // app.js
 import { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
+import CustomCursor from './CustomCursor';
 import "./App.css"
 import { useCallback } from "react"
 import { Desktop } from "./frontend/pages/desktop"
@@ -14,8 +15,9 @@ function App() {
 	return (
 		<>
 			{/* <div className='background'> */}
-				<div className='App'>
+				<div className='App '>
 					<Router>
+					<CustomCursor />
 						<Routes>
 							<Route path="/" 
 								element={<Navigate 

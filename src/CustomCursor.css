@@ -1,0 +1,15 @@
+/* CustomCursor.css */
+body {
+    cursor: none;
+  }
+
+.custom-cursor {
+    position: fixed;
+    width: 50px; /* Adjust width and height based on your cursor image size */
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 9999; /* Ensure it appears above other elements */
+  }
+  
