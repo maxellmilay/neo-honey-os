@@ -5,15 +5,10 @@ function MemoryManagement() {
     return (
         <div id="mainContainer">
             <div id="title">
-                <h6 className='text-center'>Memory Management</h6>
+                <h6>Memory Management</h6>
             </div>
-
-            <div id="rightContainer">
-                <div id="memoryContainer">
-                    <div id="memory"></div>
+                <App /> //The converted should be pass here
                 </div>
-            </div>
-        </div>
     );
 }
 
