@@ -5,13 +5,14 @@ import { refStringGen } from "./randomRefStringGen";
 import List from "./component/list";
 import { firstInFirstOut } from "./algorithms";
 
-class VisualMemory extends Component {
+class VirtualMemory extends Component {
     state = {
         referenceInputTextField: "2,3,4,5,6,2,7,8",
         referenceString: ["2", "3", "4", "5", "6", "2", "7", "8"],
         frameNumber: 5,
         resetTurns: 4,
         selectedAlgorithm: { name: "First In First Out" },
+        jobProcessId: "2" // Add state for jobProcessId
     }
 
     handleRefChange = ({ target }) => {
@@ -44,9 +45,13 @@ class VisualMemory extends Component {
         this.setState({ selectedAlgorithm: algorithm });
     }
 
+    handleJobProcessIdChange = ({ target }) => {
+        this.setState({ jobProcessId: target.value });
+    }
+
     render() {
-        let { frameNumber, resetTurns, referenceString, referenceInputTextField, selectedAlgorithm } = this.state;
-        let { handleRefChange, handleFrameChange, handleResetTurnsChange, handleRefStringGenClick, handleListChange } = this;
+        let { frameNumber, resetTurns, referenceString, referenceInputTextField, selectedAlgorithm, jobProcessId } = this.state;
+        let { handleRefChange, handleFrameChange, handleResetTurnsChange, handleRefStringGenClick, handleListChange, handleJobProcessIdChange } = this;
         const algorithms = [
             { name: "First In First Out", f: firstInFirstOut },
         ]
@@ -63,6 +68,8 @@ class VisualMemory extends Component {
                             frameNumber={frameNumber}
                             resetTurns={resetTurns}
                             referenceInputTextField={referenceInputTextField}
+                            jobProcessId={jobProcessId} // Pass jobProcessId to Header
+                            handleJobProcessIdChange={handleJobProcessIdChange} // Pass handler to Header
                         />
                     </div>
                     <div className="col-3 mt-2 list-group-outer-padding">
@@ -71,10 +78,11 @@ class VisualMemory extends Component {
                 </div>
                 <div>
                     <Tables
-                        frameNumber={5}
+                        frameNumber={frameNumber}
                         resetTurns={resetTurns}
                         referenceString={referenceString}
                         algorithms={filteredAlgorithm}
+                        jobProcessId={jobProcessId} // Pass jobProcessId to Tables
                     />
                 </div>
             </main>
@@ -82,4 +90,4 @@ class VisualMemory extends Component {
     }
 }
 
-export default VisualMemory;
+export default VirtualMemory;
