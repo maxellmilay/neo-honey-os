@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MemoryManagement.module.css";
 import processesData from "./dummydatamem"; // Import the dummy data
+import ReadyQTable from "../readyQTable";
+import { Simulation } from "../../../classes/simulation"; // Import the Simulation class
+import { job } from "../../../classes/job"; 
 
 function MemoryManagement() {
   const [processesState, setProcessesState] = useState([]);
@@ -277,11 +280,8 @@ function MemoryManagement() {
 
   return (
     <div className={styles.mainContainer}>
-      <div id="title">
-        <h3>Memory Management</h3>
-      </div>
 
-      <div className={styles.rightContainer}>
+      <div className={`styles.rightContainer pt-5 pl-5 `}>
         <div id="memoryContainer">
           <div id="memory"></div>
         </div>
@@ -298,11 +298,11 @@ function MemoryManagement() {
             </tr>
           </thead>
           <tbody>
-            {processesState.map((process) => (
-              <tr key={process.id}>
-                <td>{process.id}</td>
-                <td>{process.size}</td>
-                <td id={"process" + process.id + "timeLeft"}>{process.timeLeft}</td>
+            {simulation?.jobs.map((item, index) => (
+              <tr key={index}>
+                <td>{item.id}</td>
+                <td>{item.memory}</td>
+                <td id={"process" + item.id + "timeLeft"}>{item.remaining}</td>
               </tr>
             ))}
           </tbody>
