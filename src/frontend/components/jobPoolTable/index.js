@@ -16,12 +16,12 @@ function JobPoolTable({ simulation, selectedAlgo }) {
             {selectedAlgo !== "p" ? (    
                 <Table className="w-full h-full"> 
                     <ScrollArea className="h-[25rem] w-auto p-2">
-                    <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
+                    <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
                     <TableRow>
-                            <TableHead className="text-center font-bold">Process ID</TableHead>
-                            <TableHead className="text-center font-bold">Arrival</TableHead>
-                            <TableHead className="text-center font-bold">Burst</TableHead>
-                            <TableHead className="text-center font-bold">Memory</TableHead>
+                            <TableHead className="text-center text-amber-950 font-bold">Process ID</TableHead>
+                            <TableHead className="text-center text-amber-950 font-bold">Arrival</TableHead>
+                            <TableHead className="text-center text-amber-950 font-bold">Burst</TableHead>
+                            <TableHead className="text-center text-amber-950 font-bold">Memory</TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -32,7 +32,7 @@ function JobPoolTable({ simulation, selectedAlgo }) {
                             return a.id - b.id;
                         })
                         .map((item, index) => (
-                            <TableRow key={index} className={index === 0 ? "font-bold bg-white" : ""}>
+                            <TableRow key={index} className={index === 0 ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300" : ""}>
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>{item.arrivalTime}</TableCell>
                                 <TableCell>{item.burst}</TableCell>

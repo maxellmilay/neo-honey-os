@@ -179,8 +179,8 @@ function PCB2() {
         <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
             <div className="row-span-6  h-full gap-4" >
-            <Card className="bg-slate-100 h-full mb-4">
-                <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Policy</h4></CardHeader>
+            <Card className="bg-yellow-100/50  h-full mb-4">
+                <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t"><h4>Policy</h4></CardHeader>
                 <CardContent className="flex flex-col justify-center items-center h-[400px] px-4">
                     <div className="w-full flex flex-col items-center">
                         <div className="flex justify-between items-center w-full">
@@ -192,7 +192,7 @@ function PCB2() {
                                 aria-label="Choose Algorithm"
                             >
                                 <ToggleGroupItem
-                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                     value="fcfs"
                                     aria-label="Toggle fcfs"
                                     disabled={running || paused}
@@ -204,7 +204,7 @@ function PCB2() {
                                     </Button>
                                 </ToggleGroupItem>
                                 <ToggleGroupItem
-                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                     value="sjf"
                                     aria-label="Toggle sjf"
                                     disabled={running || paused}
@@ -216,7 +216,7 @@ function PCB2() {
                                     </Button>
                                 </ToggleGroupItem>
                                 <ToggleGroupItem
-                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100"
+                                    className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                     value="p"
                                     aria-label="Toggle p"
                                     disabled={running || paused}
@@ -291,8 +291,8 @@ function PCB2() {
 
             {/* CPU Card */}
             <div className="col-span-3 row-span-2 col-start-1 row-start-7 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                <Card className="bg-yellow-100/50  h-full">
+                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4> CPU </h4>
                     </CardHeader>
                             {algo !== "rr" ? (
@@ -361,8 +361,8 @@ function PCB2() {
 
             {/* Job Pool Card */}
             <div className="row-span-6 col-start-2 col-span-2 row-start-1 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t"><h4>Job Pool</h4></CardHeader>
+                <Card className="bg-yellow-100/50 h-full">
+                    <CardHeader className="bg-amber-400 text-slate-950 h-[20px] justify-center items-center rounded-t"><h4>Job Pool</h4></CardHeader>
                     <CardContent className="m-0">
                         <JobPoolTable simulation={simulation} selectedAlgo={algo} jobs={[]} />
                     </CardContent>
@@ -371,8 +371,8 @@ function PCB2() {
 
             {/* Ready Queue Card */}
             <div className="row-span-6 col-start-4 col-span-2 row-start-1 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                <Card className="bg-yellow-100/50  h-full">
+                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Ready Queue</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
@@ -398,8 +398,8 @@ function PCB2() {
 
             {/* Memory Card */}
             <div className="row-span-6 col-start-6 row-start-1 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                <Card className="bg-yellow-100/50  h-full">
+                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Memory</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
@@ -410,8 +410,8 @@ function PCB2() {
 
             {/* Gantt Chart Card */}
             <div className="col-span-3 row-span-2 col-start-4 row-start-7 h-full">
-                <Card className="bg-slate-100 h-full">
-                    <CardHeader className="bg-slate-300 h-[20px] justify-center items-center rounded-t">
+                <Card className="bg-yellow-100/50  h-full">
+                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>
                     </CardHeader>
                       <CardContent className="flex flex- start items-center justify-center h-[85px] px-4 pt-4">
