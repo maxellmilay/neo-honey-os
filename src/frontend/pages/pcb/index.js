@@ -140,18 +140,6 @@ function PCB2() {
     }; 
     
 
-    const scrollAreaRef = useRef(null);
-    // useEffect to handle scrolling of the Gantt chart area
-    useEffect(() => {
-        if (scrollAreaRef.current) {
-            // Calculate the total width of all content within the scroll area
-            const totalContentWidth = scrollAreaRef.current.scrollWidth;
-
-            // Set the scrollLeft property to the total width of all content
-            scrollAreaRef.current.scrollLeft = totalContentWidth;
-        }
-    }, [simulation?.ganttChart]); // Assuming simulation?.ganttChart determines when the content updates
-
     // Function to handle the change of the selected algorithm
     const handleAlgoChange = (event) => {
         const newValue = event.target.value;
@@ -164,8 +152,36 @@ function PCB2() {
         const value = event.target.value;
         setQuantum(value);
     };
+const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
+useEffect(() => {
+    let scrollInterval;
 
-    // JSX for the PCB component UI
+    const scrollToRightSmoothly = () => {
+        if (!scrollInterval) {
+            const scrollArea = scrollAreaRef.current;
+            const { scrollWidth, clientWidth } = scrollArea;
+            const maxScrollLeft = scrollWidth - clientWidth;
+            let currentScrollLeft = scrollArea.scrollLeft;
+
+            const incrementScroll = () => {
+                if (currentScrollLeft < maxScrollLeft) {
+                    currentScrollLeft += 10; // Adjust the increment amount as needed
+                    scrollArea.scrollLeft = currentScrollLeft;
+                    requestAnimationFrame(incrementScroll);
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            };
+
+            incrementScroll();
+            scrollInterval = setInterval(() => {}, 1000); // Prevent interval loop
+        }
+    };
+
+    // Listen for changes in the simulation?.ganttChart array
+    return simulation?.ganttChart && simulation.ganttChart.length > 0? scrollToRightSmoothly : null;
+}, [simulation?.ganttChart]);
+
     return (
         <>
         <div className="h-screen">
@@ -297,7 +313,7 @@ function PCB2() {
                         <h4> CPU </h4>
                     </CardHeader>
                             {algo !== "rr" ? (
-                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4">
+                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4 text-yellow-950">
                                     <div>
                                         <p>No. of Jobs</p>
                                         <p><b className="text-2xl">{jobs.length}</b></p>
