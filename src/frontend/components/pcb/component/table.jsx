@@ -44,7 +44,7 @@ export default class TableVM extends Component {
       algorithmLabel,
       algorithm,
       resetTurns,
-      jobProcessId,
+      jobProcessID // Receive jobProcessID as a prop
     } = this.props;
     let { pageInMemArray, pageFaults, pageNotInMemArray } = algorithm(
       referenceString,
@@ -54,8 +54,6 @@ export default class TableVM extends Component {
     let frameNumberArray = _.range(0, frameNumber, 1);
     const colorPalette = this.generateColorPalette();
 
-    // Generate random memory sizes for each reference string
-    const memorySizes = referenceString.map(() => this.generateRandomMemorySize());
 
     return (
       <div>
@@ -63,9 +61,9 @@ export default class TableVM extends Component {
           <TableCaption></TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead>Job Process ID</TableHead>
+              <TableHead>Job Process ID</TableHead> {/* Job Process ID header */}
+              <TableHead>Memory Size</TableHead> {/* Memory Size header */}
               <TableHead className="w-[100px]">Reference String</TableHead>
-              <TableHead>Memory Size</TableHead>
               <TableHead>Working Set</TableHead>
               <TableHead>Swapped Memory</TableHead>
               <TableHead>Page Fault</TableHead>
@@ -74,9 +72,9 @@ export default class TableVM extends Component {
           <TableBody>
             {referenceString.map((ref, idx) => (
               <TableRow key={idx}>
-                <TableCell className="font-medium">{jobProcessId}</TableCell> {/* Display Job Process ID */}
+                <TableCell>{jobProcessID}</TableCell> {/* Display Job Process ID */}
+                <TableCell>{}</TableCell> {/* Display Memory Size */}
                 <TableCell className="font-medium">{ref}</TableCell>
-                <TableCell>{memorySizes[idx]}</TableCell> {/* Memory Size column */}
                 <TableCell>
                   {pageInMemArray[idx].map((frame, frameIdx) => (
                     <TableCell

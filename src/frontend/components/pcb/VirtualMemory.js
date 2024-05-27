@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Header from "./component/header";
 import Tables from "./component/tables";
 import { refStringGen } from "./randomRefStringGen";
@@ -11,51 +11,79 @@ class VirtualMemory extends Component {
         referenceString: ["2", "3", "4", "5", "6", "2", "7", "8"],
         frameNumber: 5,
         resetTurns: 4,
+        jobProcessID: "", // Define jobProcessID in the state
         selectedAlgorithm: { name: "First In First Out" },
-        jobProcessId: "2" // Add state for jobProcessId
     }
 
     handleRefChange = ({ target }) => {
         let { value } = target;
-        if (value.match(/^$|^[0-9,]+$/) && !value.match(/,,+,*|[0-9][0-9]+[0-9]*/g)) {
+        if (
+            value.match(/^$|^[0-9,]+$/) &&
+            !value.match(/,,+,*|[0-9][0-9]+[0-9]*/g)
+        ) {
             let tempReferenceString = [...value.split(",")];
-            let filteredReferenceString = tempReferenceString.filter((value) => value !== "");
-            this.setState({ referenceInputTextField: value, referenceString: filteredReferenceString });
+            let filteredReferenceString = tempReferenceString.filter(
+                (value) => value !== ""
+            );
+            this.setState({
+                referenceInputTextField: value,
+                referenceString: filteredReferenceString,
+            });
         }
-    }
+    };
 
     handleFrameChange = ({ target }) => {
         if ((target.value <= 7 && target.value >= 3) || target.value == 0)
             this.setState({ frameNumber: target.value });
-    }
+    };
 
     handleResetTurnsChange = ({ target }) => {
         if (target.value <= 9 && target.value >= 0)
             this.setState({ resetTurns: target.value });
-    }
+    };
 
     handleRefStringGenClick = () => {
         let tempReferenceStringInput = refStringGen(24, 9);
         let tempReferenceString = [...tempReferenceStringInput.split(",")];
-        let filteredReferenceString = tempReferenceString.filter((value) => value !== "");
-        this.setState({ referenceInputTextField: tempReferenceStringInput, referenceString: filteredReferenceString });
-    }
+        let filteredReferenceString = tempReferenceString.filter(
+            (value) => value !== ""
+        );
+        this.setState({
+            referenceInputTextField: tempReferenceStringInput,
+            referenceString: filteredReferenceString,
+        });
+    };
 
     handleListChange = (algorithm) => {
         this.setState({ selectedAlgorithm: algorithm });
-    }
+    };
 
-    handleJobProcessIdChange = ({ target }) => {
-        this.setState({ jobProcessId: target.value });
-    }
+    handleJobProcessIDChange = (event) => {
+        this.setState({ jobProcessID: event.target.value });
+    };
 
     render() {
-        let { frameNumber, resetTurns, referenceString, referenceInputTextField, selectedAlgorithm, jobProcessId } = this.state;
-        let { handleRefChange, handleFrameChange, handleResetTurnsChange, handleRefStringGenClick, handleListChange, handleJobProcessIdChange } = this;
-        const algorithms = [
-            { name: "First In First Out", f: firstInFirstOut },
-        ]
-        const filteredAlgorithm = selectedAlgorithm && selectedAlgorithm['f'] ? algorithms.filter(a => a['name'] === selectedAlgorithm['name']) : algorithms.filter(a => a['name'] !== "Show All");
+        let {
+            frameNumber,
+            resetTurns,
+            referenceString,
+            referenceInputTextField,
+            selectedAlgorithm,
+            jobProcessID, // Include jobProcessID in the destructuring of state
+        } = this.state;
+        let {
+            handleRefChange,
+            handleFrameChange,
+            handleResetTurnsChange,
+            handleRefStringGenClick,
+            handleListChange,
+            handleJobProcessIDChange, // Include handleJobProcessIDChange in the destructuring of methods
+        } = this;
+        const algorithms = [{ name: "First In First Out", f: firstInFirstOut }];
+        const filteredAlgorithm =
+            selectedAlgorithm && selectedAlgorithm["f"]
+                ? algorithms.filter((a) => a["name"] === selectedAlgorithm["name"])
+                : algorithms.filter((a) => a["name"] !== "Show All");
         return (
             <main className="container">
                 <div className="row">
@@ -65,15 +93,19 @@ class VirtualMemory extends Component {
                             handleFrameChange={handleFrameChange}
                             handleResetTurnsChange={handleResetTurnsChange}
                             handleRefStringGenClick={handleRefStringGenClick}
+                            handleJobProcessIDChange={handleJobProcessIDChange} // Pass handleJobProcessIDChange as a prop
                             frameNumber={frameNumber}
                             resetTurns={resetTurns}
                             referenceInputTextField={referenceInputTextField}
-                            jobProcessId={jobProcessId} // Pass jobProcessId to Header
-                            handleJobProcessIdChange={handleJobProcessIdChange} // Pass handler to Header
+                            jobProcessID={jobProcessID} // Pass jobProcessID as a prop
                         />
                     </div>
                     <div className="col-3 mt-2 list-group-outer-padding">
-                        <List algorithms={algorithms} handleListChange={handleListChange} selectedAlgorithm={selectedAlgorithm} />
+                        <List
+                            algorithms={algorithms}
+                            handleListChange={handleListChange}
+                            selectedAlgorithm={selectedAlgorithm}
+                        />
                     </div>
                 </div>
                 <div>
@@ -81,8 +113,8 @@ class VirtualMemory extends Component {
                         frameNumber={frameNumber}
                         resetTurns={resetTurns}
                         referenceString={referenceString}
+                        jobProcessID={jobProcessID} // Pass jobProcessID as a prop
                         algorithms={filteredAlgorithm}
-                        jobProcessId={jobProcessId} // Pass jobProcessId to Tables
                     />
                 </div>
             </main>
