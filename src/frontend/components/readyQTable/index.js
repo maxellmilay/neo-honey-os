@@ -14,18 +14,18 @@ function ReadyQTable({ simulation }) {
     return(
         <Table className="w-full h-full" style={{ maxHeight: '88%' }}> 
             <ScrollArea className="h-[20rem] w-auto p-2">
-            <TableHeader className="sticky z-50 top-0 bg-slate-100 drop-shadow-sm">
+            <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
             <TableRow className="font-bold h-4">
-                <TableHead className="text-center font-bold">Process ID</TableHead>
-                <TableHead className="text-center font-bold">Status</TableHead>
-                <TableHead className="text-center font-bold">Remaining</TableHead>
-                {/* <TableHead className="text-center font-bold">Waiting</TableHead> */}
-                <TableHead className="text-center font-bold">%</TableHead>
+                <TableHead className="text-center text-amber-950 font-bold">Process ID</TableHead>
+                <TableHead className="text-center text-amber-950 font-bold">Status</TableHead>
+                <TableHead className="text-center text-amber-950 font-bold">Remaining</TableHead>
+                {/* <TableHead className="text-center text-amber-950 font-bold">Waiting</TableHead> */}
+                <TableHead className="text-center text-amber-950 font-bold">%</TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
                 {simulation?.jobs.map((item, index) => (
-                <TableRow key={index} className={ index === 0 ? "font-bold bg-white rowTb" : "rowTb"}>
+                <TableRow key={index} className={ index === 0 ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300 rowTb" : "rowTb"}>
                     <TableCell>{item.id}</TableCell>
                     <TableCell>{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
                     <TableCell>{item.remaining}</TableCell>

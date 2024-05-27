@@ -142,10 +142,10 @@ function Notepad() {
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable positionOffset={{ x: '-50%', y: '-55%' }}>
+          <Draggable handle=".dialog-title" positionOffset={{ x: '-50%', y: '-55%' }}>
             <DialogContent key={i} className="w-9/12 h-5/6 flex" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-1/4">
-                <DialogHeader>
+                <DialogHeader className="dialog-title">
                   <DialogTitle className="text-s">BuzzNote</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col">
