@@ -284,7 +284,7 @@ function MemoryManagement() {
 
             <div className={styles.leftContainer}>
                 <h2>Add Process</h2>
-                <form className={styles.processForm} onSubmit={handleProcessSubmission}>
+                <form className={styles.processForm} >
                     <input type="text" name="processSize" placeholder="Process size" autoComplete="off" />
                     <input type="text" name="processTime" placeholder="Process time" autoComplete="off" />
                     <button type="submit" style={{ display: 'none' }}></button>
