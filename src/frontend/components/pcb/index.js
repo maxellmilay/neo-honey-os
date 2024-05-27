@@ -207,13 +207,13 @@ function PCB() {
     for (let i = 0; i < dialogCount; i++) {
       dialogContentArray.push(
         <>
-          <Draggable positionOffset={{ x: '-50%', y: '-56%' }}>
+          <Draggable handle=".dialog-title" positionOffset={{ x: '-50%', y: '-56%' }}>
             <DialogContent key={i} className="w-[98%] h-[86%] flex" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-full">
               {/* For TABS, Scheduler and Virtual Memory */}
               <Tabs defaultValue="Scheduler" className="w-full">
                 <DialogTitle>
-                  <h2 className="flex flex-col space-y-1.5 text-center">
+                  <h2 className="dialog-title flex flex-col space-y-1.5 text-center">
                     BusyBee (PCB)
                   </h2>
                 </DialogTitle>
