@@ -159,10 +159,10 @@ function PCB2() {
     }
     
     
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    setQuantum(value);
-  };
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setQuantum(value);
+    };
 
     // JSX for the PCB component UI
     return (
@@ -342,9 +342,6 @@ function PCB2() {
                                         <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
                                         </b></p>
                                     </div>
-                                    {/* <div>
-                                        <p>Quantum</p>
-                                    {started === false ? ( */}
                                         <div className="flex flex-col items-center justify-center">
                                         <p>Quantum</p>
                                         {started === false? (
@@ -353,9 +350,9 @@ function PCB2() {
                                                 onChange={handleInputChange} 
                                                 className="outline-none border-b-2 h-8 w-16 bg-border-orange-500 text-2xl font-bold rounded-lg text-sm focus:outline-none"
                                                 type="number" />
-                                    ) : (
-                                        <p><b className="text-2xl">{quantum}</b></p>
-                                    )}
+                                        ) : (
+                                            <p><b className="text-2xl">{quantum}</b></p>
+                                        )}
                                     </div>
                             </CardContent>
                             )}
