@@ -27,7 +27,7 @@ function PCB2() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
-    const [simSpeed, setSimSpeed] = useState(500);  // State for the simulation speed
+    const [simSpeed, setSimSpeed] = useState(1000);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
@@ -298,7 +298,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                                         <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                                     </div>
                                     <div>
-                                        <p>Current Time</p>
+                                        <p>Runtime</p>
                                         <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                                     </div>
                                     <div>
@@ -322,7 +322,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                                         <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                                     </div>
                                     <div>
-                                        <p>Current Time</p>
+                                        <p>Runtime</p>
                                         <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                                     </div>
                                     <div>
@@ -391,7 +391,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                         <h4>Memory</h4>
                     </CardHeader>
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        <MemoryManagement />
+                        <MemoryManagement simulation={simulation}/>
                     </CardContent>
                 </Card>
             </div>

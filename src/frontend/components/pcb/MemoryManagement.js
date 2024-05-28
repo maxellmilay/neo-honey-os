@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MemoryManagement.module.css";
-import processesData from "./dummydatamem"; // Import the dummy data
 
-function MemoryManagement() {
-  const [processesState, setProcessesState] = useState([]);
+const MemoryManagement = ({ simulation }) => {
+  const [processes, setProcesses] = useState([]);
+  const [heap, setHeap] = useState(null);
+
+  let processID = 0;
+
+  function Process(size, time) {
+    this.size = size;
+    this.timeLeft = time;
+    this.allocatedBlock = null;
+    this.id = processID++;
+    this.isAllocated = function () {
+      return this.allocatedBlock != null;
+    };
+    this.tick = function () {
+      this.timeLeft -= 1;
+    };
+  }
 
   useEffect(() => {
-    // Process Class
-    let processID = 0;
-    function Process(size, time) {
-      this.size = size;
-      this.timeLeft = time;
-      this.allocatedBlock = null;
-      this.id = processID++;
+    console.log('Simulation data:', simulation);
 
-      this.isAllocated = function () {
-        return this.allocatedBlock != null;
-      };
-
-      this.tick = function () {
-        this.timeLeft -= 1;
-      };
-    }
-
-    // MemControlBlock Class
     function MemControlBlock(size) {
       this.size = size;
       this.process = null;
@@ -43,7 +42,6 @@ function MemoryManagement() {
       };
     }
 
-    // Heap Class
     function Heap() {
       this.head = null;
       this.size = 0;
@@ -51,15 +49,13 @@ function MemoryManagement() {
       this.requestAllocation = function (process) {
         let blockBestFit = this.head;
 
-        // Make sure our initial best block is valid
-        while (blockBestFit.size < process.size || !blockBestFit.available) {
+        while (blockBestFit && (blockBestFit.size < process.size || !blockBestFit.available)) {
           blockBestFit = blockBestFit.next;
           if (blockBestFit == null) {
             return false;
-          } // Means we couldn't even find an initial valid block
+          }
         }
 
-        // See if there's an even better block
         let block = blockBestFit.next;
         while (block != null) {
           if (
@@ -73,9 +69,8 @@ function MemoryManagement() {
         }
 
         const spaceLeftover =
-          blockBestFit.size - (process.size + memControlBlockSize); // Space leftover if block was divided
+          blockBestFit.size - (process.size + memControlBlockSize);
 
-        // Partition block if needed
         if (spaceLeftover > 0) {
           const newBlock = new MemControlBlock(spaceLeftover);
 
@@ -99,8 +94,29 @@ function MemoryManagement() {
       };
 
       this.deallocateProcess = function (process) {
-        process.allocatedBlock.setProcess(null);
+        const block = process.allocatedBlock;
+        block.setProcess(null);
         process.allocatedBlock = null;
+        this.mergeFreeBlocks(block);
+      };
+
+      this.mergeFreeBlocks = function (block) {
+        if (block.prev && block.prev.available) {
+          block.prev.size += block.size + memControlBlockSize;
+          block.prev.next = block.next;
+          if (block.next) {
+            block.next.prev = block.prev;
+          }
+          block = block.prev;
+        }
+
+        if (block.next && block.next.available) {
+          block.size += block.next.size + memControlBlockSize;
+          block.next = block.next.next;
+          if (block.next) {
+            block.next.prev = block;
+          }
+        }
       };
 
       this.add = function (block) {
@@ -139,9 +155,7 @@ function MemoryManagement() {
         let block = this.head;
         const memoryDiv = document.getElementById("memory");
 
-        while (memoryDiv.firstChild) {
-          memoryDiv.removeChild(memoryDiv.firstChild);
-        }
+        memoryDiv.innerHTML = "";
 
         while (block != null) {
           let height = (block.size / heap.size) * 48;
@@ -149,7 +163,6 @@ function MemoryManagement() {
             height += (memControlBlockSize / heap.size) * 48;
           }
 
-          // Create div block element
           const divBlock = document.createElement("div");
           divBlock.style.height = height + "%";
           divBlock.setAttribute("id", "block");
@@ -160,8 +173,6 @@ function MemoryManagement() {
           }
           memoryDiv.appendChild(divBlock);
 
-          // Add size label
-          // TODO: Show process details on mouse over
           const blockLabel = document.createElement("div");
           blockLabel.setAttribute("id", "blockLabel");
           blockLabel.style.height = height + "%";
@@ -176,133 +187,104 @@ function MemoryManagement() {
       };
     }
 
-    // Helper function to log messages
-    function log(string) {
-      const logBox = document.getElementById("logBox");
-      logBox.innerHTML += string + "<br />";
-    }
-
-    // Helper function to add process to the table
-    function addProcessToTable(process) {
-      const processTable = document.getElementById("processTable");
-
-      const row = document.createElement("tr");
-      row.setAttribute("id", "process" + process.id);
-
-      const colName = document.createElement("td");
-      colName.innerHTML = process.id;
-
-      const colSize = document.createElement("td");
-      colSize.innerHTML = process.size;
-
-      const colTime = document.createElement("td");
-      colTime.setAttribute("id", "process" + process.id + "timeLeft");
-      colTime.innerHTML = process.timeLeft;
-
-      row.appendChild(colName);
-      row.appendChild(colSize);
-      row.appendChild(colTime);
-
-      processTable.appendChild(row);
-    }
-
-    // Helper function to remove process from the table
-    function removeProcessFromTable(process) {
-      const processRow = document.getElementById("process" + process.id);
-      if (processRow) {
-        processRow.remove();
-      }
-    }
-
-    // Helper function to refresh table
-    function refreshTable() {
-      for (let i = 0; i < processesState.length; i++) {
-        const process = processesState[i];
-        const timeLeftCell = document.getElementById(
-          "process" + process.id + "timeLeft"
-        );
-        if (timeLeftCell) {
-          timeLeftCell.innerHTML = process.timeLeft;
-        }
-      }
-    }
-
-    // Initialize heap
     const heap = new Heap();
+    setHeap(heap);
     const memControlBlockSize = 16;
-    const blockSizes = [256];
+    const blockSizes = [50];
     for (let i = 0; i < blockSizes.length; i++) {
       heap.add(new MemControlBlock(blockSizes[i]));
     }
 
-    // Initialize processes from the imported data
-    const initialProcesses = processesData.map(
-      (p) => new Process(p.processSize, p.processTime)
-    );
-    setProcessesState(initialProcesses);
-    initialProcesses.forEach(addProcessToTable);
+    const initialProcesses = simulation?.jobs?.map(
+      (p) => new Process(p.memory, p.remaining)
+    ) || [];
+    console.log('Initial processes:', initialProcesses);
+    setProcesses(initialProcesses);
 
-    // Draw initial heap
     heap.repaint();
 
-    // Start clock
-    const newClock = setInterval(function () {
-      for (let i = 0; i < initialProcesses.length; i++) {
-        const process = initialProcesses[i];
-        if (!process.isAllocated()) {
-          heap.requestAllocation(process);
-        } else {
-          process.tick();
-          if (process.timeLeft < 1) {
-            heap.deallocateProcess(process);
-            const index = initialProcesses.indexOf(process);
-            if (index > -1) {
-              const newProcesses = [...initialProcesses];
-              newProcesses.splice(index, 1);
-              setProcessesState(newProcesses);
+    const newClock = setInterval(() => {
+      setProcesses((prevProcesses) => {
+        const updatedProcesses = [...prevProcesses];
+        for (let i = 0; i < updatedProcesses.length; i++) {
+          const process = updatedProcesses[i];
+          if (!process.isAllocated()) {
+            heap.requestAllocation(process);
+          } else {
+            process.tick();
+            if (process.timeLeft < 1) {
+              heap.deallocateProcess(process);
+              updatedProcesses.splice(i, 1);
+              i--;
             }
-            removeProcessFromTable(process);
           }
         }
-      }
-      refreshTable();
-      heap.repaint();
+        heap.repaint();
+        return updatedProcesses;
+      });
     }, 1000);
 
-    // Cleanup function
-    return () => {
-      clearInterval(newClock); // Clear interval when component unmounts
-    };
-  }, []); // Empty dependency array to run only once on component mount
+    return () => clearInterval(newClock);
+  }, [simulation]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProcesses((prevProcesses) => {
+        const updatedProcesses = [...prevProcesses];
+        const newProcesses = simulation?.jobs
+          ?.filter((p) => !updatedProcesses.some((proc) => proc.id === p.id))
+          .map((p) => new Process(p.memory, p.remaining)) || [];
+        
+        updatedProcesses.push(...newProcesses);
+        return updatedProcesses;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [simulation]);
 
   return (
-    <div>
-
-      <div className={`styles.rightContainer pt-5 pl-5 `}>
+    <div className={styles.container}>
+      <div className={styles.rightContainer}>
         <div id="memoryContainer">
           <div id="memory"></div>
         </div>
       </div>
-
-            <div className={styles.leftContainer}>
-                {/* <h2>Add Process</h2> */}
-                <form className={styles.processForm}>
-                    {/* <input type="text" name="processSize" placeholder="Process size" autoComplete="off" />
-                    <input type="text" name="processTime" placeholder="Process time" autoComplete="off" />
-                    <button type="submit" style={{ display: 'none' }}></button> */}
-                </form>
-                <br /><br />
-                {/* <h2>Process Queue</h2> */}
-                <table className={styles.processTable} id="processTable">
-                    {/* <tr><th>Process ID</th><th>Size (K)</th><th>Time Units Remaining</th></tr> */}
-                </table>
-                <br /><br />
-                <div className={styles.logBoxContainer}>
-                    <div className={styles.logBox} id="logBox">DEBUG LOG<br /></div>
-                </div>
-            </div>
-        </div>
-    );
-}
+      <div className={styles.leftContainer}>
+        <h2>Add Process</h2>
+        <form
+          className={styles.processForm}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const size = parseInt(e.target.elements.processSize.value);
+            const time = parseInt(e.target.elements.processTime.value);
+            const process = new Process(size, time);
+            if (heap.requestAllocation(process)) {
+              setProcesses((prevProcesses) => [...prevProcesses, process]);
+              e.target.reset();
+            }
+          }}
+        >
+          <input
+            type="text"
+            name="processSize"
+            placeholder="Process size"
+            autoComplete="off"
+          />
+          <input
+            type="text"
+            name="processTime"
+            placeholder="Process time"
+            autoComplete="off"
+          />
+          <button type="submit">Add Process</button>
+        </form>
+      </div>
+      <div id="logBoxContainer">
+        <div id="logBox">DEBUG LOG<br /></div>
+      </div>
+    </div>
+  );
+};
 
 export default MemoryManagement;

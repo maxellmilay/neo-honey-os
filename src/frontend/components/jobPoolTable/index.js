@@ -36,7 +36,7 @@ function JobPoolTable({ simulation, selectedAlgo }) {
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>{item.arrivalTime}</TableCell>
                                 <TableCell>{item.burst}</TableCell>
-                                <TableCell>{item.memory} kb</TableCell>
+                                <TableCell>{item.memory} MB</TableCell>
                             </TableRow>
                         )))}
                     </TableBody>
@@ -66,7 +66,7 @@ function JobPoolTable({ simulation, selectedAlgo }) {
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>{item.arrivalTime}</TableCell>
                                 <TableCell>{item.burst}</TableCell>
-                                <TableCell>{item.memory} kb</TableCell>
+                                <TableCell>{item.memory} MB</TableCell>
                                 <TableCell>{selectedAlgo === 'p' && item.priority}</TableCell>
                             </TableRow>
                         )))}

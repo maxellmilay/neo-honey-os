@@ -1,12 +1,46 @@
-.gantt-base {
-    display: inline-block;
-    margin-bottom: 2px;
-    margin-right: 2px;
-    text-align: center;
-    color: white;
-    padding: 15px 0;
+.memoryContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #acacac;
+    height: 375px; /* Adjustable height for better visibility */
+    position: relative;
+    background-color: inherit;
 }
 
+.allocatedBlock {
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000; */
+}
+
+.deallocatedBlock {
+    background-color: white;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000; */
+}
+
+.waitingBlock {
+    background-color: yellow;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000;  */
+}
 
 $colors: transparent, #0000E6, #40A800, #720E9E, #c45608, #634d40, #FFD700, #00FF00, #FF00FF, 
 #00FFFF, #FF4500, #FF1493, #D32F2F, #1976D2, #388E3C, #FBC02D, #8E24AA, #E64A19, #7B1FA2, 
@@ -41,126 +75,8 @@ $colors: transparent, #0000E6, #40A800, #720E9E, #c45608, #634d40, #FFD700, #00F
 
 
 @for $i from 0 through 290 {
-    .gantt-sm-#{$i} {
-        @extend .gantt-base;
+    .memory-allocated-#{$i} {
+        @extend .allocatedBlock;
         background-color: nth($colors, $i + 1);
-        height: 50px;
-        width: 20px;
-    }
-    .gantt-lg-#{$i} {
-        @extend .gantt-base;
-        background-color: nth($colors, $i + 1);
-        height: 55px;
-        width: 35px;
     }
 }
-
-
-#title {
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-#mainContainer {
-	width: 70%;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-#leftContainer {
-	float: left;
-	width: 50%;
-}
-
-#rightContainer {
-	float: right;
-	width: 50%;
-}
-
-#memoryContainer {
-	float: left;
-	margin-left: auto;
-	margin-right: auto;
-	height: 80vh;
-	width: 150px;
-}
-
-#memory {
-	float: right;
-	width: 150px;
-	height: 100%;
-}
-
-#block {
-	box-sizing: border-box;
-	border: 1px solid #2C3E50;
-	width: 100%;
-}
-
-#blockLabel {
-	text-align: center;
-	font-weight: bold;
-	padding: 2px;
-}
-
-#logBoxContainer {
-	width: 100%;
-	float: left;
-	font-family: Consolas, monospace;
-	height: 400px;
-	overflow: hidden;
-
-/*		box-sizing: border-box;
-	border: 1px solid #FFFFFF;*/
-}
-
-#logBox {
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-	padding-right: 20px; /* Hides scrollbar */
-	display: none;
-}
-
-.available {
-	background-color: #27ae60;
-}
-
-.unavailable {
-	background-color: #c0392b;
-}
-
-#processTable {
-	width: 400px;
-}
-
-#processTable th {
-	text-align: left;
-	padding-right: 20px;
-}
-
-#processTable td {
-	color: #BDC3C7;
-}
-
-
-// .d-flex {
-//   display: flex;
-//   animation: animateBubble 20s forwards infinite linear;
-//   transform: translateX(calc(100vw));
-// }
-
-// @keyframes animateBubble {
-//   from {
-//     transform: translateX(calc(100vw));
-//   }
-//   to {
-//     transform: translateX(-100%);
-//   }
-// }
-
-// .d-flex {
-//     transition: scroll-left 0.5s ease-out;
-// }

@@ -19,7 +19,7 @@ import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
 import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'
 import './styles.scss'
-import MemoryManagement from "../../components/pcb/MemoryManagement";
+import MemoryManagement from "../../components/memory";
 
 // PCB component simulates a CPU scheduling simulation using various algorithms
 function PCB1() {
@@ -36,7 +36,7 @@ function PCB1() {
     const [started, setStarted] = useState(false); // simulation started
     const [paused, setPaused] = useState(false); // simulation paused
     const intervalRef = useRef(null);  // Ref for the simulation interval
-
+    const memorySize = 1024;  // Total memory size for the memory manager
     // useEffect to manage the simulation timer when the running state or simSpeed changes
     useEffect(() => {
         if (running) {
@@ -94,7 +94,7 @@ function PCB1() {
         setJobs(newJobs);
         const algorithm = getAlgorithm(selectedAlgo); // Pass the selected algorithm
         algorithm.quantumTime = Number(quantum);
-        const sim = new Simulation(algorithm, newJobs);
+        const sim = new Simulation(algorithm, newJobs, memorySize);
         sim.reset();
         setSimulation(sim);
     };
@@ -167,7 +167,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
         <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
             <div className="row-span-6  h-full gap-4" >
-            <Card className="bg-yellow-100/50  h-full mb-4">
+            <Card className="bg-yellow-100/50 justify-center item-center  h-full mb-4">
                 <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t"><h4>Policy</h4></CardHeader>
                 <CardContent className="flex flex-col justify-center items-center h-[400px] px-4">
                     <div className="w-full flex flex-col items-center">
@@ -298,7 +298,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                                         <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                                     </div>
                                     <div>
-                                        <p>Current Time</p>
+                                        <p>Runtime</p>
                                         <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                                     </div>
                                     <div>
@@ -322,7 +322,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                                         <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                                     </div>
                                     <div>
-                                        <p>Current Time</p>
+                                        <p>Runtime</p>
                                         <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                                     </div>
                                     <div>
@@ -386,12 +386,13 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
 
             {/* Memory Card */}
             <div className="row-span-6 col-start-6 row-start-1 h-full">
-                <Card className="bg-yellow-100/50  h-full">
+                <Card className="bg-yellow-100/50 justify-center item-center  h-full mb-4">
                     <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Memory</h4>
                     </CardHeader>
-                    <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        {/* <MemoryTest /> */}
+                    <CardContent className="flex flex-col justify-center items-center h-[400px] px-4">
+                    <div className="w-full h-fullflex flex-col items-center">
+                        <MemoryManagement simulation={simulation} /></div>
                     </CardContent>
                 </Card>
             </div>

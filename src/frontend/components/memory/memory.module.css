@@ -1,0 +1,44 @@
+.memoryContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #544336;
+    height: 325px; /* Adjustable height for better visibility */
+    position: relative;
+    color:black
+}
+
+.allocatedBlock {
+    background-color: green;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000; */
+}
+
+.deallocatedBlock {
+    background-color: red;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000; */
+}
+
+.waitingBlock {
+    background-color: yellow;
+    width: 100%; /* Ensure full width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: x-small;
+    /* border-bottom: 1px solid #000;  */
+}

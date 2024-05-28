@@ -10,25 +10,22 @@ export class Job {
     this.remaining = this.burst;
     this.processed = false; // Added to track if the job has been processed
     this.status = "New";
+    this.heap = null;
   }
 
   setStatus(status) {
-    const validStatuses = ["New", "Ready", "Running", "Waiting", "Suspended", "Terminated"];
+    const validStatuses = ["New", "Ready", "Running", "Waiting", "Suspended", "Terminated", "Waiting For Memory"];
     if (validStatuses.includes(status)) {
         this.status = status;
-    } else {
-        throw new Error(`Invalid status: ${status}`);
-    }
-}
+    } 
+  }
 
   static createRandomJob(jobId) {
-    // Random numbers limits are selected by trial and error to ensure job GUI representation
-    // won't exceed the program screen limits
     const random = (max, min = 1) => Math.floor(Math.random() * max) + min;
     const arriveTime = jobId === 1 ? 1 : random(20, 2);
-    const burst = random(12,2);
+    const burst = random(12, 2);
     const priority = random(15);
-    const memory = jobId === 1 ? 1 : random(9, 1);
+    const memory = random(256, 50);
     return new Job(jobId, arriveTime, burst, priority, memory);
   }
 
@@ -49,6 +46,7 @@ export class Job {
     this.finishTime = 0;
     this.remaining = this.burst;
     this.processed = false; // Reset processed flag
+    this.status = "New";
   }
 
   process(simulationTime) {
@@ -80,11 +78,12 @@ export class Job {
   }
 
   clone() {
-    const job = new Job(this.id, this.arrivalTime, this.burst, this.priority);
+    const job = new Job(this.id, this.arrivalTime, this.burst, this.priority, this.memory);
     job.startTime = this.startTime;
     job.finishTime = this.finishTime;
     job.remaining = this.remaining;
-    job.processed = this.processed; 
+    job.processed = this.processed;
+    job.status = this.status;
     return job;
   }
 
