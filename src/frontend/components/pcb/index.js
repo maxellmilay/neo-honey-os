@@ -62,17 +62,13 @@ function PCB() {
                 <TabsList>
                   <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
                   <TabsTrigger value="Virtual Memory">Virtual Memory</TabsTrigger>
-                  <TabsTrigger value="Memory Test">Memory Test</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Scheduler">
                   {/* Add content for Scheduler tab if needed */}
-                  <PCB2 />
+                  <PCB1 />
                 </TabsContent>
                 <TabsContent value="Virtual Memory">
                   <VirtualMemory />
-                </TabsContent>
-                <TabsContent value="Memory Test">
-                  <PCB1 />
                 </TabsContent>
               </Tabs>
               </div>
