@@ -6,7 +6,7 @@ import "./App.css"
 import { useCallback } from "react"
 import { Desktop } from "./frontend/pages/desktop"
 import { BootApp } from "./frontend/pages/boot"
-import Login from './frontend/pages/login'; 
+import WelcomePage from './frontend/pages/login'; 
 import PCB from './frontend/pages/pcb';
 import { ShutDown } from "./frontend/pages/shutdown"
 
@@ -24,8 +24,8 @@ function App() {
 								to={"/boot"} />} />
 							<Route path="/boot" 
 									element={<BootApp />} />
-							{/* <Route path="/login" 
-								element={<Login/>} /> */}
+							<Route path="/login" 
+								element={<WelcomePage/>} />
 							<Route path="/desktop" 
 								element={<Desktop/>} />
 							<Route path="/PCB"

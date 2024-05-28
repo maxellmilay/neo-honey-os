@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import userIcon from "../../assets/img/user.png"
-// import { Cross2Icon } from "@radix-ui/react-icons"
-import styles from './login.module.css'; 
-import { Button } from '../../components/ui/button'
-import { Label } from '../../components/ui/label'
-import { VoiceRecog } from '../../components/voiceRecog';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import welcomeAudio from '../../assets/img/welcomehoney.wav';
+import backgroundImage from '../../assets/img/before_login_bg_2.png'
 
-function Login() {
-  const history = useNavigate();
+function WelcomePage() {
+    const navigate = useNavigate();  
+    const [visible, setVisible] = useState(true);
 
-  const handleSpeechInput = () => {
-    history('/desktop')
-  };
+    useEffect(() => {
+        // Set a timeout to navigate to another page after a few seconds
+        const timeout = setTimeout(() => {
+            setVisible(false);
+            navigate('/desktop');
+        }, 2000); // Adjust the time (in milliseconds) as needed
 
-  return (
-    // <div className={`${styles.loginContainer} justify-center text-center flex-col`}> 
-    // <div className={styles.userIcon}>
-    // <img src= {userIcon} />
-    // </div>
-    //   <div className={styles.welcomeText}>
-    //   <h3 >Welcome, Barry!</h3>
-    //   </div>
-    //   <div>
-    //   <Button className={`${styles.speechRecogBtn} rounded-full border-2 border-blue-700`} onClick={handleSpeechInput} variant="outline" size="icon">
-    //     <Mic className={`${styles.speechRecogIcon} h-15 w-20`} />
-    //   </Button></div>
-    // </div>
+        // Cleanup function to clear the timeout on component unmount
+        return () => clearTimeout(timeout);
+    }, [navigate]);
 
-    <div className={`${styles.loginContainer} flex flex-col items-center justify-center pb-1 mb-8`}>
-      <div className={styles.userIcon}>
-        <img src={userIcon} />
-      </div>
-          <div className='pt-3 flex flex-col items-center gap-5 w-full'>
-      <Label className={`${styles.welcomeText} pt-3`}> <h2> Welcome, Honey! </h2> </Label>
-      <Button variant="link" onClick={handleSpeechInput}>
-          <VoiceRecog />
-          </Button>
-          </div>
-    </div>
-  );
+    return (
+      <div style={{       
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '100vh',
+        backgroundColor: '#000',
+        color: '#fff',
+        fontSize: '2rem',
+        backgroundImage: `url(${backgroundImage})`, 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        backgroundRepeat: 'no-repeat', 
+       }}>
+            {/* Welcome page content */}
+            <h3 style={{ color: 'black' }}>Welcome, Honey!</h3>
+
+            {/* Audio element */}
+            <audio autoPlay>
+                <source src={welcomeAudio} type="audio/wav" />
+            </audio>
+        </div>
+    );
 }
 
-export default Login;
-
+export default WelcomePage;

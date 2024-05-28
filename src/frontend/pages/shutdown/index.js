@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import shuttingDownGif from '../../assets/img/bye.png';
-import shutdownSound from '../../assets/img/honeybee.mp3';
+import shutdownSound from '../../assets/img/goodbyehoney.wav';
 
 export const ShutDown = () => {
   useEffect(() => {
@@ -9,7 +9,7 @@ export const ShutDown = () => {
 
     const timer = setTimeout(() => {
       window.close(); // Close the app after a short delay
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer); // Cleanup the timer if the component unmounts
