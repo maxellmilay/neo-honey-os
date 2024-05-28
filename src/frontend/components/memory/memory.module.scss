@@ -4,7 +4,7 @@
     border: 1px solid #acacac;
     height: 375px; /* Adjustable height for better visibility */
     position: relative;
-    background-color: inherit;
+    background-color: rgb(233, 224, 184);
 }
 
 .allocatedBlock {
@@ -19,7 +19,7 @@
 }
 
 .deallocatedBlock {
-    background-color: white;
+    background-color: rgb(233, 224, 184);
     width: 100%; /* Ensure full width */
     text-align: center;
     display: flex;
