@@ -20,12 +20,32 @@ export class Job {
     } 
   }
 
+
   static createRandomJob(jobId) {
+    
+    const ranges = [
+        { min: 50, max: 120, probability: 0.75 },
+        { min: 121, max: 150, probability: 0.15 },
+        { min: 151, max: 256, probability: 0.10 }
+    ];
+
+    const weightedRandom = () => {
+        const random = Math.random();
+        let sum = 0;
+
+        for (const range of ranges) {
+            sum += range.probability;
+            if (random <= sum) {
+                return Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+            }
+        }
+    };
+
     const random = (max, min = 1) => Math.floor(Math.random() * max) + min;
     const arriveTime = jobId === 1 ? 1 : random(20, 2);
-    const burst = random(12, 2);
+    const burst = jobId === 1 ? random(15,5) : random(15, 1);
     const priority = random(15);
-    const memory = random(256, 50);
+    const memory = weightedRandom();
     return new Job(jobId, arriveTime, burst, priority, memory);
   }
 

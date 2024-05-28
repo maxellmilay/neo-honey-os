@@ -4,10 +4,21 @@ import styles from './memory.module.scss'; // Import CSS module
 const MemoryManagement = ({ simulation }) => {
     
     if (!simulation || !simulation.memoryManager) {
-        return <div className={`${styles.memoryContainer} w-full h-full flex flex-col rounded-md`}>No memory data available</div>;
+        return (
+            <div className="w-full h-full flex flex-col items-center pt-[24px]">
+                <div className={`${styles.memoryContainer} w-full h-[500px] flex items-center justify-center mb-4 rounded-md`}>
+                    Available
+                </div>
+             MB / 1024 MB used
+            </div>
+        )
     }
 
     const { totalMemory, segments } = simulation.memoryManager;
+
+
+    // Calculate used memory
+    const usedMemory = segments?.reduce((acc, segment) => acc + (segment.end - segment.start), 0) || 0;
 
     // Render memory segments
     const memorySegments = segments?.map((segment, index) => (
@@ -21,8 +32,11 @@ const MemoryManagement = ({ simulation }) => {
     ));
 
     return (
-        <div className={`${styles.memoryContainer} w-full h-full flex flex-col rounded-md`}>
-            {memorySegments}
+        <div className="w-full h-full flex flex-col items-center pt-[24px]">
+            <div className={`${styles.memoryContainer} w-full h-[500px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
+                {memorySegments}
+            </div>
+             <> <b>MB / {totalMemory} MB</b> used </>
         </div>
     );
 };

@@ -13,7 +13,7 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 function ReadyQTable({ simulation }) {
     return(
         <Table className="w-full h-full" style={{ maxHeight: '88%' }}> 
-            <ScrollArea className="h-[20rem] w-auto p-2">
+            <ScrollArea className="h-[15rem] w-auto p-2">
             <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
             <TableRow className="font-bold h-4">
                 <TableHead className="text-center text-slate-950 font-bold">Process ID</TableHead>

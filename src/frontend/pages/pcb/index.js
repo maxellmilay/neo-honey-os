@@ -19,7 +19,7 @@ import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
 import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'
 import './styles.scss'
-import MemoryManagement from "../../components/pcb/MemoryManagement";
+import MemoryManagement from "../../components/memory";
 
 // PCB component simulates a CPU scheduling simulation using various algorithms
 function PCB2() {
@@ -27,7 +27,7 @@ function PCB2() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
-    const [simSpeed, setSimSpeed] = useState(1000);  // State for the simulation speed
+    const [simSpeed, setSimSpeed] = useState(1500);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
@@ -36,7 +36,7 @@ function PCB2() {
     const [started, setStarted] = useState(false); // simulation started
     const [paused, setPaused] = useState(false); // simulation paused
     const intervalRef = useRef(null);  // Ref for the simulation interval
-
+    const memorySize = 1024;  // Total memory size for the memory manager
     // useEffect to manage the simulation timer when the running state or simSpeed changes
     useEffect(() => {
         if (running) {
@@ -94,7 +94,7 @@ function PCB2() {
         setJobs(newJobs);
         const algorithm = getAlgorithm(selectedAlgo); // Pass the selected algorithm
         algorithm.quantumTime = Number(quantum);
-        const sim = new Simulation(algorithm, newJobs);
+        const sim = new Simulation(algorithm, newJobs, memorySize);
         sim.reset();
         setSimulation(sim);
     };
@@ -166,9 +166,11 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
         </div> */}
         <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
             {/* Scheduling Policy Card */}
-            <div className="row-span-6  h-full gap-4" >
-            <Card className="bg-yellow-100/50  h-full mb-4">
-                <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t"><h4>Policy</h4></CardHeader>
+            <div className="row-span-8 h-full gap-4" >
+            <Card className="bg-yellow-100/50 justify-center item-center  h-full mb-4">
+                <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
+                    <h4>Policy</h4>
+                </CardHeader>
                 <CardContent className="flex flex-col justify-center items-center h-[400px] px-4">
                     <div className="w-full flex flex-col items-center">
                         <div className="flex justify-between items-center w-full">
@@ -278,72 +280,68 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
             </div>
 
             {/* CPU Card */}
-            <div className="col-span-3 row-span-2 col-start-1 row-start-7 h-full">
+            <div className="row-span-3 col-start-6 row-start-6 h-full">
                 <Card className="bg-yellow-100/50  h-full">
                     <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4> CPU </h4>
                     </CardHeader>
-                            {algo !== "rr" ? (
-                                <CardContent className="justify-center items-center align-middle pt-4 grid grid-cols-5 px-4 gap-4 text-slate-950">
-                                    <div>
-                                        <p>No. of Jobs</p>
-                                        <p><b className="text-2xl">{jobs.length}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Idle Time</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Current Job</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Runtime</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Utilization</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
-                                        </b></p>
-                                    </div>
-                                </CardContent>
-                            ):( 
-                                <CardContent className="justify-center flex items-center align-middle pt-4 grid grid-cols-6 px-4 gap-4">
-                                    <div>
-                                        <p>No. of Jobs</p>
-                                        <p><b className="text-2xl">{jobs.length}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Idle Time</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Current Job</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Runtime</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
-                                    </div>
-                                    <div>
-                                        <p>Utilization</p>
-                                        <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
-                                        </b></p>
-                                    </div>
-                                        <div className="flex flex-col items-center justify-center">
-                                        <p>Quantum</p>
-                                        {started === false? (
-                                            <Input 
-                                                value={quantum} 
-                                                onChange={handleInputChange} 
-                                                className="outline-none border-b-2 h-8 w-16 bg-border-orange-500 text-2xl font-bold rounded-lg text-sm focus:outline-none"
-                                                type="number" />
-                                        ) : (
-                                            <p><b className="text-2xl">{quantum}</b></p>
-                                        )}
-                                    </div>
-                            </CardContent>
-                            )}
+                    {algo !== "rr" ? (
+                        <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 text-slate-950">
+                            <div>
+                                <p>No. of Jobs</p>
+                                <p><b className="text-2xl">{jobs.length}</b></p>
+                            </div>
+                            <div>
+                                <p>Current Job</p>
+                                <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                            </div>
+                            <div>
+                                <p>Runtime</p>
+                                <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
+                            </div>
+                            <div>
+                                <p>Utilization</p>
+                                <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                </b></p>
+                            </div>
+                        </CardContent>
+                    ):( 
+                        <CardContent className="justify-center flex items-center align-middle pt-4 grid grid-cols-6 px-4 gap-4">
+                            <div>
+                                <p>No. of Jobs</p>
+                                <p><b className="text-2xl">{jobs.length}</b></p>
+                            </div>
+                            <div>
+                                <p>Idle Time</p>
+                                <p><b className="text-2xl">{simulation ? simulation.idleTime : 0}</b></p>
+                            </div>
+                            <div>
+                                <p>Current Job</p>
+                                <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                            </div>
+                            <div>
+                                <p>Runtime</p>
+                                <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
+                            </div>
+                            <div>
+                                <p>Utilization</p>
+                                <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
+                                </b></p>
+                            </div>
+                                <div className="flex flex-col items-center justify-center">
+                                <p>Quantum</p>
+                                {started === false? (
+                                    <Input 
+                                        value={quantum} 
+                                        onChange={handleInputChange} 
+                                        className="outline-none border-b-2 h-8 w-16 bg-border-orange-500 text-2xl font-bold rounded-lg text-sm focus:outline-none"
+                                        type="number" />
+                                ) : (
+                                    <p><b className="text-2xl">{quantum}</b></p>
+                                )}
+                            </div>
+                    </CardContent>
+                    )}
                 </Card>
             </div>
 
@@ -385,19 +383,19 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
             </div>
 
             {/* Memory Card */}
-            <div className="row-span-6 col-start-6 row-start-1 h-full">
-                <Card className="bg-yellow-100/50  h-full">
+            <div className="row-span-5 col-start-6 row-start-1 h-full">
+                <Card className="bg-yellow-100/50 h-full mb-4">
                     <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Memory</h4>
                     </CardHeader>
-                    <CardContent className="grid grid-rows-5 grid-cols-1 h-full px-4">
-                        <MemoryManagement simulation={simulation}/>
+                    <CardContent className="flex flex-col justify-center items-center h-full px-4">
+                        <MemoryManagement simulation={simulation} />
                     </CardContent>
                 </Card>
             </div>
 
             {/* Gantt Chart Card */}
-            <div className="col-span-3 row-span-2 col-start-4 row-start-7 h-full">
+            <div className="col-span-4 row-span-2 col-start-2 row-start-7 h-full">
                 <Card className="bg-yellow-100/50  h-full">
                     <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h4>Gantt Chart</h4>

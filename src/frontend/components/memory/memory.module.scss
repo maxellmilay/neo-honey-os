@@ -1,10 +1,12 @@
 .memoryContainer {
     display: flex;
     flex-direction: column;
-    border: 1px solid #acacac;
-    height: 375px; /* Adjustable height for better visibility */
+    border: 2px solid rgb(249 115 22);
+    // height: 350px; /* Adjustable height for better visibility */
     position: relative;
-    background-color: rgb(233, 224, 184);
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
 }
 
 .allocatedBlock {
@@ -14,12 +16,12 @@
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: x-small;
+    font-size: small;
     /* border-bottom: 1px solid #000; */
 }
 
 .deallocatedBlock {
-    background-color: rgb(233, 224, 184);
+    background-color: white;
     width: 100%; /* Ensure full width */
     text-align: center;
     display: flex;
@@ -27,6 +29,7 @@
     align-items: center;
     color: black;
     font-size: x-small;
+    border-radius: inherit
     /* border-bottom: 1px solid #000; */
 }
 
@@ -42,39 +45,9 @@
     /* border-bottom: 1px solid #000;  */
 }
 
-$colors: transparent, #0000E6, #40A800, #720E9E, #c45608, #634d40, #FFD700, #00FF00, #FF00FF, 
-#00FFFF, #FF4500, #FF1493, #D32F2F, #1976D2, #388E3C, #FBC02D, #8E24AA, #E64A19, #7B1FA2, 
-#0288D1, #303F9F, #00796B, #C2185B, #512DA8, #0097A7, #689F38, #F57C00, #C51162, #AA00FF, 
-#2962FF, #0091EA, #00B8D4, #00BFA5, #00C853, #64DD17, #AEEA00, #FFD600, #FFAB00, #FF6D00, 
-#DD2C00, #D50000, #C62828, #AD1457, #6A1B9A, #4527A0, #283593, #1565C0, #0277BD, #00838F, 
-#00695C, #2E7D32, #558B2F, #9E9D24, #F9A825, #FF8F00, #EF6C00, #BF360C, #3E2723, #37474F, 
-#FFEB3B, #CDDC39, #8BC34A, #4CAF50, #009688, #00BCD4, #03A9F4, #2196F3, #3F51B5, #673AB7, 
-#9C27B0, #E91E63, #F44336, #FF9800, #FF5722, #795548, #9E9E9E, #607D8B, #004D40, #1B5E20, 
-#FDD835, #FB8C00, #FFB300, #FF7043, #6D4C41, #757575, #546E7A, #37474F, #263238, #1DE9B6, 
-#00E676, #76FF03, #C6FF00, #FFEA00, #FFC400, #9C0000, #006400, #FF69B4, #FF7F50, #FF6347, 
-#8A2BE2, #7FFF00, #D2691E, #6495ED, #DC143C, #00FFFF, #00008B, #B8860B, #A9A9A9, #BDB76B, 
-#9932CC, #E9967A, #8FBC8F, #9400D3, #1E90FF, #B22222, #FFFAF0, #228B22, #D3D3D3, #F8F8FF, 
-#DAA520, #CD5C5C, #4B0082, #7CFC00, #FFDAB9, #E6E6FA, #F5DEB3, #B0E0E6, #FAFAD2, #F0E68C, 
-#ADFF2F, #F08080, #E9967A, #FAEBD7, #F5F5DC, #FDF5E6, #F0FFF0, #FFF0F5, #FFE4E1, #DCDCDC, 
-#F5F5F5, #FFFFFF, #FFE4C4, #8B0000, #8B008B, #556B2F, #9932CC, #8B0000, #DC143C, #8FBC8F, 
-#9400D3, #00CED1, #1E90FF, #00BFFF, #00FA9A, #00FF7F, #20B2AA, #3CB371, #7B68EE, #6A5ACD, 
-#483D8B, #D8BFD8, #DA70D6, #EEE8AA, #98FB98, #AFEEEE, #DB7093, #FFEFD5, #B0E0E6, #FFB6C1, 
-#FAFAD2, #F0E68C, #ADFF2F, #F08080, #E9967A, #F5DEB3, #FAEBD7, #F5F5DC, #FFF0F5, #FFE4E1, 
-#DCDCDC, #F5F5F5, #FFFFFF, #FFE4C4, #FF1493, #FF4500, #FF6347, #FF8C00, #FFA500, #FFD700, 
-#ADFF2F, #7FFF00, #32CD32, #00FF7F, #00FA9A, #00FF00, #7CFC00, #7B68EE, #6A5ACD, #483D8B, 
-#9932CC, #8A2BE2, #9370DB, #BA55D3, #DA70D6, #D8BFD8, #EE82EE, #FF00FF, #FF1493, #FF69B4, 
-#FFB6C1, #FFC0CB, #DB7093, #FF4500, #FF6347, #FF7F50, #FFA07A, #FA8072, #E9967A, #F08080, 
-#CD5C5C, #DC143C, #FF0000, #B22222, #8B0000, #FFD700, #FFFF00, #FFFACD, #FAFAD2, #FFEFD5, 
-#FFE4B5, #FFDAB9, #EEE8AA, #F0E68C, #BDB76B, #ADFF2F, #7FFF00, #32CD32, #00FF00, #7CFC00, 
-#00FF7F, #00FA9A, #00FF00, #32CD32, #228B22, #008000, #006400, #9ACD32, #6B8E23, #556B2F, 
-#66CDAA, #8FBC8F, #20B2AA, #008B8B, #008080, #00FFFF, #00FFFF, #E0FFFF, #AFEEEE, #7FFFD4, 
-#40E0D0, #48D1CC, #00CED1, #20B2AA, #5F9EA0, #4682B4, #B0E0E6, #ADD8E6, #B0C4DE, #87CEEB, 
-#87CEFA, #00BFFF, #1E90FF, #6495ED, #4682B4, #4169E1, #0000FF, #0000CD, #00008B, #000080, 
-#191970, #3CB371, #2E8B57, #228B22, #006400, #32CD32, #00FF00, #7FFF00, #7CFC00, #ADFF2F, 
-#00FF00, #32CD32, #228B22, #008000, #006400, #9ACD32, #6B8E23, #556B2F;
+$colors: transparent #40A800, #720E9E, #c45608, #634d40, #FFD700, #00FF00, #FF00FF, #00FFFF, #FF4500, #FF1493, #D32F2F, #1976D2, #388E3C, #FBC02D, #8E24AA, #E64A19, #7B1FA2, #0288D1, #303F9F, #00796B, #C2185B, #512DA8, #0097A7, #689F38, #F57C00, #C51162, #AA00FF, #2962FF, #0091EA, #00B8D4, #00BFA5, #00C853, #64DD17, #AEEA00, #FFD600, #FFAB00, #FF6D00, #DD2C00, #D50000, #C62828, #AD1457, #6A1B9A, #4527A0, #283593, #1565C0, #0277BD, #00838F, #00695C, #2E7D32, #558B2F, #9E9D24, #F9A825, #FF8F00, #EF6C00, #BF360C, #3E2723, #212121, #37474F, #B0BEC5, #FFEB3B, #CDDC39, #8BC34A, #4CAF50, #009688, #00BCD4, #03A9F4, #2196F3, #3F51B5, #673AB7, #9C27B0, #E91E63, #F44336, #FF9800, #FF5722, #795548, #9E9E9E, #607D8B, #004D40, #1B5E20, #FDD835, #FB8C00, #FFB300, #FF7043, #6D4C41, #757575, #546E7A, #37474F, #263238, #1DE9B6, #00E676, #76FF03, #C6FF00, #FFEA00, #FFC400,#2ede3b, #2d9f5f, #cfb1f4, #c75046, #41fbd8, #5d8da5, #d46905, #5eee76, #6402a2, #b1b910, #c57712, #17107d, #e619dd, #491185, #ed9a44, #b89934, #b73c21, #237af4, #ddca79, #da2af4, #ba01ca, #1761c5, #ec25e5, #d0acee, #82fc99, #789692, #d0d067, #7626e1, #3d8c7c, #425c8b, #761124, #10c376, #8b7195, #5a5ac9, #ba7a4a, #db049e, #65070b, #5915d8, #c7f21d, #21b800, #52d17a, #4a87ad, #6e05fd, #de42a4, #971af6, #2dd967, #93225c, #54b12b, #ca4868, #309015, #f246bd, #2c1010, #d10002, #cd5a56, #a58216, #d61363, #4fd562, #4f7b7a, #b45325, #9868f3, #8dd563, #276494, #fee65b, #86c06e, #79c355, #ab40a0, #365343, #604959, #a4fff5, #7da7dc, #e0b3e6, #6c9478, #a26985, #ce764d, #a0fc88, #b8b552, #425922, #17a3b3, #e6e85c, #10977b, #2971c5, #35f830, #ee2135, #b76fbd, #6ad1df, #245540, #57d4c0, #253d19, #e8fdac, #d94b42, #8809b7, #9a80d3, #f18fc4, #b6e454, #32a59a, #7efabc, #b1c4ee, #299e80, #283c4b, #943aa3, #e1f1ae, #167ba0, #9ad669, #af030d, #56f21f, #4fc7c2, #aa5bcf, #4793c4, #3a1f42, #64d196, #667e32, #57798f, #54aaf8, #8df0f2, #b8f39a, #d19802, #1aab9c, #ecb5e1, #64c975, #19816c, #8ab3f8, #efaf2d, #2fe6d3, #d9f547, #b52458, #b4e5f6, #2fb10e, #e70baf, #8b451f, #ddad18, #16dfb2, #a07664, #50feea, #b7d203, #8c0330, #3a711d, #237676, #3e9d2b, #d0af86, #4b3a09, #e3a709, #2e946a, #117778, #90325b, #f3d7fe, #8ea66a, #599934, #e5b7fd, #35af93, #ad35a1, #49a448, #14cc3e, #a36a1f, #b71b1d, #6460a9, #874c81, #637d3d, #92bd65, #8045fe, #3a1631, #106b0d, #cbfcfd, #baf046, #444589, #c7ab1d, #b238a7, #edcb4e, #f3049b, #410129, #5dece6, #aa0c19, #746873, #d2deac, #60b747, #b55cde, #e93313, #67e154, #3b67d2, #bcc918, #83b601, #6c2c23, #82c75f, #4ffe10, #84cc67, #ecf997, #82d8c4, #31cf9d, #7cfc24, #50325f, #e0a2a5, #1cc2ca, #85f01a, #64f278, #89e39d, #1f9464, #d28665, #bac534, #406223, #651659, #b4080c, #6b08bf, #a27e14, #8a81a5, #2b265b, #dc0f41, #6175f9, #bff8e9, #90e517, #210470, #4a9d70, #e82999, #70c264, #940675, #e38cba, #ccb1e4, #c7b1a7, #7bb85f, #ea3fc9, #6dad90, #9a8aa0, #5bdd95, #83137a, #a9eea7, #1c51cd, #99e123, #8589d2, #7d6548, #b3c86d, #ec0a96, #450b9a, #bf7204, #4b56a6, #18e51c, #728144, #532c0a, #49d1da, #c16c87, #af3498, #ad81f2, #efc890, #9ce9b4, #807f8f, #2f2073, #303f9c, #bc0a5b, #7b4021, #4eb59e, #9e7e36, #f2dec4, #3e8b0b, #bbe29c, #392559, #d328a4, #d933f5, #3cf76f, #9ccca2, #771ce1, #734b47, #103863, #aed851, #cb6bb1, #51c757, #7bbb76, #344615, #dc95d5, #a7a00d, #6693f1, #800e52, #e26169, #268759, #eb2771, #8a5893, #7e2f3b, #2f1e58, #a4abec, #8e6702, #881f2c, #95b98c, #b7f6f2, #bebc34, #6c8eb8, #d2fa65, #a1aa8f, #c587b3, #29a486, #28f2f5, #e5eace, #d52848, #a59ecf, #e066c2, #6c30a6, #d9119d, #ce3134, #bb6031, #9C0000, darkgreen, #505050, #171515, #0000E6;
 
-
-@for $i from 0 through 290 {
+@for $i from 0 through 391 {
     .memory-allocated-#{$i} {
         @extend .allocatedBlock;
         background-color: nth($colors, $i + 1);

@@ -183,7 +183,7 @@ export class Simulation {
     this.time++;
 
     // Add new jobs dynamically every few time units
-    if (this.time % 2 === 0) {
+    if (this.time % 3 === 0) {
       this.addNewJob();
     }
 
@@ -241,14 +241,14 @@ export class Simulation {
         job.setStatus("Running");
       } else if (job === this.readyQueue[0]) { // Check if the job is the first in the ready queue
         job.setStatus("Ready");
-      } else if (job.status === "New") {
-        // Keep the status as "New" if less than 1 unit of time has elapsed
-        job.setStatus("New");
+      // } else if (job.status === "New") {
+      //   // Keep the status as "New" if less than 1 unit of time has elapsed
+      //   job.setStatus("New");
       } else if (job.status === "Waiting For Memory" && this.memoryManager.allocateMemory(job)) {
-        job.setStatus("New");
+        job.setStatus("Ready");
         this.readyQueue.push(job);
       } else {
-        job.setStatus("Waiting");
+        job.setStatus("Waiting for Memory");
       }
     });
     
@@ -306,4 +306,6 @@ export class Simulation {
     });
     return Math.floor(total / this.jobs.length);
   }
+
+
 }
