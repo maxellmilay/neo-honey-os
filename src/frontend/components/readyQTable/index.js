@@ -10,7 +10,7 @@ import {
 import styles from "./pcb.module.css";
 import { ScrollArea } from "../../components/ui/scroll-area";
 
-function ReadyQTable({ simulation }) {
+function ReadyQTable({ simulation, selectedAlgo }) {
     return(
        
        <Table className="w-full h-full" style={{ maxHeight: '88%' }}> 
@@ -18,12 +18,15 @@ function ReadyQTable({ simulation }) {
     <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
       <TableRow className="font-bold h-4">
         <TableHead className="text-center text-slate-950 font-bold w-1/6">Process ID</TableHead>
-        <TableHead className="text-center text-slate-950 font-bold w-1/6">Burst</TableHead>
-        <TableHead className="text-center text-slate-950 font-bold w-1/6">Arrival</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/8">Burst</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/8">Arrival</TableHead>
         <TableHead className="text-center text-slate-950 font-bold w-1/6">Size</TableHead>
+             {selectedAlgo !== "p" ? (   
+                <TableCell className="text-center text-slate-950 font-bold w-1/8">Priority</TableCell> 
+                ): null}
         <TableHead className="text-center text-slate-950 font-bold w-1/6">Status</TableHead>
-        <TableHead className="text-center text-slate-950 font-bold w-1/6">Remaining</TableHead>
-        <TableHead className="text-center text-slate-950 font-bold w-2">%</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-[2%]">Remaining</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-[25px]">%</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -35,6 +38,9 @@ function ReadyQTable({ simulation }) {
             <TableCell>{item.burst}</TableCell>
             <TableCell>{item.arrivalTime}</TableCell>
             <TableCell className="text-center w-10">{item.memory} MB</TableCell>
+             {selectedAlgo !== "p" ? (   
+                <TableCell className="text-center">{item.priority}</TableCell> 
+                ): null}
             <TableCell className="text-center">{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
             <TableCell className="text-center">{item.remaining}</TableCell>
             <TableCell className="text-center">{item.percent}</TableCell>

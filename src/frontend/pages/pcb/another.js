@@ -398,7 +398,7 @@ function PCB3() {
                         <h6>Memory</h6>
                     </CardHeader>
                     <CardContent className="flex flex-col justify-center items-center h-full px-4">
-                        <MemoryManagement simulation={simulation} />
+                        <MemoryManagement simulation={simulation} selectedAlgo={selectedAlgo}/>
                     </CardContent>
                 </Card>
             </div>
@@ -427,6 +427,32 @@ function PCB3() {
                             <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
                             </b></p>
                         </div>
+                        <div className="circular-progress-container">
+  <svg className="circular-progresss" viewBox="0 0 35 40">
+    <path
+      className="circle-bg"
+      d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831"
+    />
+    <path
+      className="circle"
+      strokeDasharray={`${simulation?.utilization}, 100`}
+      d="M18 2.0845
+        a 15.9155 15.9155 0 0 1 0 31.831
+        a 15.9155 15.9155 0 0 1 0 -31.831"
+    />
+    <foreignObject x="5" y="6" width="30" height="20">
+      <div className="">
+        <p><b className="">{simulation?.utilization}%</b></p>
+      </div>
+    </foreignObject>
+  </svg>
+  <div className="utilization-label">
+    <p>Utilization</p>
+  </div>
+</div>
+
                     </CardContent>
                 </Card>
             </div>
