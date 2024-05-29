@@ -409,7 +409,7 @@ function PCB3() {
                     <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
                         <h6> CPU </h6>
                     </CardHeader>
-                    <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows text-slate-950">
+                    <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows py-10 gap-8 text-slate-950">
                         <div>
                             <p>No. of Jobs</p>
                             <p><b className="text-2xl">{jobs.length}</b></p>
@@ -422,37 +422,31 @@ function PCB3() {
                             <p>Runtime</p>
                             <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                         </div>
-                        {/* <div>
-                            <p>Utilization</p>
-                            <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
-                            </b></p>
-                        </div> */}
                         <div className="circular-progress-container">
-  <svg className="circular-progresss" viewBox="0 0 35 40">
-    <path
-      className="circle-bg"
-      d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831"
-    />
-    <path
-      className="circle"
-      strokeDasharray={`${simulation?.utilization}, 100`}
-      d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831"
-    />
-    <foreignObject x="5" y="6" width="30" height="20">
-      <div className="">
-        <p><b className="">{simulation?.utilization}%</b></p>
-      </div>
-    </foreignObject>
-  </svg>
-  <div className="utilization-label">
-    <p>Utilization</p>
-  </div>
-</div>
-
+                        <svg className="circular-progresss" viewBox="0 0 36 36">
+                            <path
+                            className="circle-bg"
+                            d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path
+                            className="circle"
+                            strokeDasharray={`${simulation?.utilization}, 100`}
+                            d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <foreignObject x="0" y="3" width="36" height="26">
+                            <div className="flex justify-center items-center h-full w-full">
+                                <p><b className="text-center text-xs">{simulation?.utilization}%</b></p>
+                            </div>
+                            </foreignObject>
+                        </svg>
+                        <div className="utilization-label">
+                            <p>Utilization</p>
+                        </div>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
