@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import welcomeAudio from '../../assets/img/welcomehoney.wav';
-import backgroundImage from '../../assets/img/before_login_bg_2.png'
+import backgroundImage from '../../assets/img/before_login_bg_2.png';
+import welcomeBee from './welcome.gif';
 
 function WelcomePage() {
     const navigate = useNavigate();  
@@ -33,8 +34,11 @@ function WelcomePage() {
         backgroundPosition: 'center', 
         backgroundRepeat: 'no-repeat', 
        }}>
+            {/* Display the welcomeBee GIF */}
+            <img src={welcomeBee} className="w-[20%]" alt="Welcome Bee" />
+
             {/* Welcome page content */}
-            <h3 style={{ color: 'black' }}>Welcome, Honey!</h3>
+            <h1 style={{ color: 'black' }}>Welcome, Honey!</h1>
 
             {/* Audio element */}
             <audio autoPlay>

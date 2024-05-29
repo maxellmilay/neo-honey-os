@@ -446,7 +446,7 @@ function PCB3() {
                             <foreignObject x="0" y="3" width="36" height="26">
                            <div className="flex items-center h-full w-full flex-col pt-[5px]">
                             <p className="text-center text-[3px]">
-                                <b className="text-center text-[9px]">{simulation?.utilization}%</b>
+                                <b className="text-center text-[9px]">{running ? simulation?.utilization : '0'}%</b>
                                 <span className="block">Utilization</span>
                             </p>
                         </div>
