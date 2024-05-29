@@ -14,10 +14,10 @@ function App() {
 	
 	return (
 		<>
+					<CustomCursor />
 			{/* <div className='background'> */}
 				<div className='App '>
 					<Router>
-					<CustomCursor />
 						<Routes>
 							<Route path="/" 
 								element={<Navigate 

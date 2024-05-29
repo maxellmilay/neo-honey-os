@@ -55,25 +55,25 @@ function PCB() {
             <DialogContent key={i} className={`${styles.dialogContainer} w-[98%] h-[86%] flex`} style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-full">
               {/* For TABS, Scheduler and Virtual Memory */}
-              <Tabs defaultValue="Scheduler" className="w-full">
+              {/* <Tabs defaultValue="Scheduler" className="w-full"> */}
                 <DialogTitle>
-                  <h2 className={`${styles.mahStroke} dialog-title flex flex-col space-y-1.5 text-black mahStroke text-center`}>
+                  <h2 className={`${styles.mahStroke} dialog-title pt-2 flex flex-col space-y-1.5 text-black mahStroke text-center`}>
                     BusyBee (PCB)
                   </h2>
                   
                 </DialogTitle>
-                <TabsList>
+                {/* <TabsList>
                   <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
                   <TabsTrigger value="Virtual Memory">Virtual Memory</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Scheduler">
-                  {/* Add content for Scheduler tab if needed */}
                   <PCB3 />
                 </TabsContent>
                 <TabsContent value="Virtual Memory">
                   <VirtualMemory />
                 </TabsContent>
-              </Tabs>
+              </Tabs> */}
+                  <PCB3 />
               </div>
             </DialogContent>
           </Draggable>

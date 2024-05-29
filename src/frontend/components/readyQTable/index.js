@@ -34,7 +34,7 @@ function ReadyQTable({ simulation, selectedAlgo }) {
       {simulation?.jobs
         .filter(item => item.status === "Ready" || item.status === "Running")
         .map((item, index) => (
-          <TableRow key={index} className={index === 0 ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300 rowTb" : "rowTb"}>
+          <TableRow key={index} className={item.status === "Running" ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300 rowTb" : "rowTb"}>
             <TableCell className="text-center">{item.id}</TableCell>
             <TableCell>{item.burst}</TableCell>
             <TableCell>{item.arrivalTime}</TableCell>

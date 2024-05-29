@@ -1,15 +1,25 @@
-/* CustomCursor.css */
 body {
-    cursor: none;
-  }
+  cursor: none;
+}
 
+body :hover {
+  cursor: none;
+}
+
+body :active {
+  cursor: none;
+}
 .custom-cursor {
-    position: fixed;
-    width: 50px; /* Adjust width and height based on your cursor image size */
-    height: 50px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 9999; /* Ensure it appears above other elements */
-  }
-  
+  position: fixed;
+  width: 50px; /* Adjust width and height based on your cursor image size */
+  height: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 9999; /* Ensure it appears above other elements */
+
+        transform: translate(-50%, -50%);
+        transition: transform 0.15s ease;
+        transform-origin: center;
+        
+        }

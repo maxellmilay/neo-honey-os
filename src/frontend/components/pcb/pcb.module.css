@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 30;
     width: 98%; /* or your desired width */
     height: 86%; /* or your desired height */
-    background-image: url('./bees.gif');
+    /* background-image: url('./bees.gif'); */
     background-repeat: repeat;
     background-size: 300px 250px; /* Adjust to your image size */
 }
@@ -139,4 +139,8 @@ h1, h2, h3, h4, h5, h6 {
   100% {
     transform: translate(0px, 0px);
   }
+}
+
+.pcbContainer {
+    border: 2px solid rgb(249 115 22);
 }
