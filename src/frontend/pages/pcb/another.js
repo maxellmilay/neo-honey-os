@@ -139,6 +139,14 @@ function PCB3() {
         console.log(started)
     }; 
     
+  // Function to finish the simulation by processing all remaining jobs
+  const finish = () => {
+    if (simulation) {
+      simulation.finish();
+      setJobs([...simulation.jobs]);
+      setRunning(false);
+    }
+  };
 
     const [yieeeRR, setYieeeRR] = useState(false);
     // Function to handle the change of the selected algorithm
@@ -182,6 +190,7 @@ function PCB3() {
             lastItemRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [simulation?.ganttChart.length]);
+
 
     return (
         <>
@@ -298,11 +307,11 @@ function PCB3() {
                                 <Button
                                     variant="nohover"
                                     className="h-10 flex gap-2 bg-gray-400 bg-red-600"
-                                    // onClick={reset} #set function to stop adding new jobs and continue finish the current jobs
+                                    onClick={finish}
                                     disabled={!started}
                                 >
                                     <StopIcon />
-                                    Stop
+                                    Finish
                                 </Button>
                                 <Button
                                     variant="nohover"

@@ -1,8 +1,6 @@
 import { Job } from './job';
 import { MemoryManager } from './memory';
-
 // export class Simulation {
-
 //   constructor(algorithm, jobs, totalMemory) {
 //     this.time = 0;
 //     this.algorithm = algorithm;
@@ -11,6 +9,7 @@ import { MemoryManager } from './memory';
 //     this.currentJob = undefined;
 //     this.ganttChart = [];
 //     this.idleTime = 0;
+//     this.totalMemory = totalMemory;
 //     this.memoryManager = new MemoryManager(totalMemory);
 
 //     // Initialize all jobs with status "New"
@@ -22,25 +21,25 @@ import { MemoryManager } from './memory';
 //     this.time++;
 
 //     // Add new jobs dynamically every few time units
-//     if (this.time % 2 === 0) {
+//     if (this.time % 3 === 0) {
 //       this.addNewJob();
 //     }
 
 //     if (this.currentJob && this.currentJob.finished) {
-//       this.memoryManager.deallocateMemory(this.currentJob); // Deallocate memory
-//       this.currentJob.setStatus("Terminated"); // Set status to Terminated
+//       // Deallocate memory when a job is terminated
+//       this.memoryManager.deallocateMemory(this.currentJob);
 //       this.currentJob = undefined;
 //     }
 
 //     const newJobs = this.jobs.filter(job => job.arrivalTime === this.time);
 //     newJobs.forEach(job => {
-//       if (this.memoryManager.allocateMemory(job)) {
-//         if (!this.readyQueue.includes(job)) {
+//       if (!this.readyQueue.includes(job)) {
+//         if (this.memoryManager.allocateMemory(job)) {
 //           this.readyQueue.push(job);
-//           job.setStatus("Ready"); // Job is "Ready" when it enters the readyQueue after memory allocation
+//           job.setStatus("Ready"); // Job is "Ready" when it enters the readyQueue
+//         } else {
+//           job.setStatus("Waiting For Memory");
 //         }
-//       } else {
-//         job.setStatus("Waiting For Memory"); // Job waits for memory allocation
 //       }
 //     });
 
@@ -69,15 +68,7 @@ import { MemoryManager } from './memory';
 //     const newJobId = this.jobs.length + 1;
 //     const newJob = Job.createRandomJob(newJobId);
 //     newJob.arrivalTime = this.time; // Set arrivalTime to the current time
-//     newJob.setStatus("New");
 //     this.jobs.push(newJob);
-
-//     if (this.memoryManager.allocateMemory(newJob)) {
-//       this.readyQueue.push(newJob);
-//       newJob.setStatus("Ready");
-//     } else {
-//       newJob.setStatus("Waiting For Memory");
-//     }
 //   }
 
 //   updateJobStatuses() {
@@ -88,21 +79,17 @@ import { MemoryManager } from './memory';
 //         job.setStatus("Running");
 //       } else if (job === this.readyQueue[0]) { // Check if the job is the first in the ready queue
 //         job.setStatus("Ready");
-//       } else if (job.status === "New" && this.time - job.arrivalTime >= 1) {
-//         job.setStatus("Waiting");
-//       } else if (job.status === "New") {
-//         // Keep the status as "New" if less than 1 unit of time has elapsed
-//         job.setStatus("New");
+//       // } else if (job.status === "New") {
+//       //   // Keep the status as "New" if less than 1 unit of time has elapsed
+//       //   job.setStatus("New");
 //       } else if (job.status === "Waiting For Memory" && this.memoryManager.allocateMemory(job)) {
 //         job.setStatus("Ready");
-//         if (!this.readyQueue.includes(job)) {
-//           this.readyQueue.push(job);
-//         }
-//       } else if (job.status !== "Waiting For Memory") {
-//         job.setStatus("Waiting");
+//         this.readyQueue.push(job);
+//       } else {
+//         job.setStatus("Waiting for Memory");
 //       }
 //     });
-
+    
 //     const statusOrder = {
 //       'Running': 1,
 //       'Ready': 2,
@@ -127,7 +114,6 @@ import { MemoryManager } from './memory';
 
 //     // Reset all job statuses to "New"
 //     this.jobs.forEach(job => job.setStatus("New"));
-//     this.memoryManager = new MemoryManager(this.memoryManager.totalMemory); // Reset memory manager
 //   }
 
 //   isFinished() {
@@ -158,9 +144,9 @@ import { MemoryManager } from './memory';
 //     });
 //     return Math.floor(total / this.jobs.length);
 //   }
-// }
 
-// sssssssssssssssssss
+
+// }
 
 export class Simulation {
   constructor(algorithm, jobs, totalMemory) {
@@ -173,6 +159,7 @@ export class Simulation {
     this.idleTime = 0;
     this.totalMemory = totalMemory;
     this.memoryManager = new MemoryManager(totalMemory);
+    this.stopAddingJobsFlag = false; // New flag to stop adding new jobs
 
     // Initialize all jobs with status "New"
     this.jobs.forEach(job => job.setStatus("New"));
@@ -183,7 +170,7 @@ export class Simulation {
     this.time++;
 
     // Add new jobs dynamically every few time units
-    if (this.time % 3 === 0) {
+    if (!this.stopAddingJobsFlag && this.time % 3 === 0) {
       this.addNewJob();
     }
 
@@ -241,9 +228,6 @@ export class Simulation {
         job.setStatus("Running");
       } else if (job === this.readyQueue[0]) { // Check if the job is the first in the ready queue
         job.setStatus("Ready");
-      // } else if (job.status === "New") {
-      //   // Keep the status as "New" if less than 1 unit of time has elapsed
-      //   job.setStatus("New");
       } else if (job.status === "Waiting For Memory" && this.memoryManager.allocateMemory(job)) {
         job.setStatus("Ready");
         this.readyQueue.push(job);
@@ -273,6 +257,7 @@ export class Simulation {
     this.currentJob = undefined;
     this.ganttChart = [];
     this.idleTime = 0;
+    this.stopAddingJobsFlag = false; // Reset the flag
 
     // Reset all job statuses to "New"
     this.jobs.forEach(job => job.setStatus("New"));
@@ -280,6 +265,17 @@ export class Simulation {
 
   isFinished() {
     return this.jobs.every(job => job.finished);
+  }
+
+  stopAddingJobs() {
+    this.stopAddingJobsFlag = true;
+  }
+
+  finish() {
+    this.stopAddingJobs();
+    while (!this.isFinished()) {
+      this.nextStep();
+    }
   }
 
   get jobText() {
@@ -306,6 +302,4 @@ export class Simulation {
     });
     return Math.floor(total / this.jobs.length);
   }
-
-
 }
