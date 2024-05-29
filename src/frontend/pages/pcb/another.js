@@ -372,7 +372,7 @@ function PCB3() {
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
-                                <ReadyQTable simulation={simulation} selectedAlgo={selectedAlgo}/>
+                                <ReadyQTable simulation={simulation} selectedAlgo={algo}/>
                             </div>
                         </div>
                         <div className="row-span-1 flex justify-start items-center space-x-2 px-2 pb-1" style={{ maxHeight: '12%' }}>
