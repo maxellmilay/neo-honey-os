@@ -101,6 +101,7 @@ function PCB3() {
 
     // Function to start the simulation
     const play = (selectedAlgo) => {
+        setSelectedAlgo(true);
         setStarted(true);
         if (!running) {
             newSim(selectedAlgo);
@@ -108,13 +109,12 @@ function PCB3() {
             console.log(algo)
         }
         console.log(started)
+        console.log("isitsaktrue:", selectedAlgo)
     };
 
-    // Function to stop the simulation
     const stop = () => {
         setRunning(false);
     };
-
 
     const pause = () => {
         setRunning(false);
@@ -149,16 +149,14 @@ function PCB3() {
   };
 
     const [yieeeRR, setYieeeRR] = useState(false);
-    // Function to handle the change of the selected algorithm
+
     const handleAlgoChange = (event) => {
         const newValue = event.target.value;
         setAlgo(newValue);
-        setSelectedAlgo(true);
         if (newValue === 'rr') {
             setYieeeRR(true);
         } else {
             setYieeeRR(false);
-        
         }
     }
     
@@ -225,11 +223,11 @@ function PCB3() {
                                         className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                         value="fcfs"
                                         aria-label="Toggle fcfs"
-                                        disabled={running || paused}
+                                        disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="fcfs">
+                                        <Button variant="link" value="fcfs" className="w-full h-full">
                                             First Come, First Serve
                                         </Button>
                                     </ToggleGroupItem>
@@ -237,11 +235,11 @@ function PCB3() {
                                         className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                         value="sjf"
                                         aria-label="Toggle sjf"
-                                        disabled={running || paused}
+                                        disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="sjf">
+                                        <Button variant="link" value="sjf" className="w-full h-full">
                                             Shortest Job First
                                         </Button>
                                     </ToggleGroupItem>
@@ -249,11 +247,11 @@ function PCB3() {
                                         className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                         value="p"
                                         aria-label="Toggle p"
-                                        disabled={running || paused}
+                                        disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="p">
+                                        <Button variant="link" value="p" className="w-full h-full">
                                             Priority Scheduling
                                         </Button>
                                     </ToggleGroupItem>
@@ -261,11 +259,11 @@ function PCB3() {
                                         className="border-2 bg-white data-[state=on]:bg-yellow-300"
                                         value="rr"
                                         aria-label="Toggle rr"
-                                        disabled={running || paused}
+                                        disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="rr">
+                                        <Button variant="link" value="rr" className="w-full h-full">
                                             Round Robin
                                         </Button>
                                     </ToggleGroupItem>
@@ -277,7 +275,10 @@ function PCB3() {
                                 <Button
                                     variant="nohover"
                                     className="h-10 flex gap-2 bg-green-500 bg-green-600"
-                                    onClick={() => play(algo)}
+                                    onClick={() => {
+                                        setSelectedAlgo(true);
+                                        play(algo);
+                                    }}
                                     disabled={running || paused}
                                 >
                                     <PlayIcon />
