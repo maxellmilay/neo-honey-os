@@ -6,10 +6,10 @@ const MemoryManagement = ({ simulation }) => {
     if (!simulation || !simulation.memoryManager) {
         return (
             <div className="w-full h-full flex flex-col items-center pt-[24px]">
-                <div className={`${styles.memoryContainer} w-full h-[500px] flex items-center justify-center mb-4 rounded-md`}>
+                <div className={`${styles.memoryContainer} w-full h-[475px] flex items-center justify-center mb-4 rounded-md`}>
                     Available
                 </div>
-             <> <b>MB / 1024 MB</b> used </>
+             <> <b>0 MB / 1024 MB (0%) </b> Memory Usage </>
             </div>
         )
     }
@@ -35,10 +35,10 @@ const percentage = Math.floor((usedMemory / totalMemory) * 100);
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-[24px]">
-            <div className={`${styles.memoryContainer} w-full h-[480px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
+            <div className={`${styles.memoryContainer} w-full h-[475px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
                 {memorySegments}
             </div>
-             <> <b>{usedMemory}MB / {totalMemory} MB ({percentage}%) </b> Memory Usage </>
+             <> <b>{usedMemory} MB / {totalMemory} MB ({percentage}%) </b> Memory Usage </>
         </div>
     );
 };
