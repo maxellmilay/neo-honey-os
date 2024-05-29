@@ -9,7 +9,7 @@ const MemoryManagement = ({ simulation }) => {
                 <div className={`${styles.memoryContainer} w-full h-[500px] flex items-center justify-center mb-4 rounded-md`}>
                     Available
                 </div>
-             MB / 1024 MB used
+             <> <b>MB / 1024 MB</b> used </>
             </div>
         )
     }
@@ -33,10 +33,10 @@ const MemoryManagement = ({ simulation }) => {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-[24px]">
-            <div className={`${styles.memoryContainer} w-full h-[500px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
+            <div className={`${styles.memoryContainer} w-full h-[480px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
                 {memorySegments}
             </div>
-             <> <b>MB / {totalMemory} MB</b> used </>
+             <> <b>MB / {totalMemory} MB</b> memory used </>
         </div>
     );
 };

@@ -12,30 +12,38 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 
 function ReadyQTable({ simulation }) {
     return(
-        <Table className="w-full h-full" style={{ maxHeight: '88%' }}> 
-            <ScrollArea className="h-[15rem] w-auto p-2">
-            <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
-            <TableRow className="font-bold h-4">
-                <TableHead className="text-center text-slate-950 font-bold">Process ID</TableHead>
-                <TableHead className="text-center text-slate-950 font-bold">Status</TableHead>
-                <TableHead className="text-center text-slate-950 font-bold">Remaining</TableHead>
-                {/* <TableHead className="text-center text-slate-950 font-bold">Waiting</TableHead> */}
-                <TableHead className="text-center text-slate-950 font-bold">%</TableHead>
-            </TableRow>
-            </TableHeader>
-            <TableBody>
-                {simulation?.jobs.map((item, index) => (
-                <TableRow key={index} className={ index === 0 ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300 rowTb" : "rowTb"}>
-                    <TableCell>{item.id}</TableCell>
-                    <TableCell>{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
-                    <TableCell>{item.remaining}</TableCell>
-                    {/* <TableCell>{item.getWaitingTime(simulation.time)}</TableCell> */}
-                    <TableCell>{item.percent}</TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </ScrollArea>
-      </Table>
+       
+       <Table className="w-full h-full" style={{ maxHeight: '88%' }}> 
+  <ScrollArea className="h-[15rem] w-auto p-2">
+    <TableHeader className="sticky z-50 top-0 bg-[#FEF8D8] drop-shadow-sm">
+      <TableRow className="font-bold h-4">
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Process ID</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Burst</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Arrival</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Size</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Status</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-1/6">Remaining</TableHead>
+        <TableHead className="text-center text-slate-950 font-bold w-2">%</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {simulation?.jobs
+        .filter(item => item.status === "Ready" || item.status === "Running")
+        .map((item, index) => (
+          <TableRow key={index} className={index === 0 ? "sticky z-49 top-[35.5px] font-bold text-amber-950 bg-yellow-300 rowTb" : "rowTb"}>
+            <TableCell className="text-center">{item.id}</TableCell>
+            <TableCell>{item.burst}</TableCell>
+            <TableCell>{item.arrivalTime}</TableCell>
+            <TableCell className="text-center w-10">{item.memory} MB</TableCell>
+            <TableCell className="text-center">{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
+            <TableCell className="text-center">{item.remaining}</TableCell>
+            <TableCell className="text-center">{item.percent}</TableCell>
+          </TableRow>
+        ))}
+    </TableBody>
+  </ScrollArea>
+</Table>
+
     )
 }
 

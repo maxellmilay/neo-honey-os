@@ -27,7 +27,7 @@ function PCB3() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
-    const [simSpeed, setSimSpeed] = useState(1000);  // State for the simulation speed
+    const [simSpeed, setSimSpeed] = useState(400);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
@@ -341,7 +341,8 @@ function PCB3() {
             {/* Job Pool Card */}
             <div className="row-span-4 overflow-hidden col-start-2 col-span-3 row-start-1 h-full">
                 <Card className="bg-yellow-100/50 h-full">
-                    <CardHeader className="bg-amber-400 text-slate-950 h-[20px] justify-center items-center rounded-t"><h6>Job Pool</h6></CardHeader>
+                    <CardHeader className="bg-amber-400 text-slate-950 h-[20px] justify-center items-center rounded-t">
+                        <h6>Job Queue</h6></CardHeader>
                     <CardContent className="m-0">
                         <JobPoolTable simulation={simulation} selectedAlgo={algo} jobs={[]} />
                     </CardContent>
