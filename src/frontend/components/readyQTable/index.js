@@ -21,9 +21,10 @@ function ReadyQTable({ simulation, selectedAlgo }) {
         <TableHead className="text-center text-slate-950 font-bold w-1/8">Burst</TableHead>
         <TableHead className="text-center text-slate-950 font-bold w-1/8">Arrival</TableHead>
         <TableHead className="text-center text-slate-950 font-bold w-1/6">Size</TableHead>
-             {selectedAlgo !== "p" ? (   
+             {selectedAlgo === "p" ? (   
                 <TableCell className="text-center text-slate-950 font-bold w-1/8">Priority</TableCell> 
-                ): null}
+                ): 
+                null}
         <TableHead className="text-center text-slate-950 font-bold w-1/6">Status</TableHead>
         <TableHead className="text-center text-slate-950 font-bold w-[2%]">Remaining</TableHead>
         <TableHead className="text-center text-slate-950 font-bold w-[25px]">%</TableHead>
@@ -38,9 +39,6 @@ function ReadyQTable({ simulation, selectedAlgo }) {
             <TableCell>{item.burst}</TableCell>
             <TableCell>{item.arrivalTime}</TableCell>
             <TableCell className="text-center w-10">{item.memory} MB</TableCell>
-             {selectedAlgo !== "p" ? (   
-                <TableCell className="text-center">{item.priority}</TableCell> 
-                ): null}
             <TableCell className="text-center">{item.status}</TableCell> {/* New, Ready, Running, Waiting, Suspended, Terminated */}
             <TableCell className="text-center">{item.remaining}</TableCell>
             <TableCell className="text-center">{item.percent}</TableCell>

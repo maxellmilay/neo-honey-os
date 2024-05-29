@@ -144,7 +144,11 @@ function PCB3() {
     if (simulation) {
       simulation.finish();
       setJobs([...simulation.jobs]);
-      setRunning(false);
+      stop()
+    setPaused(false);
+    setStarted(false);
+    setSelectedAlgo(false);
+    setRunning(false);
     }
   };
 
@@ -312,7 +316,7 @@ function PCB3() {
                                     disabled={!started}
                                 >
                                     <StopIcon />
-                                    Finish
+                                    Stop & Finish
                                 </Button>
                                 <Button
                                     variant="nohover"
@@ -368,7 +372,7 @@ function PCB3() {
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
-                                <ReadyQTable simulation={simulation} />
+                                <ReadyQTable simulation={simulation} selectedAlgo={selectedAlgo}/>
                             </div>
                         </div>
                         <div className="row-span-1 flex justify-start items-center space-x-2 px-2 pb-1" style={{ maxHeight: '12%' }}>
@@ -399,7 +403,7 @@ function PCB3() {
                         <h6>Memory</h6>
                     </CardHeader>
                     <CardContent className="flex flex-col justify-center items-center h-full px-4">
-                        <MemoryManagement simulation={simulation} selectedAlgo={selectedAlgo}/>
+                        <MemoryManagement simulation={simulation}/>
                     </CardContent>
                 </Card>
             </div>
