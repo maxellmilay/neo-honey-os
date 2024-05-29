@@ -193,10 +193,22 @@ function PCB3() {
         }
     }, [simulation?.ganttChart.length]);
 
+    function formatTime(seconds) {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        const formattedHrs = String(hrs).padStart(2, '0');
+        const formattedMins = String(mins).padStart(2, '0');
+        const formattedSecs = String(secs).padStart(2, '0');
+
+        return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
+    }
+
 
     return (
         <>
-        <div className="h-screen">
+        <div className="">
         {/* <div className="grid grid-cols-3 items-center w-screen p-0">
           <h2 className="col-start-2 col-end-3 text-center">BusyBee</h2>
           <div className="text-right">
@@ -205,7 +217,7 @@ function PCB3() {
             </Button>
           </div>
         </div> */}
-        <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
+        <div className="mt-6 border-2 border-amber-500 grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
         
             {/* Scheduling Policy Card */}
             <div className="row-span-12 h-full gap-4" >
@@ -218,13 +230,13 @@ function PCB3() {
                             <div className="flex justify-between items-center w-full">
                                 <ToggleGroup
                                     type="single"
-                                    className="grid grid-cols-1 gap-3 w-full"
+                                    className="grid cursor-none grid-cols-1 gap-3 w-full"
                                     value={algo}
                                     onChange={handleAlgoChange}
                                     aria-label="Choose Algorithm"
                                 >
                                     <ToggleGroupItem
-                                        className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
+                                        className="border-2 cursor-none bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                         value="fcfs"
                                         aria-label="Toggle fcfs"
                                         disabled={selectedAlgo}
@@ -236,7 +248,7 @@ function PCB3() {
                                         </Button>
                                     </ToggleGroupItem>
                                     <ToggleGroupItem
-                                        className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
+                                        className="border-2 cursor-none bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
                                         value="sjf"
                                         aria-label="Toggle sjf"
                                         disabled={selectedAlgo}
@@ -372,12 +384,12 @@ function PCB3() {
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
-                                <ReadyQTable simulation={simulation} selectedAlgo={selectedAlgo}/>
+                                <ReadyQTable simulation={simulation} selectedAlgo={algo}/>
                             </div>
                         </div>
-                        <div className="row-span-1 flex justify-start items-center space-x-2 px-2 pb-1" style={{ maxHeight: '12%' }}>
+                        <div className="row-span-1 flex justify-start items-center px-2 pb-1" style={{ maxHeight: '12%' }}>
                             <ChevronRightIcon className="h-[20px] w-[20px]" />
-                            <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto auto ">
+                            <ScrollArea className="overflow-x-auto whitespace-nowrap w-full">
                                 <div ref={containerRef} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
                                     {simulation?.ganttChart.map((item, index) => (
                                         <div
@@ -415,18 +427,7 @@ function PCB3() {
                         <h6> CPU </h6>
                     </CardHeader>
                     <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows py-10 gap-8 text-slate-950">
-                        <div>
-                            <p><b className="text-4xl">{jobs.length}</b></p>
-                            <p className="text-sm">Processes</p>
-                        </div>
-                        <div>
-                            <p><b className="text-4xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
-                            <p className="text-sm">Current Process</p>
-                        </div>
-                        <div>
-                            <p><b className="text-4xl">{simulation ? simulation.time : 0 }</b></p>
-                            <p className="text-sm">Runtime</p>
-                        </div>
+                        
                         <div className="circular-progress-container">
                         <svg className="circular-progresss px-6" viewBox="0 0 36 36">
                             <path
@@ -452,8 +453,18 @@ function PCB3() {
 
                             </foreignObject>
                         </svg>
-                        <div className="utilization-label">
                         </div>
+                        <div>
+                            <p><b className="text-4xl">{simulation ? formatTime(simulation.time) : '00:00:00'}</b></p>
+                            <p className="text-sm">Runtime</p>
+                        </div>
+                        <div>
+                            <p><b className="text-4xl">{jobs.length}</b></p>
+                            <p className="text-sm">Processes</p>
+                        </div>
+                        <div>
+                            <p><b className="text-4xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                            <p className="text-sm">Current Process</p>
                         </div>
                     </CardContent>
                 </Card>

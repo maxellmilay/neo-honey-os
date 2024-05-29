@@ -51,7 +51,6 @@ export class STRF extends Algorithm {
     return readyQueue.sort((a, b) => a.compareByRemaining(b));
   }
 }
-
 export class RoundRobin extends Algorithm {
   constructor(quantum) {
     super();
@@ -64,12 +63,18 @@ export class RoundRobin extends Algorithm {
       this.processTime = 0;
       return;
     }
+
+    // Increment the process time for the current job
     this.processTime++;
+
+    // Check if the current job has reached the quantum time
     if (this.processTime === this.quantumTime) {
+      // Set the status of the current job to "Ready" before pushing it back to the queue
+      currentJob.setStatus("Ready");
       readyQueue.push(currentJob);
-      this.processTime = 0;
+      this.processTime = 0; // Reset process time
     } else {
-      readyQueue.unshift(currentJob);
+      readyQueue.unshift(currentJob); // Put the current job back to the front of the queue
     }
   }
 }
