@@ -422,11 +422,11 @@ function PCB3() {
                             <p>Runtime</p>
                             <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                         </div>
-                        <div>
+                        {/* <div>
                             <p>Utilization</p>
                             <p><b className="text-2xl">{simulation ? simulation.utilization : 0}%
                             </b></p>
-                        </div>
+                        </div> */}
                         <div className="circular-progress-container">
   <svg className="circular-progresss" viewBox="0 0 35 40">
     <path
