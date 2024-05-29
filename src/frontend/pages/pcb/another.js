@@ -416,11 +416,11 @@ function PCB3() {
                     </CardHeader>
                     <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows py-10 gap-8 text-slate-950">
                         <div>
-                            <p>No. of Jobs</p>
+                            <p>Processes</p>
                             <p><b className="text-2xl">{jobs.length}</b></p>
                         </div>
                         <div>
-                            <p>Current Job</p>
+                            <p>Current Process</p>
                             <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                         </div>
                         <div>
@@ -428,7 +428,7 @@ function PCB3() {
                             <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
                         </div>
                         <div className="circular-progress-container">
-                        <svg className="circular-progresss" viewBox="0 0 36 36">
+                        <svg className="circular-progresss p-5" viewBox="0 0 36 36">
                             <path
                             className="circle-bg"
                             d="M18 2.0845
@@ -443,13 +443,16 @@ function PCB3() {
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
                             <foreignObject x="0" y="3" width="36" height="26">
-                            <div className="flex justify-center items-center h-full w-full">
-                                <p><b className="text-center text-xs">{simulation?.utilization}%</b></p>
-                            </div>
+                           <div className="flex items-center h-full w-full flex-col pt-[5px]">
+                            <p className="text-center text-[3px]">
+                                <b className="text-center text-[9px]">{simulation?.utilization}%</b>
+                                <span className="block">Utilization</span>
+                            </p>
+                        </div>
+
                             </foreignObject>
                         </svg>
                         <div className="utilization-label">
-                            <p>Utilization</p>
                         </div>
                         </div>
                     </CardContent>

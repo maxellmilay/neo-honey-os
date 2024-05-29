@@ -57,9 +57,10 @@ function PCB() {
               {/* For TABS, Scheduler and Virtual Memory */}
               <Tabs defaultValue="Scheduler" className="w-full">
                 <DialogTitle>
-                  <h2 className={`${styles.mahStroke} dialog-title flex flex-col space-y-1.5 text-white mahStroke text-center`}>
+                  <h2 className={`${styles.mahStroke} dialog-title flex flex-col space-y-1.5 text-black mahStroke text-center`}>
                     BusyBee (PCB)
                   </h2>
+                  
                 </DialogTitle>
                 <TabsList>
                   <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>

@@ -38,7 +38,7 @@ const percentage = Math.floor((usedMemory / totalMemory) * 100);
             <div className={`${styles.memoryContainer} w-full h-[475px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
                 {memorySegments}
             </div>
-             <> <b>{usedMemory} MB / {totalMemory} MB ({percentage}%) </b> Memory Usage </>
+             <> <b>{usedMemory} / {totalMemory} MB ({percentage}%) </b> Memory Usage </>
         </div>
     );
 };
