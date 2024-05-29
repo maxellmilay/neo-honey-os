@@ -1,4 +1,4 @@
-import styles from "./pcb.module.css";
+// import styles from "./pcb.module.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
@@ -34,6 +34,7 @@ import PCB3 from "../../pages/pcb/another"
 import PCB2 from "../../pages/pcb"
 import PCB1 from "../../pages/pcb/test"
 import VirtualMemory from "./VirtualMemory";
+import styles from './pcb.module.css';
 
 function PCB() {
   let navigate = useNavigate();
@@ -51,12 +52,12 @@ function PCB() {
       dialogContentArray.push(
         <>
           <Draggable handle=".dialog-title" positionOffset={{ x: '-50%', y: '-56%' }}>
-            <DialogContent key={i} className="w-[98%] h-[86%] flex" style={{ position: 'fixed', top: '50', left: '50' }}>
+            <DialogContent key={i} className={`${styles.dialogContainer} w-[98%] h-[86%] flex`} style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-full">
               {/* For TABS, Scheduler and Virtual Memory */}
               <Tabs defaultValue="Scheduler" className="w-full">
                 <DialogTitle>
-                  <h2 className="dialog-title flex flex-col space-y-1.5 text-center">
+                  <h2 className={`${styles.mahStroke} dialog-title flex flex-col space-y-1.5 text-white mahStroke text-center`}>
                     BusyBee (PCB)
                   </h2>
                 </DialogTitle>

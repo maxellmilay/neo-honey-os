@@ -10,17 +10,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .appIconButton {
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: transparent; /* ensures no background color */
-    border: none; /* removes border */
+    background: transparent; 
+    border: none;
     padding: 0px;
 }
 
 
 .appIconButton div {
-    font-size: 16px; /* or your desired font size */
-    color: black; /* or any color based on your theme */
+    font-size: 16px; 
+    color: black; 
+}
+.dialogContainer {
+    position: relative;
+    top: 20;
+    left: 30;
+    width: 98%; /* or your desired width */
+    height: 86%; /* or your desired height */
+    background-image: url('./bees.gif');
+    background-repeat: repeat;
+    background-size: 300px 250px; /* Adjust to your image size */
+}
+
+
+.mahStroke {
+    font-size:xx-large;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: rgb(245 158 11);
 }
