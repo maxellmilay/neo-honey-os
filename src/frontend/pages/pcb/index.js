@@ -27,7 +27,7 @@ function PCB2() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
-    const [simSpeed, setSimSpeed] = useState(1500);  // State for the simulation speed
+    const [simSpeed, setSimSpeed] = useState(1000);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm

@@ -24,7 +24,7 @@ module.exports = {
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        ring: "transparent",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -66,11 +66,22 @@ module.exports = {
           '0%': { transform: 'translateY(0)' },
           '100%': { transform: 'translateY(-100%)' },
         },
+        'infinite-scroll': {
+          from: { transform: 'translateX(50%)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'infinite-scroll-right': {
+          from: { transform: 'translateX(100%)' },
+          to: { transform: 'translateX(-0%)' },
+        },
       },
       animation: {
         slideUp: 'slideUp 0.5s forwards',
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
+        'infinite-scroll-right': 'infinite-scroll-right 30s linear infinite',
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
 };
+

@@ -27,7 +27,7 @@ function PCB3() {
     const [title, setTitle] = useState('CPU-Scheduling-Simulator');  // State for the title
     const [simulation, setSimulation] = useState(null);  // State for the simulation object
     const [jobs, setJobs] = useState([]);  // State for the list of jobs
-    const [simSpeed, setSimSpeed] = useState(1250);  // State for the simulation speed
+    const [simSpeed, setSimSpeed] = useState(1000);  // State for the simulation speed
     const [quantum, setQuantum] = useState(4);  // State for the quantum time (used in Round Robin)
     const [jobCount, setJobCount] = useState(0);  // State for the number of jobs
     const [algo, setAlgo] = useState('fcfs');  // State for the selected algorithm
@@ -159,7 +159,30 @@ function PCB3() {
         const value = event.target.value;
         setQuantum(value);
     };
-const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
+    const scrollAreaRef = useRef(null);
+
+    useEffect(() => {
+        const scrollArea = scrollAreaRef.current;
+        if (scrollArea) {
+            // Scroll to the rightmost position
+            scrollArea.scrollLeft = scrollArea.scrollWidth;
+        }
+    }, [simulation]);
+
+
+    // Create a ref for the container
+    const containerRef = useRef(null);
+    // Create a ref for the last item
+    const lastItemRef = useRef(null);
+
+    // Add useEffect hook to handle auto-scrolling when new items are added
+    useEffect(() => {
+        if (lastItemRef.current) {
+            // Scroll the last item into view
+            lastItemRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [simulation?.ganttChart.length]);
+
     return (
         <>
         <div className="h-screen">
@@ -171,7 +194,8 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
             </Button>
           </div>
         </div> */}
-        <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">     
+        <div className="grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
+        
             {/* Scheduling Policy Card */}
             <div className="row-span-12 h-full gap-4" >
                 <Card className="bg-yellow-100/50 justify-center item-center  h-full mb-4">
@@ -282,7 +306,7 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                                 </Button>
                                 <Button
                                     variant="nohover"
-                                    className="h-10 flex gap-2 bg-gray-400 bg-emerald-500"
+                                    className="h-10 flex gap-2 bg-gray-400 bg-lime-500"
                                     onClick={reset}
                                     disabled={!started}
                                 >
@@ -338,16 +362,17 @@ const scrollAreaRef = useRef(null); // Initialize ref for ScrollArea
                         </div>
                         <div className="row-span-1 flex justify-start items-center space-x-2 px-2 pb-1" style={{ maxHeight: '12%' }}>
                             <ChevronRightIcon className="h-[20px] w-[20px]" />
-                            <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto">
-                                <div className="flex flex-grow justify-start items-start  space-x-1 space">
-                                    {/* {simulation?.readyQueue.map((item, index) => (
-                                        <div key={index} className={`rounded-md gantt-sm-${item.id} flex-start`}>{item.id}</div>
-                                    ))} */}
+                            <ScrollArea className="overflow-x-auto whitespace-nowrap w-full max-w-7xl mx-auto auto ">
+                                <div ref={containerRef} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
                                     {simulation?.ganttChart.map((item, index) => (
-                                    <div key={index} className={`rounded-md gantt-thicc-${item} flex-start`}>
-                                        {item}
-                                    </div>
-                                ))}
+                                        <div
+                                            key={index}
+                                            className={`rounded-md gantt-thicc-${item} flex-start`}
+                                            ref={index === simulation.ganttChart.length - 1 ? lastItemRef : null}
+                                        >
+                                            {item}
+                                        </div>
+                                    ))}
                                 </div>
                                 <ScrollBar orientation="horizontal" />
                             </ScrollArea>
