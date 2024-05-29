@@ -372,7 +372,7 @@ function PCB3() {
                     <CardContent className="grid grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
-                                <ReadyQTable simulation={simulation} selectedAlgo={algo}/>
+                                <ReadyQTable simulation={simulation} selectedAlgo={selectedAlgo}/>
                             </div>
                         </div>
                         <div className="row-span-1 flex justify-start items-center space-x-2 px-2 pb-1" style={{ maxHeight: '12%' }}>
@@ -416,19 +416,19 @@ function PCB3() {
                     </CardHeader>
                     <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows py-10 gap-8 text-slate-950">
                         <div>
-                            <p>Processes</p>
-                            <p><b className="text-2xl">{jobs.length}</b></p>
+                            <p><b className="text-4xl">{jobs.length}</b></p>
+                            <p className="text-sm">Processes</p>
                         </div>
                         <div>
-                            <p>Current Process</p>
-                            <p><b className="text-2xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                            <p><b className="text-4xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
+                            <p className="text-sm">Current Process</p>
                         </div>
                         <div>
-                            <p>Runtime</p>
-                            <p><b className="text-2xl">{simulation ? simulation.time : 0 }</b></p>
+                            <p><b className="text-4xl">{simulation ? simulation.time : 0 }</b></p>
+                            <p className="text-sm">Runtime</p>
                         </div>
                         <div className="circular-progress-container">
-                        <svg className="circular-progresss p-5" viewBox="0 0 36 36">
+                        <svg className="circular-progresss px-6" viewBox="0 0 36 36">
                             <path
                             className="circle-bg"
                             d="M18 2.0845
