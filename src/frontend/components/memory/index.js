@@ -16,9 +16,9 @@ const MemoryManagement = ({ simulation }) => {
 
     const { totalMemory, segments } = simulation.memoryManager;
 
-
-    // Calculate used memory
-    const usedMemory = segments?.reduce((acc, segment) => acc + (segment.end - segment.start), 0) || 0;
+const usedMemory = simulation?.jobs
+  .filter(item => item.status === "Ready" || item.status === "Running")
+  .reduce((total, item) => total + item.memory, 0);
 
     // Render memory segments
     const memorySegments = segments?.map((segment, index) => (
@@ -36,7 +36,7 @@ const MemoryManagement = ({ simulation }) => {
             <div className={`${styles.memoryContainer} w-full h-[480px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
                 {memorySegments}
             </div>
-             <> <b>MB / {totalMemory} MB</b> memory used </>
+             <> <b>{usedMemory}MB / {totalMemory} MB</b> memory used </>
         </div>
     );
 };
