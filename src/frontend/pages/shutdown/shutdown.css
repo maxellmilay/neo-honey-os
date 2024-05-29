@@ -1,0 +1,15 @@
+.shutDownContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  font-size: 2rem;
+  font-family: 'One Little Font', sans-serif;
+}
+
+.shutDownMessage {
+  color: yellow;
+}

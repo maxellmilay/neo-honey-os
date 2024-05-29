@@ -4,10 +4,10 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button"; // Import necessary components
-import NotepadDialog from "./notepad"; // Import the dialog component
+import NotepadDialog from "./Notepad.js"; // Import the dialog component
 import notepadIcon from "../../assets/img/notepad icon.png";
 
-function Notepad() {
+export function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
 
   const renderDialogs = () => {
@@ -24,11 +24,13 @@ function Notepad() {
     setDialogCount(prevCount => prevCount + 1);
   };
 
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button onClick={handleAddDialog}>
-          <img src={notepadIcon} alt="notepad-icon" height="100" width="100" />
+        <Button id="notepad-button" variant="destructive" size="icon" className="transparent" onClick={handleAddDialog}>
+            {/* <img src={notepadIcon} alt="notepad-icon" height="100" width="100" /> */}
+            Nla
         </Button>
       </DialogTrigger>
       {renderDialogs()}
@@ -36,4 +38,20 @@ function Notepad() {
   );
 }
 
-export default Notepad;
+
+// Notepad.js
+
+// Notepad.js
+
+export const openNotepad = () => {
+  // Find and click the Notepad button
+  const notepadButton = document.getElementById('notepad-button');
+  if (notepadButton) {
+    notepadButton.click();
+  } else {
+    console.error('Notepad button not found');
+  }
+};
+
+
+

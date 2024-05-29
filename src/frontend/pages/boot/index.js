@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { Label } from '../../components/ui/label';
-import styles from './boot.module.css'; 
-
+import styles from './boot.module.css';
 
 export const BootApp = () => {
-  const history = useNavigate();
-
+  const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,12 +22,31 @@ export const BootApp = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const nextPage = async () => {
-    history('/login')
-  }
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === 'Space') {
+        handleTransition();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  const handleTransition = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      navigate('/login');
+    }, 1000); // Matches the duration of the slide-up animation
+  };
 
   return (
-    <div className={`${styles.bodyBackground} `} onClick={nextPage}>
+    <div
+      className={`${styles.bodyBackground} ${isTransitioning ? styles.slideUp : ''}`}
+      onClick={handleTransition}
+    >
       <Label className={styles.currentTime}>{currentTime}</Label>
       <Label className={styles.currentDate}>{currentDate}</Label>
     </div>

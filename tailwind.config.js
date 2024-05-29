@@ -16,14 +16,15 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Honey Jar Free Trial', 'sans-serif'],
-      sans: ['Work Sans', 'sans-serif'],
-      sans: ['One Little Font Regular', 'sans-serif'],
+      workSans: ['Work Sans', 'sans-serif'],
+      oneLittleFont: ['One Little Font Regular', 'sans-serif'],
+      bobble: ['Bubble Bobble', 'sans-serif'],
     },
     extend: {
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        ring: "transparent",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -61,20 +62,26 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        slideUp: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-100%)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        'infinite-scroll': {
+          from: { transform: 'translateX(50%)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'infinite-scroll-right': {
+          from: { transform: 'translateX(100%)' },
+          to: { transform: 'translateX(-0%)' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        slideUp: 'slideUp 0.5s forwards',
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
+        'infinite-scroll-right': 'infinite-scroll-right 30s linear infinite',
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
+
