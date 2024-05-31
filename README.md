@@ -31,3 +31,8 @@ Runs the app in the development mode inside Electron Window.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+# OUTPUT
+
+![image](https://github.com/lkpnchl/HoneyOS/assets/69750024/4a2167e4-a6b9-4d45-b408-767b5e9cb8cb)
+
