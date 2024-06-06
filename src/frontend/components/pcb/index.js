@@ -30,13 +30,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "../../components/ui/tabs";
-import PCB3 from "../../pages/pcb/another"
-import PCB2 from "../../pages/pcb"
-import PCB1 from "../../pages/pcb/test"
+import PCB from "../../pages/pcb"
 import VirtualMemory from "./VirtualMemory";
 import styles from './pcb.module.css';
 
-function PCB() {
+function BusyBee() {
   let navigate = useNavigate();
   const [dialogCount, setDialogCount] = useState(1);
   const [dialogStates, setDialogStates] = useState(
@@ -45,6 +43,8 @@ function PCB() {
   const [processControlBlocks, setProcessControlBlocks] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false); // State to manage dialog visibility
 
+  const text = "BusyBee (PCB)";
+  const letters = text.split('')
 
   const renderDialogContent = () => {
     const dialogContentArray = [];
@@ -56,24 +56,18 @@ function PCB() {
               <div className="w-full">
               {/* For TABS, Scheduler and Virtual Memory */}
               {/* <Tabs defaultValue="Scheduler" className="w-full"> */}
-                <DialogTitle>
-                  <h2 className={`${styles.mahStroke} dialog-title pt-2 flex flex-col space-y-1.5 text-black mahStroke text-center`}>
-                    BusyBee (PCB)
-                  </h2>
-                  
+                <DialogTitle className="flex item-center justify-center">
+                  <div style={{ display: 'inline', alignItems: 'center' }} className={`${styles.mahStroke} justify-center dialog-title pt-2 flex flex-col space-y-1.5 text-black mahStroke text-center`}>{letters.map((letter, index) => (
+                        <h2
+                          key={index} style={{ display: 'inline' }}
+                          className={index % 2 === 0 ? "text-yellow-600 text-center" : "text-amber-900 text-center"}
+                        >
+                          {letter}
+                        </h2>
+                      ))}
+                  </div>
                 </DialogTitle>
-                {/* <TabsList>
-                  <TabsTrigger value="Scheduler">Scheduler</TabsTrigger>
-                  <TabsTrigger value="Virtual Memory">Virtual Memory</TabsTrigger>
-                </TabsList>
-                <TabsContent value="Scheduler">
-                  <PCB3 />
-                </TabsContent>
-                <TabsContent value="Virtual Memory">
-                  <VirtualMemory />
-                </TabsContent>
-              </Tabs> */}
-                  <PCB3 />
+                  <PCB />
               </div>
             </DialogContent>
           </Draggable>
@@ -110,6 +104,6 @@ function PCB() {
     </TooltipProvider>
   );
 }
-export default PCB;
+export default BusyBee;
 
 

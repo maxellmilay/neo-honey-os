@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Notepad from '../../components/notepad/Notepad';
-import PCB from '../../components/pcb';
+import BusyBee from '../../components/pcb';
 import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon, Power } from 'lucide-react';
 import { Button } from '../../components/ui/button';
@@ -51,7 +51,7 @@ export const Desktop = () => {
               <img src={beeLogo} alt="PCB" className="h-10 w-10" />
             </Link>
           </Button> */}
-          <PCB />
+          <BusyBee />
           {/* <Button variant="link" size="icon">
             <img src={buzzpadLogo} alt="Notepad" className="h-7 w-7" />
           </Button> */}

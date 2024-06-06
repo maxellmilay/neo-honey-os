@@ -14,12 +14,14 @@ const CustomCursor = () => {
 
     const handleMouseEnter = (e) => {
       const target = e.target;
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.classList.contains('hover')) {
+      if (target.type === 'submit' || target.type === 'button' ||target.tagName === 'A' || target.tagName === 'BUTTON' || target.classList.contains('hover')) {
         setCursorImage(customCursorPointImage);
+      } else {
+        setCursorImage(customCursorImage);
       }
     };
 
-    const handleMouseLeave = (e) => {
+    const handleMouseLeave = () => {
       setCursorImage(customCursorImage);
     };
 
@@ -35,7 +37,10 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <div className="custom-cursor" style={{ backgroundImage: `url(${cursorImage})`, left: position.x, top: position.y }}></div>
+    <div
+      className="custom-cursor"
+      style={{ backgroundImage: `url(${cursorImage})`, left: `${position.x}px`, top: `${position.y}px` }}
+    />
   );
 };
 
