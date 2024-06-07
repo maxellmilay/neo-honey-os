@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
 		<link href="main.css" rel="stylesheet">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=0.8" />
 		<meta name="theme-color" content="#000000" />
 		<meta
 			name="description"
@@ -40,5 +40,30 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+  <script>
+    function setDynamicViewport() {
+      var viewportMetaTag = document.querySelector('meta[name="viewport"]');
+      if (!viewportMetaTag) {
+        viewportMetaTag = document.createElement('meta');
+        viewportMetaTag.name = 'viewport';
+        document.getElementsByTagName('head')[0].appendChild(viewportMetaTag);
+      }
+
+      if (window.innerWidth < 600) {
+        // Mobile devices
+        viewportMetaTag.content = "width=device-width, initial-scale=0.8";
+      } else if (window.innerWidth >= 600 && window.innerWidth <= 768) {
+        // Tablets
+        viewportMetaTag.content = "width=device-width, initial-scale=0.7";
+      } else {
+        // Desktops
+        viewportMetaTag.content = "width=device-width, initial-scale=0.8";
+      }
+    }
+
+    window.onload = setDynamicViewport;
+    window.onresize = setDynamicViewport;
+  </script>
 	</body>
 </html> 

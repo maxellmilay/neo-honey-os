@@ -1,6 +1,6 @@
 // app.js
 import { useEffect, useState } from "react"
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
+import { HashRouter as Router, Route, Routes, Navigate, useLocation} from "react-router-dom"
 import CustomCursor from './CustomCursor';
 import "./App.css"
 import { useCallback } from "react"
