@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import welcomeAudio from '../../assets/img/welcomehoney.wav';
+import welcomeAudio from '../../assets/sounds/welcomehoney.wav';
 import backgroundImage from '../../assets/img/before_login_bg_2.png';
 import welcomeBee from './welcome.gif';
 

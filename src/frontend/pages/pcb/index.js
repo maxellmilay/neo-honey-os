@@ -12,9 +12,9 @@ import { Card, CardHeader, CardContent, CardBody, CardFooter } from "../../compo
 import JobPoolTable from '../../components/jobPoolTable';
 import ReadyQTable from '../../components/readyQTable';
 import { ScrollArea, ScrollBar } from "../../components/ui/scroll-area";
-import { FirstComeFirstServe, ShortestJobFirst, Priority, PreemptivePriority, STRF, RoundRobin } from '../../../classes/algorithm';
-import { Job } from '../../../classes/job';
-import { Simulation } from '../../../classes/simulation';
+import { FirstComeFirstServe, ShortestJobFirst, Priority, PreemptivePriority, STRF, RoundRobin } from '../../../backend/algorithm';
+import { Job } from '../../../backend/job';
+import { Simulation } from '../../../backend/simulation';
 import {ReactComponent as PlayIcon} from '../../assets/img/play-fill.svg'
 import {ReactComponent as PausePlayIcon} from '../../assets/img/play-pause.svg'
 // import './styles.css'

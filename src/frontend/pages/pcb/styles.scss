@@ -165,7 +165,7 @@ $colors: transparent, #40A800, #720E9E, #c45608, #634d40, #FFD700, #00FF00, #FF0
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   width: 225px;
   // height: 225px;
 }

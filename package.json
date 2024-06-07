@@ -23,7 +23,6 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
 		"async": "^3.2.5",
-		"better-sqlite3": "^8.7.0",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
 		"cors": "^2.8.5",
@@ -43,7 +42,6 @@
 		"react-scripts": "^5.0.1",
 		"react-transition-group": "^4.4.5",
 		"sass": "^1.77.2",
-		"sqlite3": "5.1.6",
 		"tailwind-merge": "^2.2.2",
 		"tailwindcss-animate": "^1.0.7",
 		"web-vitals": "^2.1.4"
@@ -56,7 +54,7 @@
 		"rebuild-app": "electron-builder install-app-deps",
 		"electron": "wait-on tcp:3000 && electron .",
 		"start-electron-app": "concurrently -k \"cross-env BROWSER=none npm run start\" \"cross-env NODE_ENV=development  npm run electron\"",
-		"package-windows": "rm -rf build && rm -rf dist && npm run build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+		"package-windows": "rimraf build && rimraf dist && npm run build && electron-builder -w -c.extraMetadata.main=build/electron.js",
 		"package-mac": "rm -rf build && rm -rf dist && npm run build && electron-builder build  -m -c.extraMetadata.main=build/electron.js ",
 		"package-linux": "rm -rf build && rm -rf dist && npm run build && electron-builder -l -c.extraMetadata.main=build/electron.js"
 	},
@@ -88,18 +86,24 @@
 		"wait-on": "^7.0.1"
 	},
 	"build": {
-		"appId": "sqlite.electron-test.app",
-		"productName": "SQLite Electron",
+		"appId": "honeyos.app",
+		"icon": "public/logo.ico",
+		"productName": "HoneyOS",
 		"files": [
 			"build/**/*",
 			"node_modules/**/*",
-			"public/**/*"
+			"public/**/*",
+			"src/**/*",
+			"!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+			"!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+			"!**/node_modules/.bin",
+			"!**/node_modules/**/*.d.ts",
+			"!**/node_modules/**/*.js.map",
+			"!**/.git",
+			"!**/.DS_Store"
 		],
 		"directories": {
 			"buildResources": "public"
-		},
-		"extraResources": [
-			"./demo_table.db"
-		]
+		}
 	}
 }

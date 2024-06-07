@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import shuttingDownGif from '../../assets/img/bye.png';
-import shutdownSound from '../../assets/img/goodbyehoney.wav';
+import shutdownSound from '../../assets/sounds/goodbyehoney.wav';
 
 export const ShutDown = () => {
   useEffect(() => {

@@ -45,8 +45,7 @@ function createWindow() {
         fullscreen: true,
 		icon: path.join(__dirname, "./logo.ico"),
 		webPreferences: {
-			preload: path.join(__dirname, "../src/backend/controllers/preload.js"),
-			nodeIntegration: true,
+            nodeIntegration: true,
 			contextIsolation: true,
 			sandbox: false,
 		},

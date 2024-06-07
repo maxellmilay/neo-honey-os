@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CustomCursor.css'; // Import CSS for styling
-import customCursorImage from './cursor.gif'; // Default cursor image
-import customCursorPointImage from './cursorPoint.gif'; // Pointing cursor image
+import customCursorImage from './frontend/assets/img/cursor.gif'; // Default cursor image
+import customCursorPointImage from './frontend/assets/img/cursorPoint.gif'; // Pointing cursor image
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
