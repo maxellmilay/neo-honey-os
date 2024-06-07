@@ -41,4 +41,4 @@ src\frontend - Contains all code for the UI/UX:
 
 # OUTPUT
 
-![image](https://github.com/lkpnchl/HoneyOS/assets/69750024/4a2167e4-a6b9-4d45-b408-767b5e9cb8cb)
+![image](https://github.com/lkpnchl/HoneyOS/assets/69750024/4cc08c3f-8925-49cd-af7f-1569ee13af31)
