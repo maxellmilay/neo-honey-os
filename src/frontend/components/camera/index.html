@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera</title>
+  <link rel="stylesheet" href="camera.css">
+</head>
+<body>
+  <div class="camera-container">
+    <div class="window-header">
+      <span>Camera</span>
+      <button id="minimizeBtn">-</button>
+      <button id="closeBtn">×</button>
+    </div>
+    <div class="camera-content">
+      <video id="video" autoplay></video>
+      <div class="camera-controls">
+        <button id="captureBtn">Capture</button>
+      </div>
+      <canvas id="canvas" class="hidden"></canvas>
+      <div id="capturedImageContainer" class="hidden">
+        <img id="capturedImage">
+        <div class="capture-controls">
+          <button id="saveBtn">Save</button>
+          <button id="retakeBtn">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./CameraModal.js"></script>
+</body>
+</html>
