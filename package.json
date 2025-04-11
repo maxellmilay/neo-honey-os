@@ -2,7 +2,7 @@
 	"name": "honeyos",
 	"description": "HoneyOS",
 	"version": "0.1.0",
-	"main": "build/electron.js",
+	"main": "public/electron.js",
 	"private": true,
 	"author": "Big-O Buddy (BOB)",
 	"homepage": "./",
