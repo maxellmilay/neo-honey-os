@@ -53,5 +53,15 @@ export const openNotepad = () => {
   }
 };
 
+export const closeNotepad = () => {
+  // Find all open dialog close buttons and click them
+  const closeButtons = document.querySelectorAll('[role="dialog"] button[aria-label="Close"]');
+  closeButtons.forEach(button => {
+    if (button.closest('[role="dialog"]').contains(document.getElementById('notepad-button'))) {
+      button.click();
+    }
+  });
+};
+
 
 

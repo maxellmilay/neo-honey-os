@@ -1,11 +1,12 @@
 const path = require("path");
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { spawn } = require('child_process');
 const url = require("url")
 
 let mainWindow;
 let splashScreen;
 let expressProcess;
+let voiceServerPort = null;
 
 function createSplashScreen() {
     splashScreen = new BrowserWindow({
@@ -48,6 +49,7 @@ function createWindow() {
             nodeIntegration: true,
 			contextIsolation: true,
 			sandbox: false,
+            preload: path.join(__dirname, 'preload.js')
 		},
 	})
 
@@ -76,27 +78,34 @@ function createWindow() {
 
 // Run Express server
 function runServer() {
-    expressProcess = spawn('node', ['src/frontend/components/voiceRecog/backend.js']);
+    expressProcess = spawn('node', [path.join(__dirname, '../src/frontend/components/voiceRecog/backend.js')]);
 
     expressProcess.stdout.on('data', (data) => {
-        console.log(`Express: ${data}`);
+        console.log(`Voice Server: ${data}`);
     });
 
     expressProcess.stderr.on('data', (data) => {
-        console.error(`Express Error: ${data}`);
+        console.error(`Voice Server Error: ${data}`);
+    });
+
+    expressProcess.on('message', (message) => {
+        if (message.type === 'PORT') {
+            voiceServerPort = message.port;
+            // Send port to renderer process
+            mainWindow.webContents.send('voice-server-port', voiceServerPort);
+        }
     });
 
     expressProcess.on('close', (code) => {
-        console.log(`Express process exited with code ${code}`);
+        console.log(`Voice server process exited with code ${code}`);
     });
 }
 
 app.whenReady().then(() => {
     createSplashScreen();
     setTimeout(createWindow, 10000); // Change delay as needed
-    // setTimeout(runServer, 9000); // Start Express server after a delay
+    setTimeout(runServer, 9000); // Start voice server after a delay
 });
-
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
@@ -112,6 +121,6 @@ app.on("activate", () => {
 
 app.on('before-quit', () => {
     if (expressProcess) {
-        expressProcess.kill(); // Kill Express server process when quitting Electron app
+        expressProcess.kill(); // Kill voice server process when quitting Electron app
     }
 });

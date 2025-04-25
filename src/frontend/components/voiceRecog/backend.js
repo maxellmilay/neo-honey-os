@@ -1,88 +1,67 @@
 const express = require('express');
-const app = express();
-const { spawn } = require('child_process');
+const expressWs = require('express-ws');
 const cors = require('cors');
-const async = require('async');
-const expressWs = require('express-ws')(app); // Initialize express-ws
+const { spawn } = require('child_process');
+const path = require('path');
+
+const app = express();
+expressWs(app);
 
 app.use(cors());
-app.use(express.text()); // Parse request body as text
+app.use(express.json());
 
-app.use((req, res, next) => {
-    console.log(`Received ${req.method} request at ${req.path}`);
-    next();
-});
+let pythonProcess = null;
 
-const PORT = 3000;
+// Voice recognition endpoint
+app.post('/desktop', (req, res) => {
+    // Set up SSE (Server-Sent Events)
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
-// Create a queue to process Python scripts sequentially
-const pythonQueue = async.queue((task, callback) => {
-    const { pythonScriptPath, res, data } = task;
+    // Kill any existing Python process
+    if (pythonProcess) {
+        pythonProcess.kill();
+    }
 
-    const pythonProcess = spawn('python', [pythonScriptPath]);
+    // Start the Python voice recognition script
+    pythonProcess = spawn('python', [path.join(__dirname, 'voice_recog.py')]);
 
-    let scriptOutput = '';
-
+    // Handle Python script output
     pythonProcess.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-        scriptOutput += data.toString();
-        res.write(scriptOutput); // Write the output to the response stream
+        const output = data.toString();
+        console.log('Python output:', output);
+        res.write(output);
     });
 
     pythonProcess.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-        res.status(500).send("Error in Python script execution.");
+        console.error('Python error:', data.toString());
+        res.write(`ERROR:${data.toString()}\n`);
     });
 
-    pythonProcess.on('exit', (code) => {
+    // Handle client disconnect
+    req.on('close', () => {
+        console.log('Client disconnected');
+        if (pythonProcess) {
+            pythonProcess.kill();
+            pythonProcess = null;
+        }
+    });
+
+    // Handle Python process exit
+    pythonProcess.on('close', (code) => {
         console.log(`Python process exited with code ${code}`);
-        if (code === 0) {
-            res.end(); // End the response stream
-        } else {
-            res.status(500).send(`Python script exited with code ${code}`);
-        }
-        callback(); // Signal that the task is complete
-    });
-
-    // Pass the data to the Python script via stdin
-    pythonProcess.stdin.write(JSON.stringify(data));
-    pythonProcess.stdin.end();
-}, 1); // Limit concurrency to 1, so only one script runs at a time
-
-// Define route handler for POST request to '/desktop'
-app.post('/desktop', (req, res) => {
-    const pythonScriptPath = 'src/frontend/components/voiceRecog/voice_recog.py';
-    const data = req.body; // Get the string data from the request body
-
-    // Set up response as a stream
-    res.writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Transfer-Encoding': 'chunked'
-    });
-
-    // Add the task to the queue
-    pythonQueue.push({ pythonScriptPath, res, data }, (err) => {
-        if (err) {
-            console.error('Error processing Python script:', err);
-            res.status(500).send('Internal server error');
-        }
+        res.write('SYSTEM:STOPPED\n');
+        pythonProcess = null;
     });
 });
 
-// WebSocket endpoint
-app.ws('/ws', (ws, req) => {
-    console.log('WebSocket connection established');
-    
-    // Handle WebSocket messages
-    ws.on('message', (message) => {
-        console.log(`Received message from client: ${message}`);
-        
-        // Echo the message back to the client
-        ws.send(`Server received: ${message}`);
-    });
-});
-
-// Start the server
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Start server on a random available port
+const server = app.listen(0, () => {
+    const port = server.address().port;
+    console.log(`Voice recognition server running on port ${port}`);
+    // Send port number to Electron main process
+    if (process.send) {
+        process.send({ type: 'PORT', port });
+    }
 });
