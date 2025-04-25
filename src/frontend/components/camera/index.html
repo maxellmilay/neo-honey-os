@@ -9,18 +9,19 @@
 <body>
   <div class="camera-container">
     <div class="window-header">
-      <span>Camera</span>
       <button id="minimizeBtn">-</button>
       <button id="closeBtn">×</button>
     </div>
+    <div id="camera-controls" class="camera-controls">
+      <button id="captureBtn">
+        <img id="cameraIcon" src="../../assets/img/camera.png" alt="Camera Icon">
+      </button>
+    </div>
     <div class="camera-content">
-      <video id="video" autoplay></video>
-      <div class="camera-controls">
-        <button id="captureBtn">Capture</button>
-      </div>
+      <video id="video" class="video" autoplay></video>
       <canvas id="canvas" class="hidden"></canvas>
       <div id="capturedImageContainer" class="hidden">
-        <img id="capturedImage">
+        <img id="capturedImage" class="video">
         <div class="capture-controls">
           <button id="saveBtn">Save</button>
           <button id="retakeBtn">Retake</button>

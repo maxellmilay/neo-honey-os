@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./notepad.module.css";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip";
 import { Button } from "../../components/ui/button";
-import notepadIcon from "../../assets/img/buzzpad.png";
+import camera from "../../assets/img/camera.png";
+
 
 function Camera() {
   // Function to handle opening the camera
@@ -65,7 +66,7 @@ function Camera() {
               className={`${styles.appIconButton} transparent`}
               onClick={handleOpenCamera}
             >
-              <img src={notepadIcon} alt="camera-icon" />
+              <img src={camera} alt="camera-icon" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>

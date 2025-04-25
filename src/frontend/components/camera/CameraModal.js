@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById("closeBtn");
   const capturedImageContainer = document.getElementById("capturedImageContainer");
   const capturedImage = document.getElementById("capturedImage");
+  const cameraControls = document.getElementById("camera-controls");
   console.log('camera locked in');
 
   // Access the camera
@@ -29,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageData = canvas.toDataURL("image/png");
     capturedImage.src = imageData;
     capturedImageContainer.classList.remove("hidden");
+    video.classList.add("hidden");
+    cameraControls.classList.add("hidden");
     canvas.classList.add("hidden");
   });
 
@@ -43,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retake the image
   retakeBtn.addEventListener("click", () => {
     capturedImageContainer.classList.add("hidden");
+    cameraControls.classList.add("hidden");
+    // Show the video and "Capture" button
+    video.classList.remove("hidden");
     canvas.classList.remove("hidden");
   });
 
