@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Close the camera window
   closeBtn.addEventListener("click", () => {
     if (window.electron && window.electron.ipcRenderer) {
-      console.log('closing')
+      console.log('Sending close-camera event')
       window.electron.ipcRenderer.send("close-camera");
     } else {
       console.error("Electron IPC not available");

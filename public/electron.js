@@ -56,13 +56,6 @@ function createCameraWindow() {
     remote.enable(cameraWindow.webContents);
   
     cameraWindow.loadFile(path.join(__dirname, "../src/frontend/components/camera/index.html"));
-    
-    // Handle the "minimize-camera" IPC event
-    ipcMain.on("minimize-camera", () => {
-    if (cameraWindow) {
-        cameraWindow.minimize();
-    }
-    });
 
     cameraWindow.on("closed", () => {
       cameraWindow = null;
@@ -135,6 +128,11 @@ app.whenReady().then(() => {
     setTimeout(createWindow, 10000); // Change delay as needed
     // setTimeout(runServer, 9000); // Start Express server after a delay
     ipcMain.on("open-camera", () => {
+        if (cameraWindow) {
+            console.log("Camera window already open.");
+            cameraWindow.focus(); // Bring the existing window to the front
+            return;
+        }
         console.log("Opening camera...");
         createCameraWindow();
       });
