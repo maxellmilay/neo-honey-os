@@ -3,18 +3,33 @@ import pyaudio
 import json
 import sys
 import os
+import time
+
+print("[DEBUG] Starting voice recognition script")
 
 # Initialize Vosk model
 script_dir = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(script_dir, "vosk-model-small-en-us-0.15")
+print(f"[DEBUG] Loading Vosk model from: {model_path}")
+print(f"[DEBUG] Model directory exists: {os.path.exists(model_path)}")
+print(f"[DEBUG] Model directory contents: {os.listdir(model_path)}")
+
+start_time = time.time()
+print("[DEBUG] Starting model initialization...")
 model = vosk.Model(model_path)
+print(f"[DEBUG] Model initialization took {time.time() - start_time:.2f} seconds")
+
+print("[DEBUG] Creating KaldiRecognizer...")
 rec = vosk.KaldiRecognizer(model, 16000)
+print("[DEBUG] KaldiRecognizer created successfully")
 
 def process_command(text):
     """Process the recognized text and extract commands"""
+    print(f"[DEBUG] Processing command: {text}")
     text = text.lower().strip()
     if text.startswith("honey please"):
         command = text[len("honey please"):].strip()
+        print(f"[DEBUG] Extracted command: {command}")
         
         # Command mapping
         if "open notepad" in command:
@@ -34,35 +49,51 @@ def process_command(text):
 
 def record_transcript_vosk():
     """Record and process voice input using Vosk"""
+    print("[DEBUG] Initializing PyAudio...")
     p = pyaudio.PyAudio()
+    print("[DEBUG] Opening audio stream...")
     stream = p.open(format=pyaudio.paInt16,
                     channels=1,
                     rate=16000,
                     input=True,
                     frames_per_buffer=8192)
+    print("[DEBUG] Audio stream opened successfully")
 
     print("SYSTEM:READY")
+    print("[DEBUG] Listening for voice input...")
     sys.stdout.flush()
 
     try:
+        print("[DEBUG] Starting main recognition loop")
         while True:
             data = stream.read(4096, exception_on_overflow=False)
+            # Get partial results
             if rec.AcceptWaveform(data):
                 result = json.loads(rec.Result())
                 recognized_text = result.get('text', '').strip()
-                
                 if recognized_text:
+                    print(f"[HEARD] Full recognition: {recognized_text}")
                     print(f"TRANSCRIPT:{recognized_text}")
                     sys.stdout.flush()
                     
                     if not process_command(recognized_text):
                         break
+            else:
+                # Print partial results
+                partial = json.loads(rec.PartialResult())
+                partial_text = partial.get('partial', '').strip()
+                if partial_text:
+                    print(f"[HEARD] Partial: {partial_text}")
+                    sys.stdout.flush()
 
     except KeyboardInterrupt:
+        print("[DEBUG] Received keyboard interrupt")
         print("SYSTEM:INTERRUPTED")
     except Exception as e:
+        print(f"[DEBUG] Exception occurred: {str(e)}")
         print(f"ERROR:{str(e)}")
     finally:
+        print("[DEBUG] Cleaning up resources")
         stream.stop_stream()
         stream.close()
         p.terminate()
@@ -70,6 +101,7 @@ def record_transcript_vosk():
         sys.stdout.flush()
 
 if __name__ == "__main__":
+    print("[DEBUG] Starting voice recognition")
     record_transcript_vosk()
 
 # --------------

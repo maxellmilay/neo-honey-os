@@ -1,6 +1,6 @@
 const path = require("path");
 const { app, BrowserWindow, ipcMain } = require("electron");
-const { spawn } = require('child_process');
+const { fork } = require('child_process');
 const url = require("url")
 
 let mainWindow;
@@ -31,7 +31,7 @@ function createSplashScreen() {
     splashScreen.on('closed', () => {
       splashScreen = null;
     });
-  }
+}
   
 function createWindow() {
 	// Create the browser window.
@@ -51,24 +51,27 @@ function createWindow() {
 			sandbox: false,
             preload: path.join(__dirname, 'preload.js')
 		},
-	})
+	});
 
     // and load the index.html of the app.
     const appURL = app.isPackaged
         ? `file://${path.join(__dirname, "index.html")}`
         : "http://localhost:3000";
-        mainWindow.loadURL(appURL);
+    mainWindow.loadURL(appURL);
 
     // Open the DevTools.
-    // if (!app.isPackaged) {
-    //     win.webContents.openDevTools();
-    // }
+    if (!app.isPackaged) {
+        mainWindow.webContents.openDevTools();
+    }
+
 	mainWindow.once('ready-to-show', () => {
 		// Show the window only when all assets are loaded
 		mainWindow.show();
 		if (splashScreen) {
 			splashScreen.close();
 		}
+        // Start voice server after window is ready
+        runServer();
 	});
 
 	mainWindow.on('closed', () => {
@@ -78,7 +81,13 @@ function createWindow() {
 
 // Run Express server
 function runServer() {
-    expressProcess = spawn('node', [path.join(__dirname, '../src/frontend/components/voiceRecog/backend.js')]);
+    console.log('Starting voice recognition server...');
+    const serverPath = path.join(__dirname, '../src/frontend/components/voiceRecog/backend.js');
+    console.log('Server path:', serverPath);
+    
+    expressProcess = fork(serverPath, [], {
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+    });
 
     expressProcess.stdout.on('data', (data) => {
         console.log(`Voice Server: ${data}`);
@@ -89,11 +98,18 @@ function runServer() {
     });
 
     expressProcess.on('message', (message) => {
+        console.log('Received message from voice server:', message);
         if (message.type === 'PORT') {
             voiceServerPort = message.port;
-            // Send port to renderer process
-            mainWindow.webContents.send('voice-server-port', voiceServerPort);
+            console.log('Voice server running on port:', voiceServerPort);
+            if (mainWindow && mainWindow.webContents) {
+                mainWindow.webContents.send('voice-server-port', voiceServerPort);
+            }
         }
+    });
+
+    expressProcess.on('error', (error) => {
+        console.error('Voice server error:', error);
     });
 
     expressProcess.on('close', (code) => {
@@ -104,7 +120,6 @@ function runServer() {
 app.whenReady().then(() => {
     createSplashScreen();
     setTimeout(createWindow, 10000); // Change delay as needed
-    setTimeout(runServer, 9000); // Start voice server after a delay
 });
 
 app.on("window-all-closed", () => {
