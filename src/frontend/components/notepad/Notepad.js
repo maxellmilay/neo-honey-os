@@ -4,18 +4,13 @@ import Draggable from "react-draggable";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
 import { Textarea } from "../../components/ui/textarea";
-import { Copy, FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
+import { FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
 import notepadIcon from "../../assets/img/buzzpad.png";import {
   Tooltip,
   TooltipContent,
@@ -25,7 +20,6 @@ import notepadIcon from "../../assets/img/buzzpad.png";import {
 
 function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
-  const [dialogStates, setDialogStates] = useState(Array.from({ length: 1 }, () => true));
 
   const [fileContent, setFileContent] = useState("");
   const [isModified, setIsModified] = useState(false);
@@ -34,7 +28,6 @@ function Notepad() {
 
   const handleOpenNewFile = () => {
     setDialogCount(prevCount => prevCount + 1);
-    setDialogStates(prevStates => [...prevStates, true]);
   };
 
   const handleOpenExistingFile = () => {
@@ -127,15 +120,6 @@ function Notepad() {
       setIsSaved(true);
     }
   };
-
-  const handleCloseDialog = (index) => {
-    setDialogStates(prevStates => {
-      const newStates = [...prevStates];
-      newStates[index] = false;
-      return newStates;
-    });
-  }
-
 
   const renderDialogContent = () => {
     const dialogContentArray = [];
