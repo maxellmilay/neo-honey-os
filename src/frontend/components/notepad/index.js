@@ -53,5 +53,17 @@ export const openNotepad = () => {
   }
 };
 
+export const closeNotepad = () => {
+  // Find all open dialogs and close them
+  const dialogs = document.querySelectorAll('[role="dialog"]');
+  dialogs.forEach(dialog => {
+    // Find the close button within this dialog
+    const closeButton = dialog.querySelector('button[aria-label="Close"], button:has(> svg[data-lucide="x"])');
+    if (closeButton) {
+      closeButton.click();
+    }
+  });
+};
+
 
 
