@@ -1,0 +1,141 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Draggable from "react-draggable";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+  DialogTrigger,
+} from "../../components/ui/dialog";
+import { Button } from "../../components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../components/ui/tooltip";
+import { X } from "lucide-react";
+import ReplacementPage from "../../pages/replacement";
+import styles from './replacement.module.css';
+
+// Import a placeholder icon until you have a real one
+import memoryIcon from "../../assets/img/memory-icon.png";
+
+function ReplacementAlgo() {
+  const [dialogVisible, setDialogVisible] = useState(false);
+
+  return (
+    <TooltipProvider>
+      <Dialog open={dialogVisible} onOpenChange={setDialogVisible}>
+        <DialogTrigger asChild>
+          <div className="relative">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  id="replacement-button" 
+                  variant="outline" 
+                  icon="icon"
+                  className={`${styles.appIconButton} transparent`}
+                  onClick={() => setDialogVisible(true)}
+                >
+                  <img src={memoryIcon} alt="Page Replacement" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                Page Replacement
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        </DialogTrigger>
+        
+        <Draggable handle=".dialog-title" bounds="parent">
+          <DialogContent className={styles.dialogContainer}>
+            <div className="w-full h-full flex flex-col overflow-hidden">
+              <div className="dialog-title flex items-center justify-between cursor-move bg-amber-400 px-4 py-2 rounded-t-md">
+                <div className="flex-1 text-center">
+                  <h2 className={styles.dialogTitle}>
+                    <span className="text-amber-900">PAGE </span>
+                    <span className="text-yellow-600">REPLACEMENT</span>
+                  </h2>
+                </div>
+                <DialogClose asChild>
+                  <Button 
+                    className="h-8 w-8 p-0 rounded-full" 
+                    variant="ghost"
+                    aria-label="Close"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </DialogClose>
+              </div>
+              <div className="flex-1 overflow-hidden p-1">
+                <ReplacementPage />
+              </div>
+            </div>
+          </DialogContent>
+        </Draggable>
+      </Dialog>
+    </TooltipProvider>
+  );
+}
+
+export const openReplacement = () => {
+  console.log('[Replacement] Attempting to open Replacement dialog...');
+  const replacementButton = document.getElementById('replacement-button');
+  if (replacementButton) {
+    console.log('[Replacement] Replacement button found, clicking...');
+    replacementButton.click();
+  } else {
+    console.error('[Replacement] Replacement button not found');
+    // Try an alternative approach if button not found
+    const dialogs = document.querySelectorAll('button');
+    const replacementDialogButton = Array.from(dialogs).find(btn => 
+      btn.textContent?.includes('Page Replacement') || 
+      btn.querySelector('img[alt="Page Replacement"]')
+    );
+    
+    if (replacementDialogButton) {
+      console.log('[Replacement] Found alternative Replacement button, clicking...');
+      replacementDialogButton.click();
+    } else {
+      console.error('[Replacement] Could not find any Replacement button');
+    }
+  }
+};
+
+export const closeReplacement = () => {
+  console.log('[Replacement] Attempting to close Replacement dialog...');
+  // Find all open dialogs and close them
+  const dialogs = document.querySelectorAll('[role="dialog"]');
+  
+  if (dialogs.length === 0) {
+    console.log('[Replacement] No dialogs found to close');
+    return;
+  }
+  
+  let replacementClosed = false;
+  
+  dialogs.forEach(dialog => {
+    // Check if it's the Replacement dialog
+    const dialogTitle = dialog.querySelector('.dialog-title');
+    const isReplacementDialog = dialogTitle && (
+      dialogTitle.textContent?.includes('PAGE REPLACEMENT')
+    );
+    
+    if (isReplacementDialog || dialogs.length === 1) {
+      // Find the close button within this dialog
+      const closeButton = dialog.querySelector('button[aria-label="Close"]');
+      if (closeButton) {
+        console.log('[Replacement] Found close button, clicking...');
+        closeButton.click();
+        replacementClosed = true;
+      }
+    }
+  });
+  
+  if (!replacementClosed) {
+    console.error('[Replacement] Could not find close button');
+  }
+};
+
+export default ReplacementAlgo; 

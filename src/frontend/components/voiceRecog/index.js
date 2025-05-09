@@ -3,6 +3,7 @@ import { Button } from '../ui/button';
 import { Mic, MicOff } from 'lucide-react';
 import { openNotepad, closeNotepad } from '../notepad';
 import { openPCB, closePCB } from '../pcb';
+import { openReplacement, closeReplacement } from '../replacementAlgo';
 import { useNavigate } from 'react-router-dom';
 
 export const VoiceRecog = () => {
@@ -108,6 +109,12 @@ export const VoiceRecog = () => {
                 break;
             case 'CLOSE_PCB':
                 closePCB();
+                break;
+            case 'OPEN_REPLACEMENT':
+                openReplacement();
+                break;
+            case 'CLOSE_REPLACEMENT':
+                closeReplacement();
                 break;
             case 'SHUTDOWN':
                 setListening(false);
