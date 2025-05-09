@@ -50,13 +50,31 @@ export const openNotepad = () => {
 export const closeNotepad = () => {
   // Find all open dialogs and close them
   const dialogs = document.querySelectorAll('[role="dialog"]');
+  let notepadClosed = false;
+  
   dialogs.forEach(dialog => {
-    // Find the close button within this dialog
-    const closeButton = dialog.querySelector('button[aria-label="Close"], button:has(> svg[data-lucide="x"])');
-    if (closeButton) {
-      closeButton.click();
+    // Check if it's the Notepad dialog
+    const dialogTitle = dialog.querySelector('.dialog-title');
+    const isNotepadDialog = dialogTitle && (
+      dialogTitle.textContent?.includes('Notepad') || 
+      dialogTitle.textContent?.includes('Nla') ||
+      dialogTitle.textContent?.includes('BuzzNote')
+    );
+    
+    if (isNotepadDialog || dialogs.length === 1) {
+      // Find the close button within this dialog
+      const closeButton = dialog.querySelector('[data-radix-dialog-close]');
+      if (closeButton) {
+        console.log('[Notepad] Found close button, clicking...');
+        closeButton.click();
+        notepadClosed = true;
+      }
     }
   });
+  
+  if (!notepadClosed) {
+    console.error('[Notepad] Could not find close button');
+  }
 };
 
 

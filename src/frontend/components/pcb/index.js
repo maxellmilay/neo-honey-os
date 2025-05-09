@@ -1,5 +1,5 @@
 // import styles from "./pcb.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
 import {
@@ -26,6 +26,24 @@ function BusyBee() {
   );
   const [processControlBlocks, setProcessControlBlocks] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
+
+  // Add effect to listen for voice commands
+  useEffect(() => {
+    const handleVoiceCommand = (event) => {
+      if (event.data === "COMMAND:CLOSE_PCB") {
+        handleClose();
+      }
+    };
+
+    window.addEventListener('message', handleVoiceCommand);
+    return () => window.removeEventListener('message', handleVoiceCommand);
+  }, []);
+
+  const handleClose = () => {
+    setDialogVisible(false);
+    setDialogCount(1);
+    setDialogStates(Array.from({ length: 1 }, () => true));
+  };
 
   const text = "BusyBee (PCB)";
   const letters = text.split('')
@@ -61,7 +79,7 @@ function BusyBee() {
 
   return (
     <TooltipProvider>
-      <Dialog>
+      <Dialog open={dialogVisible} onOpenChange={setDialogVisible}>
         <DialogTrigger asChild>
           <div className="relative">
             <Tooltip>
@@ -113,37 +131,10 @@ export const openPCB = () => {
 
 export const closePCB = () => {
   console.log('[PCB] Attempting to close PCB dialog...');
-  // Find all open dialogs and close them
-  const dialogs = document.querySelectorAll('[role="dialog"]');
-  
-  if (dialogs.length === 0) {
-    console.log('[PCB] No dialogs found to close');
-    return;
-  }
-  
-  let pcbClosed = false;
-  
-  dialogs.forEach(dialog => {
-    // Check if it's the PCB dialog
-    const dialogTitle = dialog.querySelector('.dialog-title');
-    const isPCBDialog = dialogTitle && (
-      dialogTitle.textContent?.includes('BusyBee') || 
-      dialogTitle.textContent?.includes('PCB')
-    );
-    
-    if (isPCBDialog || dialogs.length === 1) {
-      // Find the close button within this dialog
-      const closeButton = dialog.querySelector('button[aria-label="Close"], button:has(> svg[data-lucide="x"])');
-      if (closeButton) {
-        console.log('[PCB] Found close button, clicking...');
-        closeButton.click();
-        pcbClosed = true;
-      }
-    }
-  });
-  
-  if (!pcbClosed) {
-    console.error('[PCB] Could not find close button');
+  const pcbButton = document.getElementById('pcb-button');
+  if (pcbButton) {
+    const closeEvent = new CustomEvent('message', { data: 'COMMAND:CLOSE_PCB' });
+    window.dispatchEvent(closeEvent);
   }
 };
 

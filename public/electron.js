@@ -161,18 +161,25 @@ app.whenReady().then(() => {
         }
         console.log("Opening camera...");
         createCameraWindow();
-      });
-    ipcMain.on("minimize-camera", () => {
-    if (cameraWindow) {
-        cameraWindow.minimize();
-    }
     });
-       // Handle "close-camera" event
+    ipcMain.on("minimize-camera", () => {
+        if (cameraWindow) {
+            cameraWindow.minimize();
+        }
+    });
+    // Handle "close-camera" event
     ipcMain.on("close-camera", () => {
-    if (cameraWindow) {
-        console.log("Closing camera...");
-        cameraWindow.close();
-    }
+        if (cameraWindow) {
+            console.log("Closing camera...");
+            cameraWindow.close();
+        }
+    });
+    // Handle "capture-photo" event
+    ipcMain.on("capture-photo", () => {
+        if (cameraWindow) {
+            console.log("Sending capture photo command to camera window...");
+            cameraWindow.webContents.send("capture-photo");
+        }
     });
 });
 

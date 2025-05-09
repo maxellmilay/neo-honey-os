@@ -47,6 +47,15 @@ def process_command(text):
     elif "close pcb" in command or "close process control block" in command or "close busy bee" in command:
         print("COMMAND:CLOSE_PCB")
         sys.stdout.flush()  # Extra flush for PCB commands
+    elif "open camera" in command or "start camera" in command:
+        print("COMMAND:OPEN_CAMERA")
+        sys.stdout.flush()
+    elif "close camera" in command or "stop camera" in command:
+        print("COMMAND:CLOSE_CAMERA")
+        sys.stdout.flush()
+    elif "capture" in command or "take photo" in command or "take picture" in command:
+        print("COMMAND:CAPTURE_PHOTO")
+        sys.stdout.flush()
     elif "shut down" in command:
         print("COMMAND:SHUTDOWN")
         return False

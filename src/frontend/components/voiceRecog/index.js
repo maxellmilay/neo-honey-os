@@ -109,6 +109,16 @@ export const VoiceRecog = () => {
             case 'CLOSE_PCB':
                 closePCB();
                 break;
+            case 'OPEN_CAMERA':
+                if (window.electron && window.electron.ipcRenderer) {
+                    window.electron.ipcRenderer.send('open-camera');
+                }
+                break;
+            case 'CLOSE_CAMERA':
+                if (window.electron && window.electron.ipcRenderer) {
+                    window.electron.ipcRenderer.send('close-camera');
+                }
+                break;
             case 'SHUTDOWN':
                 setListening(false);
                 navigate('/shutdown');
