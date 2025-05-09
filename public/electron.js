@@ -1,11 +1,15 @@
 const path = require("path");
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { spawn } = require('child_process');
 const url = require("url")
+const remote = require('@electron/remote/main');
+
+console.log('Electron main process started');
 
 let mainWindow;
 let splashScreen;
 let expressProcess;
+remote.initialize();
 
 function createSplashScreen() {
     splashScreen = new BrowserWindow({
@@ -31,6 +35,32 @@ function createSplashScreen() {
       splashScreen = null;
     });
   }
+
+let cameraWindow;
+
+// Update your createCameraWindow function
+function createCameraWindow() {
+    cameraWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      frame: false,
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+        nodeIntegration: false,
+        contextIsolation: true,
+        enableRemoteModule: false,
+      },
+    });
+  
+    // Enable remote module for this window
+    remote.enable(cameraWindow.webContents);
+  
+    cameraWindow.loadFile(path.join(__dirname, "../src/frontend/components/camera/index.html"));
+
+    cameraWindow.on("closed", () => {
+      cameraWindow = null;
+    });
+  }
   
 function createWindow() {
 	// Create the browser window.
@@ -48,6 +78,7 @@ function createWindow() {
             nodeIntegration: true,
 			contextIsolation: true,
 			sandbox: false,
+            preload: path.join(__dirname, 'preload.js'),
 		},
 	})
 
@@ -92,9 +123,31 @@ function runServer() {
 }
 
 app.whenReady().then(() => {
+    console.log('App is ready')
     createSplashScreen();
     setTimeout(createWindow, 10000); // Change delay as needed
     // setTimeout(runServer, 9000); // Start Express server after a delay
+    ipcMain.on("open-camera", () => {
+        if (cameraWindow) {
+            console.log("Camera window already open.");
+            cameraWindow.focus(); // Bring the existing window to the front
+            return;
+        }
+        console.log("Opening camera...");
+        createCameraWindow();
+      });
+    ipcMain.on("minimize-camera", () => {
+    if (cameraWindow) {
+        cameraWindow.minimize();
+    }
+    });
+       // Handle "close-camera" event
+    ipcMain.on("close-camera", () => {
+    if (cameraWindow) {
+        console.log("Closing camera...");
+        cameraWindow.close();
+    }
+    });
 });
 
 
