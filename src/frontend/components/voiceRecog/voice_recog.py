@@ -37,9 +37,9 @@ def process_command(text):
     print(f"[DEBUG] Extracted command: {command}")
 
     # Command mapping
-    if "open notepad" in command:
+    if "open notes" in command:
         print("COMMAND:OPEN_NOTEPAD")
-    elif "close notepad" in command:
+    elif "close notes" in command:
         print("COMMAND:CLOSE_NOTEPAD")
     elif "open pcb" in command:
         print("COMMAND:OPEN_PCB")

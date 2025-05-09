@@ -3,6 +3,7 @@ import { Button } from '../ui/button';
 import { Mic, MicOff } from 'lucide-react';
 import { openNotepad, closeNotepad } from '../notepad';
 import { openPCB, closePCB } from '../pcb';
+import { useNavigate } from 'react-router-dom';
 
 export const VoiceRecog = () => {
     const [isListening, setListening] = useState(false);
@@ -10,6 +11,7 @@ export const VoiceRecog = () => {
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [serverPort, setServerPort] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.electron?.onVoiceServerPort((port) => {
@@ -109,7 +111,7 @@ export const VoiceRecog = () => {
                 break;
             case 'SHUTDOWN':
                 setListening(false);
-                // Add any additional shutdown logic here
+                navigate('/shutdown');
                 break;
             default:
                 console.log('Unknown command:', command);
