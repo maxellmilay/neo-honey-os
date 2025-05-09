@@ -88,24 +88,63 @@ function BusyBee() {
 }
 
 export const openPCB = () => {
+  console.log('[PCB] Attempting to open PCB dialog...');
   const pcbButton = document.getElementById('pcb-button');
   if (pcbButton) {
+    console.log('[PCB] PCB button found, clicking...');
     pcbButton.click();
   } else {
-    console.error('PCB button not found');
+    console.error('[PCB] PCB button not found');
+    // Try an alternative approach if button not found
+    const dialogs = document.querySelectorAll('button');
+    const pcbDialogButton = Array.from(dialogs).find(btn => 
+      btn.textContent?.includes('BusyBee') || 
+      btn.querySelector('img[alt="BusyBee (PCB)"]')
+    );
+    
+    if (pcbDialogButton) {
+      console.log('[PCB] Found alternative PCB button, clicking...');
+      pcbDialogButton.click();
+    } else {
+      console.error('[PCB] Could not find any PCB button');
+    }
   }
 };
 
 export const closePCB = () => {
+  console.log('[PCB] Attempting to close PCB dialog...');
   // Find all open dialogs and close them
   const dialogs = document.querySelectorAll('[role="dialog"]');
+  
+  if (dialogs.length === 0) {
+    console.log('[PCB] No dialogs found to close');
+    return;
+  }
+  
+  let pcbClosed = false;
+  
   dialogs.forEach(dialog => {
-    // Find the close button within this dialog
-    const closeButton = dialog.querySelector('button[aria-label="Close"], button:has(> svg[data-lucide="x"])');
-    if (closeButton) {
-      closeButton.click();
+    // Check if it's the PCB dialog
+    const dialogTitle = dialog.querySelector('.dialog-title');
+    const isPCBDialog = dialogTitle && (
+      dialogTitle.textContent?.includes('BusyBee') || 
+      dialogTitle.textContent?.includes('PCB')
+    );
+    
+    if (isPCBDialog || dialogs.length === 1) {
+      // Find the close button within this dialog
+      const closeButton = dialog.querySelector('button[aria-label="Close"], button:has(> svg[data-lucide="x"])');
+      if (closeButton) {
+        console.log('[PCB] Found close button, clicking...');
+        closeButton.click();
+        pcbClosed = true;
+      }
     }
   });
+  
+  if (!pcbClosed) {
+    console.error('[PCB] Could not find close button');
+  }
 };
 
 export default BusyBee;

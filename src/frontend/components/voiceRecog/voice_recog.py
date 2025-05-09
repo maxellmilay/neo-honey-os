@@ -37,14 +37,16 @@ def process_command(text):
     print(f"[DEBUG] Extracted command: {command}")
 
     # Command mapping
-    if "open notes" in command:
+    if "open notes" in command or "open notepad" in command:
         print("COMMAND:OPEN_NOTEPAD")
-    elif "close notes" in command:
+    elif "close notes" in command or "close notepad" in command:
         print("COMMAND:CLOSE_NOTEPAD")
-    elif "open pcb" in command:
+    elif "open pcb" in command or "open process control block" in command or "open busy bee" in command:
         print("COMMAND:OPEN_PCB")
-    elif "close pcb" in command:
+        sys.stdout.flush()  # Extra flush for PCB commands
+    elif "close pcb" in command or "close process control block" in command or "close busy bee" in command:
         print("COMMAND:CLOSE_PCB")
+        sys.stdout.flush()  # Extra flush for PCB commands
     elif "shut down" in command:
         print("COMMAND:SHUTDOWN")
         return False
