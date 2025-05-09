@@ -12,10 +12,11 @@ export const VoiceRecog = () => {
     const [serverPort, setServerPort] = useState(null);
 
     useEffect(() => {
-        // Listen for voice server port from main process
         window.electron?.onVoiceServerPort((port) => {
+            console.log('[DEBUG][VoiceRecog] Received voice server port:', port);
             setServerPort(port);
         });
+        window.electron?.requestVoiceServerPort(); // Always request the port on mount
     }, []);
 
     useEffect(() => {
@@ -25,11 +26,12 @@ export const VoiceRecog = () => {
     }, [isListening, serverPort]);
 
     const startListening = async () => {
-        console.log('Listening...');
+        console.log('[DEBUG][VoiceRecog] Listening...');
         setLoading(true);
         setError(null);
 
         try {
+            console.log(`[DEBUG][VoiceRecog] Attempting fetch to http://localhost:${serverPort}/desktop`);
             const response = await fetch(`http://localhost:${serverPort}/desktop`, {
                 method: 'POST',
             });

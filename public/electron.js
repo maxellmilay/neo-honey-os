@@ -139,3 +139,10 @@ app.on('before-quit', () => {
         expressProcess.kill(); // Kill voice server process when quitting Electron app
     }
 });
+
+// Add IPC handler to respond to port requests from renderer
+ipcMain.on('get-voice-server-port', (event) => {
+    if (voiceServerPort) {
+        event.sender.send('voice-server-port', voiceServerPort);
+    }
+});

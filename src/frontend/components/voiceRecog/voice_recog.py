@@ -4,67 +4,72 @@ import json
 import sys
 import os
 import time
+import datetime
+
+def log_with_timestamp(msg):
+    print(f"[{datetime.datetime.now().isoformat()}] {msg}")
+    sys.stdout.flush()
 
 print("[DEBUG] Starting voice recognition script")
+log_with_timestamp("[DEBUG] Starting voice recognition script")
 
 # Initialize Vosk model
 script_dir = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(script_dir, "vosk-model-small-en-us-0.15")
-print(f"[DEBUG] Loading Vosk model from: {model_path}")
-print(f"[DEBUG] Model directory exists: {os.path.exists(model_path)}")
-print(f"[DEBUG] Model directory contents: {os.listdir(model_path)}")
+log_with_timestamp(f"[DEBUG] Loading Vosk model from: {model_path}")
+log_with_timestamp(f"[DEBUG] Model directory exists: {os.path.exists(model_path)}")
+log_with_timestamp(f"[DEBUG] Model directory contents: {os.listdir(model_path)}")
 
 start_time = time.time()
-print("[DEBUG] Starting model initialization...")
+log_with_timestamp("[DEBUG] Starting model initialization...")
 model = vosk.Model(model_path)
-print(f"[DEBUG] Model initialization took {time.time() - start_time:.2f} seconds")
+log_with_timestamp(f"[DEBUG] Model initialization took {time.time() - start_time:.2f} seconds")
 
-print("[DEBUG] Creating KaldiRecognizer...")
+log_with_timestamp("[DEBUG] Creating KaldiRecognizer...")
 rec = vosk.KaldiRecognizer(model, 16000)
-print("[DEBUG] KaldiRecognizer created successfully")
+log_with_timestamp("[DEBUG] KaldiRecognizer created successfully")
 
 def process_command(text):
-    """Process the recognized text and extract commands"""
+    """Process the recognized text and extract commands directly"""
     print(f"[DEBUG] Processing command: {text}")
     text = text.lower().strip()
-    if text.startswith("honey please"):
-        command = text[len("honey please"):].strip()
-        print(f"[DEBUG] Extracted command: {command}")
-        
-        # Command mapping
-        if "open notepad" in command:
-            print("COMMAND:OPEN_NOTEPAD")
-        elif "close notepad" in command:
-            print("COMMAND:CLOSE_NOTEPAD")
-        elif "open pcb" in command:
-            print("COMMAND:OPEN_PCB")
-        elif "close pcb" in command:
-            print("COMMAND:CLOSE_PCB")
-        elif "shut down" in command:
-            print("COMMAND:SHUTDOWN")
-            return False
-        
-        sys.stdout.flush()  # Ensure the command is sent immediately
+    command = text  # No prefix required
+    print(f"[DEBUG] Extracted command: {command}")
+
+    # Command mapping
+    if "open notepad" in command:
+        print("COMMAND:OPEN_NOTEPAD")
+    elif "close notepad" in command:
+        print("COMMAND:CLOSE_NOTEPAD")
+    elif "open pcb" in command:
+        print("COMMAND:OPEN_PCB")
+    elif "close pcb" in command:
+        print("COMMAND:CLOSE_PCB")
+    elif "shut down" in command:
+        print("COMMAND:SHUTDOWN")
+        return False
+
+    sys.stdout.flush()  # Ensure the command is sent immediately
     return True
 
 def record_transcript_vosk():
     """Record and process voice input using Vosk"""
-    print("[DEBUG] Initializing PyAudio...")
+    log_with_timestamp("[DEBUG] Initializing PyAudio...")
     p = pyaudio.PyAudio()
-    print("[DEBUG] Opening audio stream...")
+    log_with_timestamp("[DEBUG] Opening audio stream...")
     stream = p.open(format=pyaudio.paInt16,
                     channels=1,
                     rate=16000,
                     input=True,
                     frames_per_buffer=8192)
-    print("[DEBUG] Audio stream opened successfully")
+    log_with_timestamp("[DEBUG] Audio stream opened successfully")
 
     print("SYSTEM:READY")
-    print("[DEBUG] Listening for voice input...")
+    log_with_timestamp("[DEBUG] Listening for voice input...")
     sys.stdout.flush()
 
     try:
-        print("[DEBUG] Starting main recognition loop")
+        log_with_timestamp("[DEBUG] Starting main recognition loop")
         while True:
             data = stream.read(4096, exception_on_overflow=False)
             # Get partial results
@@ -72,7 +77,7 @@ def record_transcript_vosk():
                 result = json.loads(rec.Result())
                 recognized_text = result.get('text', '').strip()
                 if recognized_text:
-                    print(f"[HEARD] Full recognition: {recognized_text}")
+                    log_with_timestamp(f"[HEARD] Full recognition: {recognized_text}")
                     print(f"TRANSCRIPT:{recognized_text}")
                     sys.stdout.flush()
                     
@@ -83,17 +88,17 @@ def record_transcript_vosk():
                 partial = json.loads(rec.PartialResult())
                 partial_text = partial.get('partial', '').strip()
                 if partial_text:
-                    print(f"[HEARD] Partial: {partial_text}")
+                    log_with_timestamp(f"[HEARD] Partial: {partial_text}")
                     sys.stdout.flush()
 
     except KeyboardInterrupt:
-        print("[DEBUG] Received keyboard interrupt")
+        log_with_timestamp("[DEBUG] Received keyboard interrupt")
         print("SYSTEM:INTERRUPTED")
     except Exception as e:
-        print(f"[DEBUG] Exception occurred: {str(e)}")
+        log_with_timestamp(f"[DEBUG] Exception occurred: {str(e)}")
         print(f"ERROR:{str(e)}")
     finally:
-        print("[DEBUG] Cleaning up resources")
+        log_with_timestamp("[DEBUG] Cleaning up resources")
         stream.stop_stream()
         stream.close()
         p.terminate()
