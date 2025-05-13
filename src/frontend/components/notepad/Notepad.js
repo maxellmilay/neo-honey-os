@@ -31,13 +31,15 @@ function Notepad() {
   // Add effect to listen for voice commands
   useEffect(() => {
     const handleVoiceCommand = (event) => {
-      if (event.data === "COMMAND:CLOSE_NOTEPAD") {
+      console.log('[Notepad] Received event:', event);
+      if (event.detail === "COMMAND:CLOSE_NOTEPAD") {
+        console.log('[Notepad] Closing notepad dialog...');
         handleClose();
       }
     };
 
-    window.addEventListener('message', handleVoiceCommand);
-    return () => window.removeEventListener('message', handleVoiceCommand);
+    window.addEventListener('notepad-command', handleVoiceCommand);
+    return () => window.removeEventListener('notepad-command', handleVoiceCommand);
   }, []);
 
   const handleClose = () => {
