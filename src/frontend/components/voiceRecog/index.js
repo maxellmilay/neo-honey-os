@@ -142,7 +142,7 @@ export const VoiceRecog = () => {
                     variant="outline" 
                     size="icon"
                 >
-                    {isListening ? <MicOff /> : <Mic />}
+                    {isListening ? <Mic /> : <MicOff />}
                 </Button>
             </div>
             
