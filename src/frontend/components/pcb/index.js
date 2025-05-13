@@ -30,13 +30,15 @@ function BusyBee() {
   // Add effect to listen for voice commands
   useEffect(() => {
     const handleVoiceCommand = (event) => {
-      if (event.data === "COMMAND:CLOSE_PCB") {
+      console.log('[PCB] Received event:', event);
+      if (event.detail === "COMMAND:CLOSE_PCB") {
+        console.log('[PCB] Closing PCB dialog...');
         handleClose();
       }
     };
 
-    window.addEventListener('message', handleVoiceCommand);
-    return () => window.removeEventListener('message', handleVoiceCommand);
+    window.addEventListener('pcb-command', handleVoiceCommand);
+    return () => window.removeEventListener('pcb-command', handleVoiceCommand);
   }, []);
 
   const handleClose = () => {
@@ -131,11 +133,10 @@ export const openPCB = () => {
 
 export const closePCB = () => {
   console.log('[PCB] Attempting to close PCB dialog...');
-  const pcbButton = document.getElementById('pcb-button');
-  if (pcbButton) {
-    const closeEvent = new CustomEvent('message', { data: 'COMMAND:CLOSE_PCB' });
-    window.dispatchEvent(closeEvent);
-  }
+  const closeEvent = new CustomEvent('pcb-command', { 
+    detail: 'COMMAND:CLOSE_PCB'
+  });
+  window.dispatchEvent(closeEvent);
 };
 
 export default BusyBee;
