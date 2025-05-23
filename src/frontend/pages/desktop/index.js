@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Notepad from '../../components/notepad/Notepad';
 import BusyBee from '../../components/pcb';
 import Camera from '../../components/camera/Camera';
+import ReplacementAlgo from '../../components/replacementAlgo';
 import { Link, useNavigate } from "react-router-dom";
 import { HomeIcon, Power } from 'lucide-react';
 import { Button } from '../../components/ui/button';
@@ -58,6 +59,7 @@ export const Desktop = () => {
           </Button> */}
           <Notepad />
           <Camera />
+          <ReplacementAlgo />
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-neutral-900 text-lg ">{currentTime}</span>

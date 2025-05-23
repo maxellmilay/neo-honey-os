@@ -47,6 +47,12 @@ def process_command(text):
     elif "close pcb" in command or "close process control block" in command or "close busy bee" in command:
         print("COMMAND:CLOSE_PCB")
         sys.stdout.flush()  # Extra flush for PCB commands
+    elif "open replacement" in command or "open page replacement" in command or "open memory simulator" in command:
+        print("COMMAND:OPEN_REPLACEMENT")
+        sys.stdout.flush()  # Extra flush for replacement commands
+    elif "close replacement" in command or "close page replacement" in command or "close memory simulator" in command:
+        print("COMMAND:CLOSE_REPLACEMENT")
+        sys.stdout.flush()  # Extra flush for replacement commands
     elif "open camera" in command or "start camera" in command:
         print("COMMAND:OPEN_CAMERA")
         sys.stdout.flush()
