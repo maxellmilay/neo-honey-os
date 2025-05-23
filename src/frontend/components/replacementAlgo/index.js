@@ -107,37 +107,10 @@ export const openReplacement = () => {
 
 export const closeReplacement = () => {
   console.log('[Replacement] Attempting to close Replacement dialog...');
-  // Find all open dialogs and close them
-  const dialogs = document.querySelectorAll('[role="dialog"]');
-  
-  if (dialogs.length === 0) {
-    console.log('[Replacement] No dialogs found to close');
-    return;
-  }
-  
-  let replacementClosed = false;
-  
-  dialogs.forEach(dialog => {
-    // Check if it's the Replacement dialog
-    const dialogTitle = dialog.querySelector('.dialog-title');
-    const isReplacementDialog = dialogTitle && (
-      dialogTitle.textContent?.includes('PAGE REPLACEMENT')
-    );
-    
-    if (isReplacementDialog || dialogs.length === 1) {
-      // Find the close button within this dialog
-      const closeButton = dialog.querySelector('button[aria-label="Close"]');
-      if (closeButton) {
-        console.log('[Replacement] Found close button, clicking...');
-        closeButton.click();
-        replacementClosed = true;
-      }
-    }
+  const closeEvent = new CustomEvent('replacement-command', { 
+    detail: 'COMMAND:CLOSE_REPLACEMENT'
   });
-  
-  if (!replacementClosed) {
-    console.error('[Replacement] Could not find close button');
-  }
+  window.dispatchEvent(closeEvent);
 };
 
 export default ReplacementAlgo; 
