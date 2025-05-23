@@ -13,14 +13,17 @@
 }
 
 .appIconButton {
-  background-color: transparent;
-  border: none;
+  height: 48px;
+  width: 48px;
+  padding: 4px;
   cursor: pointer;
-  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease-in-out;
+  border: none;
 }
 
 .appIconButton:hover {
@@ -28,8 +31,8 @@
 }
 
 .appIconButton img {
-  width: 32px;
-  height: 32px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
 import {
@@ -23,6 +23,17 @@ import memoryIcon from "../../assets/img/memory-icon.png";
 
 function ReplacementAlgo() {
   const [dialogVisible, setDialogVisible] = useState(false);
+
+  // Listen for voice command to close replacement dialog
+  useEffect(() => {
+    const handleVoiceCommand = (event) => {
+      if (event.detail === "COMMAND:CLOSE_REPLACEMENT") {
+        setDialogVisible(false);
+      }
+    };
+    window.addEventListener('replacement-command', handleVoiceCommand);
+    return () => window.removeEventListener('replacement-command', handleVoiceCommand);
+  }, []);
 
   return (
     <TooltipProvider>
@@ -58,15 +69,6 @@ function ReplacementAlgo() {
                     <span className="text-yellow-600">REPLACEMENT</span>
                   </h2>
                 </div>
-                <DialogClose asChild>
-                  <Button 
-                    className="h-8 w-8 p-0 rounded-full" 
-                    variant="ghost"
-                    aria-label="Close"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </DialogClose>
               </div>
               <div className="flex-1 overflow-hidden p-1">
                 <ReplacementPage />
