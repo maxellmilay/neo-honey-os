@@ -46,10 +46,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retake the image
   retakeBtn.addEventListener("click", () => {
     capturedImageContainer.classList.add("hidden");
-    cameraControls.classList.add("hidden");
-    // Show the video and "Capture" button
+    capturedImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgMBApU1nAAAAABJRU5ErkJggg==";
     video.classList.remove("hidden");
+    cameraControls.classList.remove("hidden");
     canvas.classList.remove("hidden");
+    // Clear the canvas so the old image is gone
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log("Retake clicked");
+    console.log("capturedImageContainer hidden:", capturedImageContainer.classList.contains("hidden"));
+    console.log("capturedImage src:", capturedImage.src);
+    console.log("video hidden:", video.classList.contains("hidden"));
   });
 
   // Minimize the camera window
