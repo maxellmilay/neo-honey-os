@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
-import pcbIcon from "../../assets/img/bee.png";
+import pcbIcon from "../../assets/img/bee_white.svg";
 import {
   Tooltip,
   TooltipContent,
@@ -70,9 +70,9 @@ function BusyBee() {
                   id="pcb-button" 
                   variant="outline" 
                   icon="icon"
-                  className={`${styles.appIconButton} transparent`}
+                  className={`${styles.appIconButton} text-white transparent`}
                 >
-                  <img src={pcbIcon} alt="BusyBee (PCB)"/>
+                  <img src={pcbIcon} alt="BusyBee (PCB)" className="text-white"/>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>

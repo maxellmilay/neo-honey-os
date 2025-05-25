@@ -11,7 +11,8 @@ import {
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 import { FolderOpenDot, FolderOpen, Save, SaveAll } from "lucide-react";
-import notepadIcon from "../../assets/img/buzzpad.png";import {
+import notepadIcon from "../../assets/img/buzzpad.svg";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,

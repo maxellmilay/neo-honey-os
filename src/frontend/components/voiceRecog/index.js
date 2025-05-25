@@ -135,11 +135,11 @@ export const VoiceRecog = () => {
                 <Button 
                     onClick={toggleListening} 
                     disabled={isLoading || !serverPort} 
-                    className={`drop-shadow-md rounded-full border-2 ${isListening ? 'border-red-400' : 'border-zinc-50'} outline-yellow-50 text-neutral-900`} 
-                    variant="outline" 
+                    className={`drop-shadow-md text-white rounded-full border-2 ${isListening ? 'border-red-400' : 'border-zinc-50'} outline-yellow-50 text-neutral-900`} 
+                    variant="" 
                     size="icon"
                 >
-                    {isListening ? <MicOff /> : <Mic />}
+                    {isListening ? <MicOff className='text-white' /> : <Mic className='text-white'/>}
                 </Button>
             </div>
             

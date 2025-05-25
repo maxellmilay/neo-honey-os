@@ -14,12 +14,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../components/ui/tooltip";
-import { X } from "lucide-react";
+import { X, MemoryStick } from "lucide-react";
 import ReplacementPage from "../../pages/replacement";
 import styles from './replacement.module.css';
-
-// Import a placeholder icon until you have a real one
-import memoryIcon from "../../assets/img/memory-icon.png";
 
 function ReplacementAlgo() {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -38,7 +35,7 @@ function ReplacementAlgo() {
                   className={`${styles.appIconButton} transparent`}
                   onClick={() => setDialogVisible(true)}
                 >
-                  <img src={memoryIcon} alt="Page Replacement" />
+                  <MemoryStick className="h-7 w-7 text-white" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>

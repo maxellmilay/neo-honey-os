@@ -45,7 +45,7 @@ export const Desktop = () => {
         <div className="flex items-center space-x-4">
           <Button variant="outline" size="icon" className={`${styles.appIconButton} transparent`}>
             <Link to="/boot">
-              <HomeIcon/>
+              <HomeIcon className='text-white' />
             </Link>
           </Button>
           {/* <Button variant="link" size="icon">
@@ -62,7 +62,7 @@ export const Desktop = () => {
           <ReplacementAlgo />
         </div>
         <div className="flex items-center space-x-4">
-          <span className="text-neutral-900 text-lg ">{currentTime}</span>
+          <span className="text-white text-lg ">{currentTime}</span>
           <Button variant="ghost" size="icon">
             <VoiceRecog />
           </Button>
