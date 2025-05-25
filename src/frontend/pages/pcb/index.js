@@ -222,17 +222,17 @@ function PCB() {
     return (
         <>
         <div className="">
-        <div className="mt-6 border-2 border-amber-500 grid grid-cols-6 grid-rows-8 relative flex bg-orange-50 h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
+        <div className="mt-6 border-2 border-[#00f0ff] text-white grid grid-cols-6 grid-rows-8 relative flex bg-[#12003a] h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
         
             {/* Scheduling Policy Card */}
             <div className="row-span-12 h-full gap-4" >
-                <Card className="bg-yellow-100/50 justify-center item-center h-full mb-4">
-                    <CardHeader className="bg-amber-400 text-slate-950 h-[20px] justify-center items-center rounded-t">
-                        <h6>Policy</h6>
+                <Card className="bg-[#1a003a] justify-center item-center h-full mb-4 border-[#00f0ff] border-2">
+                    <CardHeader className="bg-[#00f0ff] text-white h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
+                        <h6 className="text-white drop-shadow-[0_0_8px_#00f0ff]">Policy</h6>
                     </CardHeader>
                     <CardContent className="justify-center items-center h-[580px] space-y-2 px-3 pt-2 overflow-y-auto">
                         <div className="w-full flex flex-col">
-                            <span className="text-xs font-medium text-left mb-1 text-slate-800">Algorithm:</span>
+                            <span className="text-xs font-medium text-left mb-1 text-white drop-shadow-[0_0_4px_#00f0ff]">Algorithm:</span>
                             <div className="flex justify-between items-center w-full">
                                 <ToggleGroup
                                     type="single"
@@ -242,52 +242,44 @@ function PCB() {
                                     aria-label="Choose Algorithm"
                                 >
                                     <ToggleGroupItem
-                                        className="border-2 cursor-none bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
+                                        className="border-2 cursor-none bg-[#12003a] data-[state=on]:bg-[#a020f0] hover:bg-[#2a005a] border-[#00f0ff] text-white"
                                         value="fcfs"
                                         aria-label="Toggle fcfs"
                                         disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="fcfs" className="w-full h-full text-sm py-1 px-0">
-                                            First Come, First Serve
-                                        </Button>
+                                        <Button variant="link" value="fcfs" className="w-full h-full text-sm py-1 px-0 text-white">First Come, First Serve</Button>
                                     </ToggleGroupItem>
                                     <ToggleGroupItem
-                                        className="border-2 cursor-none bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
+                                        className="border-2 cursor-none bg-[#12003a] data-[state=on]:bg-[#a020f0] hover:bg-[#2a005a] border-[#00f0ff] text-white"
                                         value="sjf"
                                         aria-label="Toggle sjf"
                                         disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="sjf" className="w-full h-full text-sm py-1 px-0">
-                                            Shortest Job First
-                                        </Button>
+                                        <Button variant="link" value="sjf" className="w-full h-full text-sm py-1 px-0 text-white">Shortest Job First</Button>
                                     </ToggleGroupItem>
                                     <ToggleGroupItem
-                                        className="border-2 bg-white data-[state=on]:bg-yellow-300 hover:bg-yellow-100/50"
+                                        className="border-2 bg-[#12003a] data-[state=on]:bg-[#a020f0] hover:bg-[#2a005a] border-[#00f0ff] text-white"
                                         value="p"
                                         aria-label="Toggle p"
                                         disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="p" className="w-full h-full text-sm py-1 px-0">
-                                            Priority Scheduling
-                                        </Button>
+                                        <Button variant="link" value="p" className="w-full h-full text-sm py-1 px-0 text-white">Priority Scheduling</Button>
                                     </ToggleGroupItem>
                                     <ToggleGroupItem
-                                        className="border-2 bg-white data-[state=on]:bg-yellow-300"
+                                        className="border-2 bg-[#12003a] data-[state=on]:bg-[#a020f0] border-[#00f0ff] text-white"
                                         value="rr"
                                         aria-label="Toggle rr"
                                         disabled={selectedAlgo}
                                         running={selectedAlgo}
                                         onClick={handleAlgoChange}
                                     >
-                                        <Button variant="link" value="rr" className="w-full h-full text-sm py-1 px-0">
-                                            Round Robin
-                                        </Button>
+                                        <Button variant="link" value="rr" className="w-full h-full text-sm py-1 px-0 text-white">Round Robin</Button>
                                     </ToggleGroupItem>
                                 </ToggleGroup>
                             </div>
@@ -461,22 +453,22 @@ function PCB() {
 
             {/* Job Pool Card */}
             <div className="row-span-4 overflow-hidden col-start-2 col-span-3 row-start-1 h-full">
-                <Card className="bg-yellow-100/50 h-full">
-                    <CardHeader className="bg-amber-400 text-slate-950 h-[20px] justify-center items-center rounded-t">
-                        <h6>Job Queue</h6></CardHeader>
+                <Card className="bg-[#1a003a] h-full border-[#00f0ff] border-2">
+                    <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Job Queue</h6></CardHeader>
                     <CardContent className="m-0">
-                        <JobPoolTable simulation={simulation} selectedAlgo={algo} jobs={[]} />
+                        <JobPoolTable className="text-white" simulation={simulation} selectedAlgo={algo} jobs={[]} />
                     </CardContent>
                 </Card>
             </div>
 
             {/* Ready Queue Card */}
-            <div className="row-span-8 col-start-2 col-span-3 row-start-5 h-full">
-                <Card className="bg-yellow-100/50  h-full">
-                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
-                        <h6>Ready Queue</h6>
+            <div className="row-span-8 text-white col-start-2 col-span-3 row-start-5 h-full">
+                <Card className="bg-[#1a003a] text-white h-full border-[#00f0ff] border-2">
+                    <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Ready Queue</h6>
                     </CardHeader>
-                    <CardContent className="grid grid-rows-5 grid-cols-1 h-full">
+                    <CardContent className="grid text-white grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>
                             <div className="h-full">
                                 <ReadyQTable simulation={simulation} selectedAlgo={algo}/>
@@ -489,7 +481,7 @@ function PCB() {
                                     {simulation?.ganttChart.map((item, index) => (
                                         <div
                                             key={index}
-                                            className={`rounded-md gantt-thicc-${item} flex-start`}
+                                            className={`rounded-md gantt-thicc-${item} flex-start text-white`}
                                             ref={index === simulation.ganttChart.length - 1 ? lastItemRef : null}
                                         >
                                             {item}
@@ -505,9 +497,9 @@ function PCB() {
 
             {/* Memory Card */}
             <div className="row-span-12 col-start-5 row-start-1 h-full">
-                <Card className="bg-yellow-100/50 h-full mb-4">
-                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
-                        <h6>Memory</h6>
+                <Card className="bg-[#1a003a] h-full mb-4 border-[#00f0ff] border-2">
+                    <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Memory</h6>
                     </CardHeader>
                     <CardContent className="flex flex-col justify-center items-center h-full px-4">
                         <MemoryManagement simulation={simulation}/>
@@ -517,9 +509,9 @@ function PCB() {
 
             {/* CPU Card */}
             <div className="row-span-12 col-start-6 row-start-1 col-span-1 h-full">
-                <Card className="bg-yellow-100/50  h-full">
-                    <CardHeader className="bg-amber-400 text-slate-950  h-[20px] justify-center items-center rounded-t">
-                        <h6> CPU </h6>
+                <Card className="bg-[#1a003a] h-full border-[#00f0ff] border-2">
+                    <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]"> CPU </h6>
                     </CardHeader>
                     <CardContent className="justify-center items-center align-middle pt-4  px-4 gap-4 grid grid-rows py-10 gap-8 text-slate-950">
                         
@@ -541,23 +533,23 @@ function PCB() {
                             <foreignObject x="0" y="3" width="36" height="26">
                            <div className="flex items-center h-full w-full flex-col pt-[5px]">
                             <p className="text-center text-[3px]">
-                                <b className="text-center text-[9px]">{running ? simulation?.utilization : '0'}%</b>
-                                <span className="block">Utilization</span>
+                                <b className="text-center text-[9px] text-white">{running ? simulation?.utilization : '0'}%</b>
+                                <span className=" text-white block">Utilization</span>
                             </p>
                         </div>
 
                             </foreignObject>
                         </svg>
                         </div>
-                        <div>
+                        <div className="text-white">
                             <p><b className="text-4xl">{simulation ? formatTime(simulation.time) : '00:00:00'}</b></p>
                             <p className="text-sm">Runtime</p>
                         </div>
-                        <div>
+                        <div className="text-white">
                             <p><b className="text-4xl">{jobs.length}</b></p>
                             <p className="text-sm">Processes</p>
                         </div>
-                        <div>
+                        <div className="text-white">
                             <p><b className="text-4xl">{simulation ? simulation.jobText : 'Idle'}</b></p>
                             <p className="text-sm">Current Process</p>
                         </div>

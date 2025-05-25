@@ -48,22 +48,13 @@ function ReplacementAlgo() {
         <Draggable handle=".dialog-title" bounds="parent">
           <DialogContent className={styles.dialogContainer}>
             <div className="w-full h-full flex flex-col overflow-hidden">
-              <div className="dialog-title flex items-center justify-between cursor-move bg-amber-400 px-4 py-2 rounded-t-md">
+              <div className="dialog-title flex items-center justify-between cursor-move px-4 py-2 rounded-t-md">
                 <div className="flex-1 text-center">
                   <h2 className={styles.dialogTitle}>
                     <span className="text-amber-900">PAGE </span>
                     <span className="text-yellow-600">REPLACEMENT</span>
                   </h2>
                 </div>
-                <DialogClose asChild>
-                  <Button 
-                    className="h-8 w-8 p-0 rounded-full" 
-                    variant="ghost"
-                    aria-label="Close"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </DialogClose>
               </div>
               <div className="flex-1 overflow-hidden p-1">
                 <ReplacementPage />

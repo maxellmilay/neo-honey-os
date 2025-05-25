@@ -128,89 +128,96 @@ function Notepad() {
       dialogContentArray.push(
         <>
           <Draggable handle=".dialog-title" positionOffset={{ x: '-50%', y: '-55%' }}>
-            <DialogContent key={i} className="w-9/12 h-5/6 flex" style={{ position: 'fixed', top: '50', left: '50' }}>
+            <DialogContent key={i} className="w-9/12 h-5/6 flex bg-[#12003a] border-2 border-[#00f0ff] shadow-[0_0_16px_#00f0ff]" style={{ position: 'fixed', top: '50', left: '50' }}>
               <div className="w-1/4">
                 <DialogHeader className="dialog-title">
-                  <DialogTitle className="text-s">BuzzNote</DialogTitle>
+                  <DialogTitle className="text-white" style={{ textShadow: '0 0 8px #00f0ff, 0 0 16px #00f0ff' }}>BuzzNote</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col">
                   <div className="mb-2">
                     <Button
                       style={{
-                        color: "black",
+                        color: "#00f0ff",
                         width: "200px",
                         height: "40px",
                         textAlign: "left",
                         display: "block",
                         marginBottom: "8px",
+                        background: "#1a003a",
+                        border: "1.5px solid #00f0ff",
+                        boxShadow: "0 0 8px #00f0ff44"
                       }}
                       onClick={handleOpenNewFile}
                     >
-                      <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      New
+                      <FolderOpen className="mr-2 h-4 w-4 inline-block align-middle text-[#00f0ff]" /> New
                     </Button>
                   </div>
                   <div className="mb-2">
                     <Button
                       style={{
-                        color: "black",
+                        color: "#00f0ff",
                         width: "200px",
                         height: "40px",
                         textAlign: "left",
                         display: "block",
                         marginBottom: "8px",
+                        background: "#1a003a",
+                        border: "1.5px solid #00f0ff",
+                        boxShadow: "0 0 8px #00f0ff44"
                       }}
                       onClick={handleOpenExistingFile}
                     >
-                      <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      Open
+                      <FolderOpenDot className="mr-2 h-4 w-4 inline-block align-middle text-[#00f0ff]" /> Open
                     </Button>
                   </div>
                   <div className="mb-2">
                     <Button
                       style={{
-                        color: "black",
+                        color: "#00f0ff",
                         width: "200px",
                         height: "40px",
                         textAlign: "left",
                         display: "block",
                         marginBottom: "8px",
+                        background: "#1a003a",
+                        border: "1.5px solid #00f0ff",
+                        boxShadow: "0 0 8px #00f0ff44"
                       }}
                       onClick={handleSaveNewFile}
                     >
-                      <Save className="mr-2 h-4 w-4 inline-block align-middle" />
-                      Save
+                      <Save className="mr-2 h-4 w-4 inline-block align-middle text-[#00f0ff]" /> Save
                     </Button>
-
                   </div>
                   <div className="mb-2">
                     <Button
                       style={{
-                        color: "black",
+                        color: "#00f0ff",
                         width: "200px",
                         height: "40px",
                         textAlign: "left",
                         display: "block",
                         marginBottom: "8px",
+                        background: "#1a003a",
+                        border: "1.5px solid #00f0ff",
+                        boxShadow: "0 0 8px #00f0ff44"
                       }}
                       onClick={handleSaveExistingFile}
-                      disabled={saveButtonDisabled} // Disable the button when saveButtonDisabled is true
+                      disabled={saveButtonDisabled}
                     >
-                      <SaveAll className="mr-2 h-4 w-4 inline-block align-middle" />{" "}
-                      Save as
+                      <SaveAll className="mr-2 h-4 w-4 inline-block align-middle text-[#00f0ff]" /> Save as
                     </Button>
                   </div>
                 </div>
               </div>
               <div className="w-full">
                 <Textarea
-                  className="mt-8 flex-grow"
+                  className="mt-8 flex-grow text-white bg-[#1a003a] border border-[#00f0ff] focus:ring-2 focus:ring-[#00f0ff] placeholder:text-[#00f0ff99]"
                   placeholder="Type your message here."
                   value={fileContent}
                   onChange={handleChange}
                 />
                 <div className="flex justify-end">
-                  <Button className="mt-4 text-black" onClick={handleCloseFile}>Close</Button>
+                  <Button className="mt-4 text-[#00f0ff] bg-[#1a003a] border border-[#00f0ff]" onClick={handleCloseFile}>Close</Button>
                 </div>
               </div>
             </DialogContent>
