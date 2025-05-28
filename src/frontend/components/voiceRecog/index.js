@@ -150,18 +150,21 @@ export const VoiceRecog = () => {
     return (
         <div className="flex flex-col items-center gap-2 w-full">
             <div className="flex items-center gap-2">
-                <Button 
-                    onClick={toggleListening} 
-                    disabled={isLoading || !serverPort} 
-                    className={`drop-shadow-md text-white rounded-full border-2 ${isListening ? 'border-red-400' : 'border-zinc-50'} outline-yellow-50 text-neutral-900`} 
-                    variant="" 
+                <Button
+                    onClick={toggleListening}
+                    disabled={isLoading || !serverPort}
+                    className={`drop-shadow-md rounded-full border-2 ${isListening ? 'border-green-500 bg-white' : 'border-zinc-700 bg-zinc-800'} focus:outline-none`}
+                    variant=""
                     size="icon"
                 >
-                    {isListening ? <MicOff className='text-white' /> : <Mic className='text-white'/>}
+                    {isListening
+                        ? <Mic className='text-red-600' title="Mic is ON" />
+                        : <MicOff className='text-gray-400' title="Mic is OFF" />
+                    }
                 </Button>
                 
                 {transcript && (
-                    <div className="text-sm text-gray-600 max-w-[200px] truncate">
+                    <div className="text-sm font-semibold text-yellow-200 max-w-[200px] truncate drop-shadow">
                         {transcript}
                     </div>
                 )}

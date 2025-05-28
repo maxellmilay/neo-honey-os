@@ -234,7 +234,7 @@ function Notepad() {
                   onChange={handleChange}
                 />
                 <div className="flex justify-end">
-                  <Button className="mt-4 text-[#00f0ff] bg-[#1a003a] border border-[#00f0ff]" onClick={handleCloseFile}>Close</Button>
+                  <Button className="mt-4 text-[#00f0ff] bg-[#1a003a] border border-[#00f0ff]" onClick={handleClose}>Close</Button>
                 </div>
               </div>
             </DialogContent>

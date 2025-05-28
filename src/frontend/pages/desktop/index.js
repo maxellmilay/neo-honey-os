@@ -65,7 +65,7 @@ export const Desktop = () => {
           <span className="text-white text-lg ">{currentTime}</span>
           <Button variant="ghost" size="icon">
             <VoiceRecog />
-          </div>
+          </Button>
         </div>
       </div>
       <div className="fixed bottom-8 right-5">
