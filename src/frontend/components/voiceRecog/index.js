@@ -94,6 +94,14 @@ export const VoiceRecog = () => {
             }
             return;
         }
+
+        // Handle unrecognized commands
+        if (line.startsWith('[VOICE] HEARD:')) {
+            const text = line.substring('[VOICE] HEARD:'.length).trim();
+            if (!text.match(/open|close|shut down/i)) {
+                setTranscript("I don't understand that command. Please try again.");
+            }
+        }
     };
 
     const executeCommand = (command) => {
@@ -140,8 +148,8 @@ export const VoiceRecog = () => {
     };
 
     return (
-        <div className="flex flex-col items-center gap-5 w-full">
-            <div>
+        <div className="flex flex-col items-center gap-2 w-full">
+            <div className="flex items-center gap-2">
                 <Button 
                     onClick={toggleListening} 
                     disabled={isLoading || !serverPort} 
@@ -149,15 +157,15 @@ export const VoiceRecog = () => {
                     variant="outline" 
                     size="icon"
                 >
-                    {isListening ? <Mic /> : <MicOff />}
+                    {isListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
                 </Button>
+                
+                {transcript && (
+                    <div className="text-sm text-gray-600 max-w-[200px] truncate">
+                        {transcript}
+                    </div>
+                )}
             </div>
-            
-            {transcript && (
-                <div className="text-sm text-gray-600">
-                    Last heard: {transcript}
-                </div>
-            )}
 
             {error && (
                 <div className="text-sm text-red-500">

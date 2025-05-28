@@ -63,9 +63,9 @@ export const Desktop = () => {
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-neutral-900 text-lg ">{currentTime}</span>
-          <Button variant="ghost" size="icon">
+          <div className="flex items-center">
             <VoiceRecog />
-          </Button>
+          </div>
         </div>
       </div>
       <div className="fixed bottom-8 right-5">

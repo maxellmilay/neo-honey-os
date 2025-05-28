@@ -136,7 +136,7 @@ def record_transcript_vosk():
                     result = json.loads(rec.Result())
                     recognized_text = result.get('text', '').strip()
                     if recognized_text:
-                        log_with_timestamp(f"[HEARD] Full recognition: {recognized_text}")
+                        log_with_timestamp(f"[VOICE] HEARD: {recognized_text}")
                         print(f"TRANSCRIPT:{recognized_text}")
                         sys.stdout.flush()
                         
@@ -147,7 +147,7 @@ def record_transcript_vosk():
                     partial = json.loads(rec.PartialResult())
                     partial_text = partial.get('partial', '').strip()
                     if partial_text:
-                        log_with_timestamp(f"[HEARD] Partial: {partial_text}")
+                        log_with_timestamp(f"[VOICE] LISTENING: {partial_text}")
                         sys.stdout.flush()
             except IOError as e:
                 log_with_timestamp(f"[DEBUG] Audio stream error: {str(e)}")
