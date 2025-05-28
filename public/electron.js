@@ -113,7 +113,7 @@ function createWindow() {
 // Run Express server
 function runServer() {
     console.log('Starting voice recognition server...');
-    const serverPath = path.join(__dirname, '../src/frontend/components/voiceRecog/backend.js');
+    const serverPath = path.join(__dirname, '../src/backend/voiceRecog/voiceRecognition.js');
     console.log('Server path:', serverPath);
     
     expressProcess = fork(serverPath, [], {
