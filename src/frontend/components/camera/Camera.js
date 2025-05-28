@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./notepad.module.css";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip";
 import { Button } from "../../components/ui/button";
-import camera from "../../assets/img/camera.png";
-
+import { Camera as CameraIcon } from 'lucide-react';
 
 function Camera() {
   // Function to handle opening the camera
@@ -66,7 +65,7 @@ function Camera() {
               className={`${styles.appIconButton} transparent`}
               onClick={handleOpenCamera}
             >
-              <img src={camera} alt="camera-icon" />
+              <CameraIcon className="h-7 w-7 text-white" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>

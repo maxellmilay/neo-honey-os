@@ -14,12 +14,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../components/ui/tooltip";
-import { X } from "lucide-react";
+import { X, MemoryStick } from "lucide-react";
 import ReplacementPage from "../../pages/replacement";
 import styles from './replacement.module.css';
-
-// Import a placeholder icon until you have a real one
-import memoryIcon from "../../assets/img/memory-icon.png";
 
 function ReplacementAlgo() {
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -49,7 +46,7 @@ function ReplacementAlgo() {
                   className={`${styles.appIconButton} transparent`}
                   onClick={() => setDialogVisible(true)}
                 >
-                  <img src={memoryIcon} alt="Page Replacement" />
+                  <MemoryStick className="h-7 w-7 text-white" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
@@ -62,7 +59,7 @@ function ReplacementAlgo() {
         <Draggable handle=".dialog-title" bounds="parent">
           <DialogContent className={styles.dialogContainer}>
             <div className="w-full h-full flex flex-col overflow-hidden">
-              <div className="dialog-title flex items-center justify-between cursor-move bg-amber-400 px-4 py-2 rounded-t-md">
+              <div className="dialog-title flex items-center justify-between cursor-move px-4 py-2 rounded-t-md">
                 <div className="flex-1 text-center">
                   <h2 className={styles.dialogTitle}>
                     <span className="text-amber-900">PAGE </span>
