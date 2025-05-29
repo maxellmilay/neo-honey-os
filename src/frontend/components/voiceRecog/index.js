@@ -123,7 +123,6 @@ export const VoiceRecog = () => {
                     confirmation = "Okay, I'll close camera.";
                     break;
                 case 'SHUTDOWN':
-                    confirmation = "Okay, I'll shut down.";
                     break;
                 default:
                     confirmation = '';

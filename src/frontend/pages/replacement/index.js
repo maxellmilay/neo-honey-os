@@ -8,6 +8,11 @@ import { FIFO, LRU, OPT, CLOCK } from "../../../backend/replacement/algorithms";
 import styles from './replacement.module.css';
 
 function ReplacementPage() {
+  // Scroll to the top of the page when this component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   // State for simulation configuration
   const [frameCount, setFrameCount] = useState(3);
   const [algorithm, setAlgorithm] = useState("fifo");

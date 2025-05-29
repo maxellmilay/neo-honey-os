@@ -10,6 +10,11 @@
   max-height: 800px !important;
   margin: auto;
   overflow: hidden;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1000;
 }
 
 .appIconButton {
