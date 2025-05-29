@@ -1,5 +1,5 @@
 import styles from "./notepad.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Draggable from "react-draggable";
 import {
   Dialog,
@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
@@ -21,11 +22,44 @@ import {
 
 function Notepad() {
   const [dialogCount, setDialogCount] = useState(1);
-
+  const [dialogVisible, setDialogVisible] = useState(false);
   const [fileContent, setFileContent] = useState("");
   const [isModified, setIsModified] = useState(false);
-  const [isSaved, setIsSaved] = useState(true); // Track whether the file has been saved
+  const [isSaved, setIsSaved] = useState(true);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+
+  // Add effect to listen for voice commands
+  useEffect(() => {
+    const handleVoiceCommand = (event) => {
+      console.log('[Notepad] Received event:', event);
+      if (event.detail === "COMMAND:CLOSE_NOTEPAD") {
+        console.log('[Notepad] Closing notepad dialog...');
+        handleClose();
+      }
+    };
+
+    window.addEventListener('notepad-command', handleVoiceCommand);
+    return () => window.removeEventListener('notepad-command', handleVoiceCommand);
+  }, []);
+
+  const handleClose = () => {
+    if (isModified && !isSaved) {
+      const confirmClose = window.confirm("You have unsaved changes. Are you sure you want to close the file?");
+      if (confirmClose) {
+        closeDialog();
+      }
+    } else {
+      closeDialog();
+    }
+  };
+
+  const closeDialog = () => {
+    setDialogVisible(false);
+    setDialogCount(1);
+    setFileContent("");
+    setIsModified(false);
+    setIsSaved(true);
+  };
 
   const handleOpenNewFile = () => {
     setDialogCount(prevCount => prevCount + 1);
@@ -103,23 +137,6 @@ function Notepad() {
     setIsSaved(false); // Mark the file as not saved when modified
     setSaveButtonDisabled(false); // Enable the Save button when content changes
 
-  };
-
-  const handleCloseFile = () => {
-    if (isModified && !isSaved) {
-      const confirmClose = window.confirm("You have unsaved changes. Are you sure you want to close the file?");
-      if (confirmClose) {
-        // Reset content and modification state
-        setFileContent("");
-        setIsModified(false);
-        setIsSaved(true);
-      }
-    } else {
-      // No unsaved changes, close the file directly
-      setFileContent("");
-      setIsModified(false);
-      setIsSaved(true);
-    }
   };
 
   const renderDialogContent = () => {
@@ -217,7 +234,7 @@ function Notepad() {
                   onChange={handleChange}
                 />
                 <div className="flex justify-end">
-                  <Button className="mt-4 text-[#00f0ff] bg-[#1a003a] border border-[#00f0ff]" onClick={handleCloseFile}>Close</Button>
+                  <Button className="mt-4 text-[#00f0ff] bg-[#1a003a] border border-[#00f0ff]" onClick={handleClose}>Close</Button>
                 </div>
               </div>
             </DialogContent>
@@ -230,7 +247,7 @@ function Notepad() {
 
   return (
     <TooltipProvider>
-      <Dialog>
+      <Dialog open={dialogVisible} onOpenChange={setDialogVisible}>
         <DialogTrigger asChild>
           <div className="relative">
             <Tooltip>
@@ -241,7 +258,7 @@ function Notepad() {
                   icon="icon"
                   className={`${styles.appIconButton} transparent`}
                 >
-                  <img src={notepadIcon} alt="notepad-icon"/>
+                  <img src={notepadIcon} alt="BuzzNote"/>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
@@ -255,4 +272,14 @@ function Notepad() {
     </TooltipProvider>
   );
 }
+
+export const closeNotepad = () => {
+  console.log('[Notepad] Attempting to close notepad dialog...');
+  const notepadButton = document.getElementById('notepad-button');
+  if (notepadButton) {
+    const closeEvent = new CustomEvent('message', { data: 'COMMAND:CLOSE_NOTEPAD' });
+    window.dispatchEvent(closeEvent);
+  }
+};
+
 export default Notepad;

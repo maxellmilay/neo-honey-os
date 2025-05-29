@@ -8,6 +8,11 @@ import { FIFO, LRU, OPT, CLOCK } from "../../../backend/replacement/algorithms";
 import styles from './replacement.module.css';
 
 function ReplacementPage() {
+  // Scroll to the top of the page when this component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   // State for simulation configuration
   const [frameCount, setFrameCount] = useState(3);
   const [algorithm, setAlgorithm] = useState("fifo");
@@ -159,6 +164,34 @@ function ReplacementPage() {
   const getFormattedTime = () => {
     return "00:00:00";
   }
+
+  useEffect(() => {
+    window.selectReplacementPolicy = (policy) => {
+      setAlgorithm(policy);
+    };
+    window.replacementSimulationControl = (action) => {
+      switch(action) {
+        case 'start':
+          startSimulation();
+          break;
+        case 'pause':
+          togglePause();
+          break;
+        case 'step':
+          stepSimulation();
+          break;
+        case 'reset':
+          resetSimulation();
+          break;
+        default:
+          break;
+      }
+    };
+    return () => {
+      delete window.selectReplacementPolicy;
+      delete window.replacementSimulationControl;
+    };
+  }, [algorithm, simulation, isPaused, isRunning, currentStep]);
 
   return (
     <div className={styles.replacementPage}>

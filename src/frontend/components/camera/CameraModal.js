@@ -11,6 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const cameraControls = document.getElementById("camera-controls");
   console.log('camera locked in');
 
+  // Function to capture image
+  const captureImage = () => {
+    const context = canvas.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL("image/png");
+    capturedImage.src = imageData;
+    capturedImageContainer.classList.remove("hidden");
+    video.classList.add("hidden");
+    cameraControls.classList.add("hidden");
+    canvas.classList.add("hidden");
+  };
+
   // Access the camera
   navigator.mediaDevices
     .getUserMedia({ video: true })
@@ -22,18 +36,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // Capture the image
-  captureBtn.addEventListener("click", () => {
-    const context = canvas.getContext("2d");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL("image/png");
-    capturedImage.src = imageData;
-    capturedImageContainer.classList.remove("hidden");
-    video.classList.add("hidden");
-    cameraControls.classList.add("hidden");
-    canvas.classList.add("hidden");
-  });
+  captureBtn.addEventListener("click", captureImage);
+
+  // Listen for capture photo command from voice recognition
+  if (window.electron && window.electron.ipcRenderer) {
+    window.electron.ipcRenderer.on('capture-photo', () => {
+      console.log('Received capture photo command from voice recognition');
+      captureImage();
+    });
+    window.electron.ipcRenderer.on('save-photo', () => {
+      console.log('Received save photo command from voice recognition');
+      saveBtn.click();
+    });
+    window.electron.ipcRenderer.on('retake-photo', () => {
+      console.log('Received retake photo command from voice recognition');
+      retakeBtn.click();
+    });
+  }
 
   // Save the image
   saveBtn.addEventListener("click", () => {

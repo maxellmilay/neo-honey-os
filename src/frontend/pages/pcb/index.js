@@ -218,6 +218,40 @@ function PCB() {
         return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
     }
 
+    useEffect(() => {
+        window.selectPCBAlgorithm = (algoKey) => {
+            setAlgo(algoKey);
+        };
+        window.pcbSimulationControl = (action) => {
+            switch(action) {
+                case 'start':
+                    setSelectedAlgo(true);
+                    play(algo);
+                    break;
+                case 'resume':
+                    resume();
+                    break;
+                case 'complete':
+                    finish();
+                    break;
+                case 'step':
+                    if (simulation && simulation.nextStep) {
+                        simulation.nextStep();
+                        setJobs([...simulation.jobs]);
+                    }
+                    break;
+                case 'reset':
+                    reset();
+                    break;
+                default:
+                    break;
+            }
+        };
+        return () => {
+            delete window.selectPCBAlgorithm;
+            delete window.pcbSimulationControl;
+        };
+    }, [algo, simulation, jobs]);
 
     return (
         <>
