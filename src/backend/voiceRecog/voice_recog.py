@@ -110,6 +110,109 @@ def process_command(text):
     elif "retake photo" in text or "retake image" in text or text == "retake":
         print("COMMAND:RETAKE_PHOTO")
         sys.stdout.flush()
+    elif "choose fifo" in text or "choose first in first out" in text:
+        print("COMMAND:CHOOSE_REPLACEMENT_FIFO")
+        sys.stdout.flush()
+    elif "choose lru" in text or "choose least recently used" in text:
+        print("COMMAND:CHOOSE_REPLACEMENT_LRU")
+        sys.stdout.flush()
+    elif "choose opt" in text or "choose optimal" in text:
+        print("COMMAND:CHOOSE_REPLACEMENT_OPT")
+        sys.stdout.flush()
+    elif "choose clock" in text:
+        print("COMMAND:CHOOSE_REPLACEMENT_CLOCK")
+        sys.stdout.flush()
+    elif "choose sjf" in text or "choose shortest job first" in text:
+        print("COMMAND:CHOOSE_SJF")
+        sys.stdout.flush()
+    elif "choose priority" in text or "choose priority scheduling" in text:
+        print("COMMAND:CHOOSE_PRIORITY")
+        sys.stdout.flush()
+    elif "choose rr" in text or "choose round robin" in text:
+        print("COMMAND:CHOOSE_RR")
+        sys.stdout.flush()
+    elif ("start simulation" in text or text == "start") and "replacement" in text:
+        print("COMMAND:START_REPLACEMENT_SIMULATION")
+        sys.stdout.flush()
+    elif text == "resume":
+        print("COMMAND:RESUME_SIMULATION")
+        sys.stdout.flush()
+    elif text == "complete" or text == "stop":
+        print("COMMAND:COMPLETE_SIMULATION")
+        sys.stdout.flush()
+    elif text == "step":
+        print("COMMAND:STEP_SIMULATION")
+        sys.stdout.flush()
+    elif text == "reset":
+        print("COMMAND:RESET_SIMULATION")
+        sys.stdout.flush()
+    # PCB Algorithm selection
+    elif ("choose pcb fifo" in text or "choose pcb first come first serve" in text or ("choose fifo" in text and "pcb" in text)):
+        print("COMMAND:CHOOSE_FIFO")
+        sys.stdout.flush()
+    elif ("choose pcb sjf" in text or "choose pcb shortest job first" in text or ("choose sjf" in text and "pcb" in text)):
+        print("COMMAND:CHOOSE_SJF")
+        sys.stdout.flush()
+    elif ("choose pcb priority" in text or "choose pcb priority scheduling" in text or ("choose priority" in text and "pcb" in text)):
+        print("COMMAND:CHOOSE_PRIORITY")
+        sys.stdout.flush()
+    elif ("choose pcb rr" in text or "choose pcb round robin" in text or ("choose rr" in text and "pcb" in text)):
+        print("COMMAND:CHOOSE_RR")
+        sys.stdout.flush()
+    # PCB Simulation controls
+    elif ("start pcb simulation" in text or ("start simulation" in text and "pcb" in text)):
+        print("COMMAND:START_SIMULATION")
+        sys.stdout.flush()
+    elif ("resume pcb" in text or ("resume" in text and "pcb" in text)):
+        print("COMMAND:RESUME_SIMULATION")
+        sys.stdout.flush()
+    elif ("complete pcb" in text or "stop pcb" in text or ("complete" in text and "pcb" in text) or ("stop" in text and "pcb" in text)):
+        print("COMMAND:COMPLETE_SIMULATION")
+        sys.stdout.flush()
+    elif ("step pcb" in text or ("step" in text and "pcb" in text)):
+        print("COMMAND:STEP_SIMULATION")
+        sys.stdout.flush()
+    elif ("reset pcb" in text or ("reset" in text and "pcb" in text)):
+        print("COMMAND:RESET_SIMULATION")
+        sys.stdout.flush()
+    # Page Replacement Policy selection
+    elif ("choose replacement fifo" in text or "choose replacement first in first out" in text or ("choose fifo" in text and "replacement" in text)):
+        print("COMMAND:CHOOSE_REPLACEMENT_FIFO")
+        sys.stdout.flush()
+    elif ("choose lru" in text or "choose replacement least recently used" in text or ("choose lru" in text and "replacement" in text)):
+        print("COMMAND:CHOOSE_REPLACEMENT_LRU")
+        sys.stdout.flush()
+    elif ("choose replacement opt" in text or "choose replacement optimal" in text or ("choose opt" in text and "replacement" in text)):
+        print("COMMAND:CHOOSE_REPLACEMENT_OPT")
+        sys.stdout.flush()
+    elif ("choose replacement clock" in text or ("choose clock" in text and "replacement" in text)) or "choose clock" in text:
+        print("COMMAND:CHOOSE_REPLACEMENT_CLOCK")
+        sys.stdout.flush()
+    # Page Replacement Simulation controls
+    elif ("start replacement simulation" in text or ("start simulation" in text and "replacement" in text)):
+        print("COMMAND:START_REPLACEMENT_SIMULATION")
+        sys.stdout.flush()
+    elif ("pause replacement" in text or ("pause" in text and "replacement" in text)):
+        print("COMMAND:PAUSE_REPLACEMENT_SIMULATION")
+        sys.stdout.flush()
+    elif ("step replacement" in text or ("step" in text and "replacement" in text)):
+        print("COMMAND:STEP_REPLACEMENT_SIMULATION")
+        sys.stdout.flush()
+    elif ("reset replacement" in text or ("reset" in text and "replacement" in text)):
+        print("COMMAND:RESET_REPLACEMENT_SIMULATION")
+        sys.stdout.flush()
+    elif "new note" in text or "new notepad" in text:
+        print("COMMAND:NEW_NOTE")
+        sys.stdout.flush()
+    elif "open note" in text or "open notepad file" in text:
+        print("COMMAND:OPEN_NOTE")
+        sys.stdout.flush()
+    elif "save note" in text or "save notepad" in text:
+        print("COMMAND:SAVE_NOTE")
+        sys.stdout.flush()
+    elif "save as note" in text or "save as notepad" in text:
+        print("COMMAND:SAVE_AS_NOTE")
+        sys.stdout.flush()
     else:
         # Log unrecognized commands for debugging
         print(f"[DEBUG] Unrecognized command: {text}")

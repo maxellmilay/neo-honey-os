@@ -133,6 +133,69 @@ export const VoiceRecog = () => {
                 case 'RETAKE_PHOTO':
                     confirmation = "Okay, I'll retake the photo.";
                     break;
+                case 'CHOOSE_FIFO':
+                    confirmation = "Okay, I'll choose FIFO algorithm.";
+                    break;
+                case 'CHOOSE_SJF':
+                    confirmation = "Okay, I'll choose SJF algorithm.";
+                    break;
+                case 'CHOOSE_PRIORITY':
+                    confirmation = "Okay, I'll choose priority algorithm.";
+                    break;
+                case 'CHOOSE_RR':
+                    confirmation = "Okay, I'll choose RR algorithm.";
+                    break;
+                case 'START_SIMULATION':
+                    confirmation = "Okay, I'll start simulation.";
+                    break;
+                case 'RESUME_SIMULATION':
+                    confirmation = "Okay, I'll resume simulation.";
+                    break;
+                case 'COMPLETE_SIMULATION':
+                    confirmation = "Okay, I'll complete simulation.";
+                    break;
+                case 'STEP_SIMULATION':
+                    confirmation = "Okay, I'll step simulation.";
+                    break;
+                case 'RESET_SIMULATION':
+                    confirmation = "Okay, I'll reset simulation.";
+                    break;
+                case 'CHOOSE_REPLACEMENT_FIFO':
+                    confirmation = "Okay, I'll choose FIFO replacement policy.";
+                    break;
+                case 'CHOOSE_REPLACEMENT_LRU':
+                    confirmation = "Okay, I'll choose LRU replacement policy.";
+                    break;
+                case 'CHOOSE_REPLACEMENT_OPT':
+                    confirmation = "Okay, I'll choose OPT replacement policy.";
+                    break;
+                case 'CHOOSE_REPLACEMENT_CLOCK':
+                    confirmation = "Okay, I'll choose Clock replacement policy.";
+                    break;
+                case 'START_REPLACEMENT_SIMULATION':
+                    confirmation = "Okay, I'll start replacement simulation.";
+                    break;
+                case 'PAUSE_REPLACEMENT_SIMULATION':
+                    confirmation = "Okay, I'll pause replacement simulation.";
+                    break;
+                case 'STEP_REPLACEMENT_SIMULATION':
+                    confirmation = "Okay, I'll step replacement simulation.";
+                    break;
+                case 'RESET_REPLACEMENT_SIMULATION':
+                    confirmation = "Okay, I'll reset replacement simulation.";
+                    break;
+                case 'NEW_NOTE':
+                    confirmation = "Okay, I'll create a new note.";
+                    break;
+                case 'OPEN_NOTE':
+                    confirmation = "Okay, I'll open a note.";
+                    break;
+                case 'SAVE_NOTE':
+                    confirmation = "Okay, I'll save the note.";
+                    break;
+                case 'SAVE_AS_NOTE':
+                    confirmation = "Okay, I'll save the note as.";
+                    break;
                 default:
                     confirmation = '';
             }
@@ -220,6 +283,107 @@ export const VoiceRecog = () => {
                 if (window.electron && window.electron.ipcRenderer) {
                     window.electron.ipcRenderer.send('retake-photo');
                 }
+                break;
+            case 'CHOOSE_FIFO':
+                if (window.selectPCBAlgorithm) window.selectPCBAlgorithm('fcfs');
+                break;
+            case 'CHOOSE_SJF':
+                if (window.selectPCBAlgorithm) window.selectPCBAlgorithm('sjf');
+                break;
+            case 'CHOOSE_PRIORITY':
+                if (window.selectPCBAlgorithm) window.selectPCBAlgorithm('p');
+                break;
+            case 'CHOOSE_RR':
+                if (window.selectPCBAlgorithm) window.selectPCBAlgorithm('rr');
+                break;
+            case 'START_SIMULATION':
+                if (window.pcbSimulationControl) window.pcbSimulationControl('start');
+                break;
+            case 'RESUME_SIMULATION':
+                if (window.pcbSimulationControl) window.pcbSimulationControl('resume');
+                break;
+            case 'COMPLETE_SIMULATION':
+                if (window.pcbSimulationControl) window.pcbSimulationControl('complete');
+                break;
+            case 'STEP_SIMULATION':
+                if (window.pcbSimulationControl) window.pcbSimulationControl('step');
+                break;
+            case 'RESET_SIMULATION':
+                if (window.pcbSimulationControl) window.pcbSimulationControl('reset');
+                break;
+            case 'CHOOSE_REPLACEMENT_FIFO':
+                if (window.selectReplacementPolicy) window.selectReplacementPolicy('fifo');
+                break;
+            case 'CHOOSE_REPLACEMENT_LRU':
+                if (window.selectReplacementPolicy) window.selectReplacementPolicy('lru');
+                break;
+            case 'CHOOSE_REPLACEMENT_OPT':
+                if (window.selectReplacementPolicy) window.selectReplacementPolicy('opt');
+                break;
+            case 'CHOOSE_REPLACEMENT_CLOCK':
+                if (window.selectReplacementPolicy) window.selectReplacementPolicy('clock');
+                break;
+            case 'START_REPLACEMENT_SIMULATION':
+                if (window.replacementSimulationControl) window.replacementSimulationControl('start');
+                break;
+            case 'PAUSE_REPLACEMENT_SIMULATION':
+                if (window.replacementSimulationControl) window.replacementSimulationControl('pause');
+                break;
+            case 'STEP_REPLACEMENT_SIMULATION':
+                if (window.replacementSimulationControl) window.replacementSimulationControl('step');
+                break;
+            case 'RESET_REPLACEMENT_SIMULATION':
+                if (window.replacementSimulationControl) window.replacementSimulationControl('reset');
+                break;
+            case 'NEW_NOTE':
+                if (window.openNotepad) window.openNotepad();
+                setTimeout(() => {
+                    const notepadButton = document.getElementById('notepad-button');
+                    if (notepadButton) notepadButton.click();
+                    setTimeout(() => {
+                        const buttons = document.querySelectorAll('button');
+                        buttons.forEach(btn => {
+                            if (btn.textContent && btn.textContent.trim().toLowerCase().includes('new')) {
+                                btn.click();
+                            }
+                        });
+                    }, 500);
+                }, 100);
+                break;
+            case 'OPEN_NOTE':
+                if (window.openNotepad) window.openNotepad();
+                setTimeout(() => {
+                    const notepadButton = document.getElementById('notepad-button');
+                    if (notepadButton) notepadButton.click();
+                    setTimeout(() => {
+                        const buttons = document.querySelectorAll('button');
+                        buttons.forEach(btn => {
+                            if (btn.textContent && btn.textContent.trim().toLowerCase().includes('open')) {
+                                btn.click();
+                            }
+                        });
+                    }, 500);
+                }, 100);
+                break;
+            case 'SAVE_NOTE':
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('button');
+                    buttons.forEach(btn => {
+                        if (btn.textContent && btn.textContent.trim().toLowerCase().includes('save') && !btn.textContent.toLowerCase().includes('save as')) {
+                            btn.click();
+                        }
+                    });
+                }, 100);
+                break;
+            case 'SAVE_AS_NOTE':
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('button');
+                    buttons.forEach(btn => {
+                        if (btn.textContent && btn.textContent.trim().toLowerCase().includes('save as')) {
+                            btn.click();
+                        }
+                    });
+                }, 100);
                 break;
             default:
                 console.log('Unknown command:', command);

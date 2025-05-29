@@ -165,6 +165,34 @@ function ReplacementPage() {
     return "00:00:00";
   }
 
+  useEffect(() => {
+    window.selectReplacementPolicy = (policy) => {
+      setAlgorithm(policy);
+    };
+    window.replacementSimulationControl = (action) => {
+      switch(action) {
+        case 'start':
+          startSimulation();
+          break;
+        case 'pause':
+          togglePause();
+          break;
+        case 'step':
+          stepSimulation();
+          break;
+        case 'reset':
+          resetSimulation();
+          break;
+        default:
+          break;
+      }
+    };
+    return () => {
+      delete window.selectReplacementPolicy;
+      delete window.replacementSimulationControl;
+    };
+  }, [algorithm, simulation, isPaused, isRunning, currentStep]);
+
   return (
     <div className={styles.replacementPage}>
       <div className={styles.controlPanel}>
