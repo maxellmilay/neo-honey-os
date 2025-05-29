@@ -222,7 +222,7 @@ function PCB() {
     return (
         <>
         <div className="">
-        <div className="mt-6 border-2 border-[#00f0ff] text-white grid grid-cols-6 grid-rows-8 relative flex bg-[#12003a] h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
+        <div className="mt-6 text-white grid grid-cols-6 grid-rows-8 relative flex bg-[#12003a] h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
         
             {/* Scheduling Policy Card */}
             <div className="row-span-12 h-full gap-4" >
@@ -500,7 +500,7 @@ function PCB() {
             <div className="row-span-12 col-start-5 row-start-1 h-full">
                 <Card className="bg-[#1a003a] h-full mb-4 border-[#00f0ff] border-2">
                     <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
-                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">MEMORY</h6>
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Memory</h6>
                     </CardHeader>
                     <CardContent className="flex flex-col justify-center items-center h-full px-4">
                         <MemoryManagement simulation={simulation}/>

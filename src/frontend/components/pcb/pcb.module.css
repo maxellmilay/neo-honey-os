@@ -31,8 +31,9 @@ h1, h2, h3, h4, h5, h6 {
     /* background-image: url('./bees.gif'); */
     background-repeat: repeat;
     background-size: 300px 250px; /* Adjust to your image size */
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    /* backdrop-filter: blur(10px); */
+    background-color: #12003a;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
