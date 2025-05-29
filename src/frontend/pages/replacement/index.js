@@ -302,22 +302,15 @@ function ReplacementPage() {
 
           <div className={styles.cardHeader}>STATS</div>
           <div className={styles.cardContent}>
-            <div className="flex flex-col items-center text-white">
+            <div className="flex flex-col items-center text-white mb-2">
               <div className="text-4xl font-bold mb-2">{hitRate}%</div>
               <div className="text-sm ">Hit Rate</div>
             </div>
-            
-            <div className="flex justify-between mt-4 text-white">
-              <div className="text-center">
-                <div className="text-2xl font-bold">{getFormattedTime()}</div>
-                <div className="text-sm ">Runtime</div>
-              </div>
-              
-              <div className="text-center text-white  ">
+            <div className="text-center text-white  ">
                 <div className="text-2xl font-bold">{currentStep}</div>
                 <div className="text-sm ">Steps</div>
               </div>
-            </div>
+          
           </div>
         </div>
       </div>
