@@ -6,6 +6,14 @@ import { openPCB, closePCB } from '../pcb';
 import { openReplacement, closeReplacement } from '../replacementAlgo';
 import { useNavigate } from 'react-router-dom';
 
+function speak(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new window.SpeechSynthesisUtterance(text);
+        // Optionally, you can set voice, pitch, rate, etc. here
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
 export const VoiceRecog = () => {
     const [isListening, setListening] = useState(false);
     const [transcript, setTranscript] = useState('');
@@ -73,7 +81,13 @@ export const VoiceRecog = () => {
     const processCommand = (line) => {
         // Handle transcripts
         if (line.startsWith('TRANSCRIPT:')) {
-            const transcriptText = line.substring('TRANSCRIPT:'.length);
+            const transcriptText = line.substring('TRANSCRIPT:'.length).trim();
+            // Special greeting case
+            if (/^hi honey$/i.test(transcriptText) || /^honey please hi honey$/i.test(transcriptText)) {
+                const greeting = "Hello honey, what can I do for you today?";
+                speak(greeting);
+                return;
+            }
             setTranscript(transcriptText);
             return;
         }
@@ -81,6 +95,43 @@ export const VoiceRecog = () => {
         // Handle commands
         if (line.startsWith('COMMAND:')) {
             const command = line.substring('COMMAND:'.length);
+            // Show confirmation for recognized commands
+            let confirmation = '';
+            switch (command) {
+                case 'OPEN_NOTEPAD':
+                    confirmation = "Okay, I'll open notepad.";
+                    break;
+                case 'CLOSE_NOTEPAD':
+                    confirmation = "Okay, I'll close notepad.";
+                    break;
+                case 'OPEN_PCB':
+                    confirmation = "Okay, I'll open PCB.";
+                    break;
+                case 'CLOSE_PCB':
+                    confirmation = "Okay, I'll close PCB.";
+                    break;
+                case 'OPEN_REPLACEMENT':
+                    confirmation = "Okay, I'll open replacement.";
+                    break;
+                case 'CLOSE_REPLACEMENT':
+                    confirmation = "Okay, I'll close replacement.";
+                    break;
+                case 'OPEN_CAMERA':
+                    confirmation = "Okay, I'll open camera.";
+                    break;
+                case 'CLOSE_CAMERA':
+                    confirmation = "Okay, I'll close camera.";
+                    break;
+                case 'SHUTDOWN':
+                    confirmation = "Okay, I'll shut down.";
+                    break;
+                default:
+                    confirmation = '';
+            }
+            if (confirmation) {
+                // Only speak confirmation, do not set transcript
+                speak(confirmation);
+            }
             executeCommand(command);
             return;
         }
@@ -98,8 +149,17 @@ export const VoiceRecog = () => {
         // Handle unrecognized commands
         if (line.startsWith('[VOICE] HEARD:')) {
             const text = line.substring('[VOICE] HEARD:'.length).trim();
-            if (!text.match(/open|close|shut down/i)) {
-                setTranscript("I don't understand that command. Please try again.");
+            if (!text.toLowerCase().startsWith('honey please')) {
+                const errorMsg = "Please say 'please' before your command.";
+                setTranscript(errorMsg);
+                speak(errorMsg);
+                return;
+            }
+            // If it doesn't match any known command keywords, show friendly error
+            if (!text.match(/open|close|shut down|notepad|pcb|replacement|camera|capture|take photo|take picture/i)) {
+                const errorMsg = "I don't recognize that command, can you repeat that please?";
+                setTranscript(errorMsg);
+                speak(errorMsg);
             }
         }
     };

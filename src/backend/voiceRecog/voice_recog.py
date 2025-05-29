@@ -67,6 +67,14 @@ def process_command(text):
     print(f"[DEBUG] Processing command: {text}")
     print(f"[DEBUG] Extracted command: {text}")
 
+    # Check if command starts with "please"
+    if not text.startswith("honey please"):
+        print("[DEBUG] Command must start with 'honey please'")
+        return True
+
+    # Remove "please" from the text for command processing
+    text = text[7:].strip()  # Remove "please " (6 chars + space)
+
     # Command mapping
     if "open notes" in text or "open notepad" in text:
         print("COMMAND:OPEN_NOTEPAD")
