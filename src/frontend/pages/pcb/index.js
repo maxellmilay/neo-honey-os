@@ -256,17 +256,17 @@ function PCB() {
     return (
         <>
         <div className="">
-        <div className="mt-6 text-white grid grid-cols-6 grid-rows-8 relative flex bg-[#12003a] h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
+        <div className="mt-6 border-2 border-[#00f0ff] text-white grid grid-cols-6 grid-rows-8 relative flex bg-[#12003a] h-[650px] w-full p-5 justify-center items-center text-center rounded-lg gap-4 box-shadow-lg">    
         
             {/* Scheduling Policy Card */}
             <div className="row-span-12 h-full gap-4" >
                 <Card className="bg-[#1a003a] justify-center item-center h-full mb-4 border-[#00f0ff] border-2">
                     <CardHeader className="bg-[#00f0ff] text-white h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
-                        <h6 className="text-black drop-shadow-[0_0_8px_#00f0ff]">POLICY</h6>
+                        <h6 className="text-white drop-shadow-[0_0_8px_#00f0ff]">Policy</h6>
                     </CardHeader>
                     <CardContent className="justify-center items-center h-[580px] space-y-2 px-3 pt-2 overflow-y-auto">
                         <div className="w-full flex flex-col">
-                            <span className="text-xs font-medium text-center mt-2 mb-1 text-white drop-shadow-[0_0_4px_#00f0ff]">Algorithm</span>
+                            <span className="text-xs font-medium text-left mb-1 text-white drop-shadow-[0_0_4px_#00f0ff]">Algorithm:</span>
                             <div className="flex justify-between items-center w-full">
                                 <ToggleGroup
                                     type="single"
@@ -322,7 +322,6 @@ function PCB() {
                         <div className="flex flex-col items-center w-full">
                             <div className="p-2 rounded-lg w-full">
                                 <div className="flex flex-col">
-                                    <p className="text-xs text-white mb-2">Simulation Data</p>
                                     <div className="flex rounded-md overflow-hidden w-full" style={{ backgroundColor: '#FFF8E1' }}>
                                         <button 
                                             className={`flex-1 py-1 px-3 text-center font-medium transition-all truncate ${
@@ -332,9 +331,9 @@ function PCB() {
                                             }`}
                                             onClick={toggleJobType}
                                             disabled={selectedAlgo}
-                                            style={{ fontSize: '10px' }}
+                                            style={{ fontSize: '15px' }}
                                         >
-                                            Finite
+                                            Predefined
                                         </button>
                                         <button 
                                             className={`flex-1 py-1 px-3 text-center font-medium transition-all truncate ${
@@ -344,13 +343,13 @@ function PCB() {
                                             }`}
                                             onClick={toggleJobType}
                                             disabled={selectedAlgo}
-                                            style={{ fontSize: '10px' }}
+                                            style={{ fontSize: '15px' }}
                                         >
-                                            Indefinite
+                                            Random
                                         </button>
                                     </div>
                                     
-                                    {/* <div className="flex justify-center mt-1">
+                                    <div className="flex justify-center mt-1">
                                         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <g transform="translate(4, 4)">
                                                 <ellipse fill="#FFC107" cx="8" cy="8" rx="6" ry="5"/>
@@ -361,7 +360,7 @@ function PCB() {
                                                 <path fill="transparent" stroke="#795548" strokeWidth="0.5" d="M6.5,9.5 C6.5,10 7.2,10.5 8,10.5 C8.8,10.5 9.5,10 9.5,9.5"/>
                                             </g>
                                         </svg>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -370,10 +369,10 @@ function PCB() {
                         <div className="flex flex-col items-center justify-center w-full">
                             <div className="border-2 p-2 rounded-lg w-full bg-white shadow-sm">
                                 <div className="flex flex-col space-y-1">
-                                    <span className="text-sm font-medium text-slate-800">Quantum Time</span>
+                                    <span className="text-sm font-medium text-slate-800">Quantum Time:</span>
                                     
                                     {started === false ? (
-                                        <div className="flex flex-col items-center">
+                                        <div className="flex items-center">
                                             <Input 
                                                 value={quantum} 
                                                 onChange={handleInputChange} 
@@ -383,8 +382,8 @@ function PCB() {
                                                 max="20" 
                                             />
                                             <div className="ml-2 text-xs text-slate-500">
-                                                <p className="font-medium text-[11px] mt-2">Time slice for process</p>
-                                                <p className="text-[9px] text-blue-500">(Higher values favor longer jobs)</p>
+                                                <p className="font-medium text-[10px]">Time slice for process</p>
+                                                <p className="text-[10px]">Higher values favor longer jobs</p>
                                             </div>
                                         </div>
                                     ) : (
@@ -398,7 +397,7 @@ function PCB() {
                         ) : (
                             <div className="border-2 p-2 rounded-lg w-full bg-white shadow-sm opacity-70">
                                 <div className="flex flex-col">
-                                    <span className="text-sm font-medium text-slate-500">Quantum Time</span>
+                                    <span className="text-sm font-medium text-slate-500">Quantum Time:</span>
                                     <div className="bg-slate-100 rounded-md p-1 text-center">
                                         <p className="text-slate-500 text-xs">Not applicable for current algorithm</p>
                                     </div>
@@ -490,7 +489,7 @@ function PCB() {
             <div className="row-span-4 overflow-hidden col-start-2 col-span-3 row-start-1 h-full">
                 <Card className="bg-[#1a003a] h-full border-[#00f0ff] border-2">
                     <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
-                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">JOB QUEUE</h6></CardHeader>
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Job Queue</h6></CardHeader>
                     <CardContent className="m-0">
                         <JobPoolTable className="text-white" simulation={simulation} selectedAlgo={algo} jobs={[]} />
                     </CardContent>
@@ -501,7 +500,7 @@ function PCB() {
             <div className="row-span-8 text-white col-start-2 col-span-3 row-start-5 h-full">
                 <Card className="bg-[#1a003a] text-white h-full border-[#00f0ff] border-2">
                     <CardHeader className="bg-[#00f0ff] text-[#12003a] h-[20px] justify-center items-center rounded-t shadow-[0_0_8px_#00f0ff,0_0_16px_#00f0ff]">
-                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">READY QUEUE</h6>
+                        <h6 className="text-[#12003a] drop-shadow-[0_0_8px_#00f0ff]">Ready Queue</h6>
                     </CardHeader>
                     <CardContent className="grid text-white grid-rows-5 grid-cols-1 h-full">
                         <div className="row-span-4 overflow-hidden border-b border-gray-300" style={{ maxHeight: '88%' }}>

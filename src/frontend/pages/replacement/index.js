@@ -109,7 +109,7 @@ function ReplacementPage() {
   // Render the frames
   const renderFrames = () => {
     if (!simulation) return (
-      <div className="w-full h-full flex items-center justify-center text-gray-500 py-10">
+      <div className="w-full h-full flex items-center justify-center text-gray-500">
         Start the simulation to see page replacement in action
       </div>
     );
@@ -198,7 +198,7 @@ function ReplacementPage() {
       <div className={styles.controlPanel}>
         {/* Policy Section */}
         <div className={styles.configCard}>
-          <div className={styles.cardHeader}>POLICY</div>
+          <div className={styles.cardHeader}>Policy</div>
           <div className={styles.cardContent}>
             <div className={styles.algorithmButtons}>
               <button 
@@ -333,17 +333,24 @@ function ReplacementPage() {
             </div>
           </div>
 
-          <div className={styles.cardHeader}>STATS</div>
+          <div className={styles.cardHeader}>Stats</div>
           <div className={styles.cardContent}>
-            <div className="flex flex-col items-center text-white mb-2">
+            <div className="flex flex-col items-center">
               <div className="text-4xl font-bold mb-2">{hitRate}%</div>
-              <div className="text-sm ">Hit Rate</div>
+              <div className="text-sm text-gray-600">Hit Rate</div>
             </div>
-            <div className="text-center text-white  ">
-                <div className="text-2xl font-bold">{currentStep}</div>
-                <div className="text-sm ">Steps</div>
+            
+            <div className="flex justify-between mt-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold">{getFormattedTime()}</div>
+                <div className="text-sm text-gray-600">Runtime</div>
               </div>
-          
+              
+              <div className="text-center">
+                <div className="text-2xl font-bold">{currentStep}</div>
+                <div className="text-sm text-gray-600">Steps</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

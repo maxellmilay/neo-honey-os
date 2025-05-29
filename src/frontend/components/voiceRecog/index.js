@@ -8,9 +8,21 @@ import { useNavigate } from 'react-router-dom';
 
 function speak(text) {
     if ('speechSynthesis' in window) {
-        const utterance = new window.SpeechSynthesisUtterance(text);
-        // Optionally, you can set voice, pitch, rate, etc. here
-        window.speechSynthesis.speak(utterance);
+        const synth = window.speechSynthesis;
+        function doSpeak() {
+            let voices = synth.getVoices();
+            let zira = voices.find(v => v.name === 'Microsoft Zira - English (United States)');
+            const utterance = new window.SpeechSynthesisUtterance(text);
+            if (zira) utterance.voice = zira;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            synth.speak(utterance);
+        }
+        if (synth.getVoices().length === 0) {
+            synth.onvoiceschanged = doSpeak;
+        } else {
+            doSpeak();
+        }
     }
 }
 
