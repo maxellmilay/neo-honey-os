@@ -5,7 +5,7 @@ const MemoryManagement = ({ simulation }) => {
     
     if (!simulation || !simulation.memoryManager) {
         return (
-            <div className="w-full h-full flex flex-col items-center pt-[24px]">
+            <div className="w-full h-full flex flex-col items-center pt-[24px] text-white">
                 <div className={`${styles.memoryContainer} w-full h-[475px] flex items-center justify-center mb-4 rounded-md`}>
                     Available
                 </div>
@@ -20,7 +20,7 @@ const MemoryManagement = ({ simulation }) => {
     if (!segments || segments.length === 0) {
         // If no segments exist, show a single free segment
         return (
-            <div className="w-full h-full flex flex-col items-center pt-[24px]">
+            <div className="w-full h-full flex flex-col items-center pt-[24px] text-white">
                 <div className={`${styles.memoryContainer} w-full h-[475px] mb-2 flex flex-col`}>
                     <div 
                         className={styles.deallocatedBlock}
@@ -53,6 +53,7 @@ const MemoryManagement = ({ simulation }) => {
                 style={{ 
                     height: `${percentHeight}%`,
                     border: segment.jobId ? '1px solid rgba(0,0,0,0.1)' : '1px dashed rgba(0,0,0,0.2)',
+                    color: 'white'
                 }}
             >
                 {segment.jobId ? `Job ${segment.jobId}` : 'Free'}
@@ -63,7 +64,7 @@ const MemoryManagement = ({ simulation }) => {
     const percentage = Math.floor((usedMemory / totalMemory) * 100);
 
     return (
-        <div className="w-full h-full flex flex-col items-center pt-[24px]">
+        <div className="w-full h-full flex flex-col items-center pt-[24px] text-white">
             <div className={`${styles.memoryContainer} w-full h-[475px] mb-2 flex flex-col bg-border-orange-500 border-b-2`}>
                 {memorySegments}
             </div>
