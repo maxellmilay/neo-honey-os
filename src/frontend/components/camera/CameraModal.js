@@ -44,6 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log('Received capture photo command from voice recognition');
       captureImage();
     });
+    window.electron.ipcRenderer.on('save-photo', () => {
+      console.log('Received save photo command from voice recognition');
+      saveBtn.click();
+    });
+    window.electron.ipcRenderer.on('retake-photo', () => {
+      console.log('Received retake photo command from voice recognition');
+      retakeBtn.click();
+    });
   }
 
   // Save the image

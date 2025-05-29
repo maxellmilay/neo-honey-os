@@ -181,6 +181,20 @@ app.whenReady().then(() => {
             cameraWindow.webContents.send("capture-photo");
         }
     });
+    // Handle "save-photo" event
+    ipcMain.on("save-photo", () => {
+        if (cameraWindow) {
+            console.log("Sending save photo command to camera window...");
+            cameraWindow.webContents.send("save-photo");
+        }
+    });
+    // Handle "retake-photo" event
+    ipcMain.on("retake-photo", () => {
+        if (cameraWindow) {
+            console.log("Sending retake photo command to camera window...");
+            cameraWindow.webContents.send("retake-photo");
+        }
+    });
 });
 
 app.on("window-all-closed", () => {

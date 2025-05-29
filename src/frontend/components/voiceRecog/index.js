@@ -124,6 +124,15 @@ export const VoiceRecog = () => {
                     break;
                 case 'SHUTDOWN':
                     break;
+                case 'CAPTURE_PHOTO':
+                    confirmation = "Okay, I'll capture a photo.";
+                    break;
+                case 'SAVE_PHOTO':
+                    confirmation = "Okay, I'll save the photo.";
+                    break;
+                case 'RETAKE_PHOTO':
+                    confirmation = "Okay, I'll retake the photo.";
+                    break;
                 default:
                     confirmation = '';
             }
@@ -196,6 +205,21 @@ export const VoiceRecog = () => {
             case 'SHUTDOWN':
                 setListening(false);
                 navigate('/shutdown');
+                break;
+            case 'CAPTURE_PHOTO':
+                if (window.electron && window.electron.ipcRenderer) {
+                    window.electron.ipcRenderer.send('capture-photo');
+                }
+                break;
+            case 'SAVE_PHOTO':
+                if (window.electron && window.electron.ipcRenderer) {
+                    window.electron.ipcRenderer.send('save-photo');
+                }
+                break;
+            case 'RETAKE_PHOTO':
+                if (window.electron && window.electron.ipcRenderer) {
+                    window.electron.ipcRenderer.send('retake-photo');
+                }
                 break;
             default:
                 console.log('Unknown command:', command);

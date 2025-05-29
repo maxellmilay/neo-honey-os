@@ -72,8 +72,8 @@ def process_command(text):
         print("[DEBUG] Command must start with 'honey please'")
         return True
 
-    # Remove "please" from the text for command processing
-    text = text[7:].strip()  # Remove "please " (6 chars + space)
+    # Remove "honey please" from the text for command processing
+    text = text[len("honey please"):].strip()  # Remove the full prefix
 
     # Command mapping
     if "open notes" in text or "open notepad" in text:
@@ -104,6 +104,12 @@ def process_command(text):
     elif "shut down" in text:
         print("COMMAND:SHUTDOWN")
         return False
+    elif "save photo" in text or "save image" in text or text == "save":
+        print("COMMAND:SAVE_PHOTO")
+        sys.stdout.flush()
+    elif "retake photo" in text or "retake image" in text or text == "retake":
+        print("COMMAND:RETAKE_PHOTO")
+        sys.stdout.flush()
     else:
         # Log unrecognized commands for debugging
         print(f"[DEBUG] Unrecognized command: {text}")
