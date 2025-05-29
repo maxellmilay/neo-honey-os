@@ -27,7 +27,7 @@ function BusyBee() {
   const [processControlBlocks, setProcessControlBlocks] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
 
-  const text = "BusyBee (PCB)";
+  const text = "Process Control Block";
   const letters = text.split('')
 
   const renderDialogContent = () => {
@@ -42,7 +42,7 @@ function BusyBee() {
                   <div style={{ display: 'inline', alignItems: 'center' }} className="justify-center dialog-title pt-2 flex flex-col space-y-1.5 text-white text-center" >
                     <h2 style={{ display: 'inline' }} className="text-white" >
                       <span style={{ textShadow: '0 0 8px #00f0ff, 0 0 16px #00f0ff, 0 0 32px #00f0ff' }}>
-                        BusyBee (PCB)
+                        Process Control Block
                       </span>
                     </h2>
                   </div>
@@ -74,7 +74,7 @@ function BusyBee() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                BusyBee (PCB)
+                Process Control Block
               </TooltipContent>
             </Tooltip>
           </div>

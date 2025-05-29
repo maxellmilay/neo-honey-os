@@ -51,8 +51,8 @@ function ReplacementAlgo() {
               <div className="dialog-title flex items-center justify-between cursor-move px-4 py-2 rounded-t-md">
                 <div className="flex-1 text-center">
                   <h2 className={styles.dialogTitle}>
-                    <span className="text-amber-900">PAGE </span>
-                    <span className="text-yellow-600">REPLACEMENT</span>
+                    <span className="text-amber-900 mr-2">Page </span>
+                    <span className="text-yellow-600">Replacement</span>
                   </h2>
                 </div>
               </div>
