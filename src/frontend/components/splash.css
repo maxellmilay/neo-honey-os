@@ -3,6 +3,7 @@ body {
     background-image: url('../assets/img/before_login_bg_2.png');
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Ensures the body covers the entire viewport height */
@@ -17,4 +18,29 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
+}
+
+.credits {
+    color: #fff;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+}
+
+.original-team, .continued-team {
+    margin-bottom: 10px;
+}
+
+.original-team p:first-child, .continued-team p:first-child {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffd700;
+}
+
+.original-team p, .continued-team p {
+    margin: 2px 0;
+    font-size: 0.9em;
 }
